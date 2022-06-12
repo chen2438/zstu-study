@@ -3,19 +3,21 @@
 #include<cmath>
 #include<cstring>
 #include<fstream>
-#include<ctime>
+#include<vector>
+/*#include<ctime>
 #include<chrono>
-#include<thread>
-
+#include<thread>*/
+#include<windows.h>
 using namespace std;
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 const int MAX_OF_DEV=1e5+7;
 
-struct DEV{
+struct device{
 	//按顺序为 设备编号、设备名称、领用人、所属部门、数量、购买时间、价格
 	string id,nme,rcp,dpt,sum,tme,prc;
-	//int ID,SUM,PRC
-}dev[MAX_OF_DEV];
+	//char id[100],nme[100],rcp[100],dpt[100],sum[100],tme[100],prc[100];
+};
+vector<device> dev;
 
 int ImportDev();
 
@@ -46,6 +48,20 @@ int UI(){
 	return op;
 }
 
+int SaveDev(){
+	ofstream ofs;
+	ofs.open("dev.out",ios::out | ios::trunc);
+	if (!ofs.is_open()){
+		cout<<"写入文件打开失败！"<<endl;
+	}
+	for(auto T:dev){
+		ofs<<T.id<<" "<<T.nme<<" "<<T.rcp<<" "<<T.dpt<<\
+			" "<<T.sum<<" "<<T.tme<<" "<<T.prc<<endl;
+	}
+	ofs.close();
+	return 0;
+}
+
 int ImportDev(){
 	cout<<"*******************\n";
 	cout<<"*   1-从文件导入    *\n";
@@ -60,19 +76,38 @@ int ImportDev(){
 	}
 	if(op==1){
 		ifstream ifs;
-		ifs.open("/Users/nanmener/Documents/GitHub/zstu-study/C程序课程设计/课设-tmp/dev.in", ios::in);
+		ifs.open("dev.in", ios::in);
 		if (!ifs.is_open()){
-			cout<<"打开失败\n";exit(0);
+			cout<<"文件打开失败\n";exit(0);
 		}
-		int i=0;
-		while (ifs>>dev[i].id>>dev[i].nme>>dev[i].rcp>>\
-			dev[i].dpt>>dev[i].sum>>dev[i].tme>>dev[i].prc){
-			cout<<dev[i].id<<endl;
+		device T;
+		while(ifs>>T.id>>T.nme>>T.rcp>>T.dpt>>T.sum>>T.tme>>T.prc){
+			dev.push_back(T);
 		}
 		ifs.close();
-		cout<<"导入成功! 3秒后返回初始界面\n";
-		this_thread::sleep_for(std::chrono::milliseconds(3000));
 	}
+	if(op==2){
+		device T;
+		cout<<"请输入设备编号：";
+		cin>>T.id;
+		cout<<"请输入设备名称：";
+		cin>>T.nme;
+		cout<<"请输入领用人：";
+		cin>>T.rcp;
+		cout<<"请输入所属部门：";
+		cin>>T.dpt;
+		cout<<"请输入数量：";
+		cin>>T.sum;
+		cout<<"请输入购买时间：";
+		cin>>T.tme;
+		cout<<"请输入价格：";
+		cin>>T.prc;
+		dev.push_back(T);
+	}
+	SaveDev();
+	cout<<"导入成功! 已保存至 dev.out, 2秒后返回初始界面.\n";
+	Sleep(2000);
+	UI();
 	return 0;
 }
 
