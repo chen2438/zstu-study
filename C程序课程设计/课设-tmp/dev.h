@@ -392,7 +392,7 @@ void FilterDev(){//筛选设备信息
 	ReturnMenu();
 }
 
-void UndoDev(){
+void UndoDev(){//撤销操作
 	putchar('\n');
 	if(backup.size()==1) dev.clear();
 	else if(backup.size()==2) swap(dev,backup[0]);
