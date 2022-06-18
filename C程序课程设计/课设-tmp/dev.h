@@ -49,6 +49,7 @@ void UndoDev();//撤销操作
 void ShowMenu(){//人机交互主界面
 	putchar('\n');
 	cout<<"*********************\n";
+	cout<<"*  设备管理系统     *\n";
 	cout<<"*  0-退出系统       *\n";
 	cout<<"*  1-信息录入       *\n";
 	cout<<"*  2-信息浏览       *\n";
@@ -116,6 +117,22 @@ void SaveDev(string file,vector<device> save,string obj){//保存设备信息
 	clock_t ed=clock();//记录结束时间
 	cout<<file<<" 已保存更改, 耗时 "<<ed-st<<" 毫秒\n";
 	cout<<file<<" 内目前有 "<<save.size()<<" 条记录\n";
+}
+
+void ImportTest(string InFile){//读取信息测试
+	clock_t st=clock();//起始时间
+	ifstream ifs;
+	ifs.open(InFile, ios::in);//打开文件
+	if(!ifs.is_open()) {cout<<"读取文件打开失败\n"; exit(0);}
+	device T;
+	while(ifs>>T.id>>T.nme>>T.rcp>>T.dpt>>T.sum>>T.tme>>T.prc){
+		dev.push_back(T);//读取信息
+	}
+	ifs.close();//关闭文件
+	clock_t ed=clock();//结束时间
+	cout<<"读取完成, 耗时 "<<ed-st<<" 毫秒\n";
+	SaveDev("dev.out",dev,"dev");//保存信息
+	dev=vector<device>();
 }
 
 void ImportDev(){//导入或添加设备
@@ -200,9 +217,10 @@ void QueryDev(){//信息查询
 	if(op=="3"){
 		cout<<"请输入关键字:";
 		string x;cin>>x;
+		int nx=atoi(x.c_str());
 		st=clock();//起始时间
 		for(auto T:dev){
-			if(T.id==x or T.nme==x or T.rcp==x or T.dpt==x \
+			if(T.num==nx or T.id==x or T.nme==x or T.rcp==x or T.dpt==x \
 				or T.sum==x or T.tme==x or T.prc==x){
 				res.push_back(T);
 			}

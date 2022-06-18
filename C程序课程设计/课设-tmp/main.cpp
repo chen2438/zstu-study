@@ -9,6 +9,7 @@
 #include "dev.h"
 
 int main(){
-	ShowMenu();//人机交互主界面
+	//ShowMenu();//人机交互主界面
+	for(int i=0;i<10;i++)ImportTest("dev(1e6).in");
 	return 0;
 }
