@@ -1,7 +1,7 @@
 /*
 	# 程序最初于 Jun 12, 2022 由 chen2438 提交在 github.com/chen2438/zstu-study/
-	# 当前版本 upd10 v1.7 end1.2
-	# 提交时间 2022.6.22 12:30
+	# 当前版本 upd11 v1.8 end1.3
+	# 提交时间 2022.6.22 15:01
 	# 遵循 GNU General Public License v3.0 协议
 */
 

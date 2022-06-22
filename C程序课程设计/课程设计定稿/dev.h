@@ -8,6 +8,7 @@
 #include<ctime>//时间函数库
 #include<fstream>//文件流函数库
 #include<vector>//vector函数库
+#include<map>//map函数库
 #include<algorithm>//算法函数库
 #include<windows.h>//windows函数库
 
@@ -25,7 +26,7 @@ struct device{
 };
 
 string obj[10]={"序列号","设备编号","设备名称","领用人  ","所属部门","数量","购买时间","价格"};//定义信息名称
-
+map<string,int> stat;
 vector<device> dev;//定义设备信息
 vector<vector<device>> backup;//定义二维数组，设备信息备份，用于撤销
 
@@ -33,6 +34,7 @@ void ShowMenu();//人机交互主界面
 void ReturnMenu();//返回主界面
 void PutDev(device T);//打印设备信息
 void SaveDev(string file,vector<device> save,string obj);//保存设备信息
+void SaveMap(string file,map<string,int> save);//保存统计信息
 void ImportDev();//导入或添加设备
 void ViewDev();//信息浏览
 void QueryDev();//信息查询
@@ -45,6 +47,7 @@ void sort(vector<device>::iterator st, vector<device>::iterator ed,int op);//重
 void SortDev();//信息排序
 void FilterDev();//信息筛选
 void UndoDev();//撤销操作
+void StatDev();//设备数量统计
 
 void ShowMenu(){//人机交互主界面
 	putchar('\n');
@@ -58,10 +61,11 @@ void ShowMenu(){//人机交互主界面
 	cout<<"*  5-信息排序       *\n";
 	cout<<"*  6-信息筛选       *\n";
 	cout<<"*  7-撤销操作       *\n";
+	cout<<"*  8-数量统计       *\n";
 	cout<<"*********************\n";
 	cout<<"->请选择操作:";
 	string op;cin>>op;
-	while(!CmpStr("0",op,"7")){
+	while(!CmpStr("0",op,"8")){
 		cout<<"输入有误!\n";
 		cout<<"->请选择操作:";
 		cin>>op;
@@ -75,6 +79,7 @@ void ShowMenu(){//人机交互主界面
 		case 5: SortDev();break;
 		case 6: FilterDev();break;
 		case 7: UndoDev();break;
+		case 8: StatDev();break;
 	}
 }
 
@@ -427,5 +432,51 @@ void UndoDev(){//撤销操作
 	else if(backup.size()==2) swap(dev,backup[0]);
 	cout<<"已撤销上次操作\n";
 	SaveDev("dev.out",dev,"dev");
+	ReturnMenu();
+}
+
+void SaveMap(string file,map<string,int> save){//保存统计信息
+	clock_t st=clock();//记录起始时间
+	ofstream ofs;
+	ofs.open(file,ios::out | ios::trunc);//打开写入文件
+	if(!ofs.is_open()) {cout<<"写入文件打开失败！"<<endl; exit(0);}
+	for(auto T:save){
+		ofs<<T.first<<' '<<T.second<<'\n';
+	}
+	ofs.close();//关闭文件
+	clock_t ed=clock();//记录结束时间
+	cout<<file<<" 已保存更改, 耗时 "<<ed-st<<" 毫秒\n";
+	cout<<file<<" 内目前有 "<<save.size()<<" 条记录\n";
+}
+
+void StatDev(){//数量统计
+	clock_t st=clock();//记录起始时间
+	stat.clear();
+	for(auto T:dev){
+		stat[T.nme]+=atoi(T.sum.c_str());
+	}
+	clock_t ed=clock();//记录结束时间
+	{
+		cout<<"统计完成, 耗时 "<<ed-st<<" 毫秒\n";
+		putchar('\n');
+		cout<<"*******************\n";
+		cout<<"*  1-打印到屏幕    *\n";
+		cout<<"*  2-保存到文件    *\n";
+		cout<<"*******************\n";
+		cout<<"->请选择操作:";
+		string op;cin>>op;
+		while(!CmpStr("1",op,"2")){
+			cout<<"输入有误!\n";
+			cout<<"->请选择操作:";
+			cin>>op;
+		}
+		if(op=="1"){
+			printf("设备名称\t设备数量\n");
+			for(auto T:stat){
+				printf("%s\t\t%d\n",T.first.c_str(),T.second);
+			}
+		}
+		if(op=="2"){SaveMap("stat.out",stat);}
+	}
 	ReturnMenu();
 }
