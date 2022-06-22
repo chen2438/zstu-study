@@ -24,7 +24,7 @@ struct device{
 	string id,nme,rcp,dpt,sum,tme,prc;
 };
 
-const string obj[10]={"存储序列号","设备编号","设备名称","领用人","所属部门","数量","购买时间","价格"};//定义信息名称
+string obj[10]={"序列号","设备编号","设备名称","领用人  ","所属部门","数量","购买时间","价格"};//定义信息名称
 
 vector<device> dev;//定义设备信息
 vector<vector<device>> backup;//定义二维数组，设备信息备份，用于撤销
@@ -85,14 +85,18 @@ void ReturnMenu(){//返回主界面
 }
 
 void PutDev(device T){//打印设备信息
-	cout<<obj[0]+':'<<T.num;
+
+	printf("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t\n",to_string(T.num).c_str(),T.id.c_str(),T.nme.c_str(),T.rcp.c_str(),T.dpt.c_str(),T.sum.c_str(),T.tme.c_str(),T.prc.c_str());
+
+	/*cout<<obj[0]+':'<<T.num;
 	cout<<' '+obj[1]+':'<<T.id;
 	cout<<' '+obj[2]+':'<<T.nme;
 	cout<<' '+obj[3]+':'<<T.rcp;
 	cout<<' '+obj[4]+':'<<T.dpt;
 	cout<<' '+obj[5]+':'<<T.sum;
 	cout<<' '+obj[6]+':'<<T.tme;
-	cout<<' '+obj[7]+':'<<T.prc<<endl;
+	cout<<' '+obj[7]+':'<<T.prc<<endl;*/
+
 }
 
 void SaveDev(string file,vector<device> save,string obj){//保存设备信息
@@ -181,6 +185,7 @@ void ImportDev(){//导入或添加设备
 void ViewDev(){//信息浏览
 	putchar('\n');
 	cout<<"已存储信息如下:\n";
+	printf("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t\n",obj[0].c_str(),obj[1].c_str(),obj[2].c_str(),obj[3].c_str(),obj[4].c_str(),obj[5].c_str(),obj[6].c_str(),obj[7].c_str());
 	for(auto T:dev)
 		PutDev(T);
 	ReturnMenu();
@@ -241,8 +246,11 @@ void QueryDev(){//信息查询
 			cout<<"->请选择操作:";
 			cin>>op;
 		}
-		if(op==1) {for(auto T:res) PutDev(T);}
-		if(op==2) {SaveDev("query.out",res,"res");}
+		if(op==1){
+			printf("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t\n",obj[0].c_str(),obj[1].c_str(),obj[2].c_str(),obj[3].c_str(),obj[4].c_str(),obj[5].c_str(),obj[6].c_str(),obj[7].c_str());
+			for(auto T:res) PutDev(T);
+		}
+		if(op==2){SaveDev("query.out",res,"res");}
 	}
 	else cout<<"无法查询到此设备.\n";
 	ReturnMenu();
@@ -403,7 +411,10 @@ void FilterDev(){//信息筛选
 			cout<<"->请选择操作:";
 			cin>>op;
 		}
-		if(op=="1") {for(auto T:res) PutDev(T);}
+		if(op=="1"){
+			printf("%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t\n",obj[0].c_str(),obj[1].c_str(),obj[2].c_str(),obj[3].c_str(),obj[4].c_str(),obj[5].c_str(),obj[6].c_str(),obj[7].c_str());
+			for(auto T:res) PutDev(T);
+		}
 		if(op=="2") {SaveDev("filter.out",res,"res");}
 	}
 	else cout<<"无法筛选到此设备.\n";
