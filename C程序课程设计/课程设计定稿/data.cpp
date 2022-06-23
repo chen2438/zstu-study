@@ -3,15 +3,15 @@
 #define FOR(i,a,b) for(int i=(a);i<=(b);++i)
 using namespace std;
 
-signed main(){
+signed main(){//用于生成数据
     cin.tie(0)->sync_with_stdio(0);
     //clock_t st=clock();
     //freopen("input.txt","r",stdin);
     freopen("dev(1e5).in","w",stdout);
+    const int n=1e5;
     int id,prc,amt;
     string ids,prcs,nme,rcp,dpt,amts,dat;
     srand(time(0));
-    const int n=1e5;
     FOR(i,1,n){
         id=rand()%100000+1;
         ids=to_string(id);
