@@ -1,3 +1,5 @@
+# 本文档正在维护，请勿使用
+
 **书籍资源仅作学习交流使用，请勿用于商业用途，并于下载后 48 小时内删除。**
 
 **请勿滥用阿里云高速下载带宽，下载速度受本人钱包限制**
@@ -43,6 +45,15 @@
 [C++程序设计：基础、编程抽象与算法策略](https://nme-file.oss-cn-hangzhou.aliyuncs.com/github/zstu-study/itbooks/C%2B%2B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%20%E5%9F%BA%E7%A1%80%E3%80%81%E7%BC%96%E7%A8%8B%E6%8A%BD%E8%B1%A1%E4%B8%8E%E7%AE%97%E6%B3%95%E7%AD%96%E7%95%A5%20%28Eric%20S.%20Roberts%29%20%28z-lib.org%29.pdf)
 
 [数据结构、算法与应用 原书第2版](https://nme-file.oss-cn-hangzhou.aliyuncs.com/github/zstu-study/itbooks/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%81%E7%AE%97%E6%B3%95%E4%B8%8E%E5%BA%94%E7%94%A8%EF%BC%88%E5%8E%9F%E4%B9%A6%E7%AC%AC2%E7%89%88%EF%BC%89%20C%2B%2B%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%20%28Sartaj%20Sahni%29%20%28z-lib.org%29.pdf)
+
+[算法图解](https://nme-file.oss-cn-hangzhou.aliyuncs.com/github/zstu-study/itbooks/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3.pdf)
+
+[数据结构与算法分析 C语言描述（原书第2版）](https://nme-file.oss-cn-hangzhou.aliyuncs.com/github/zstu-study/itbooks/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%20C%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%EF%BC%88%E5%8E%9F%E4%B9%A6%E7%AC%AC2%E7%89%88%EF%BC%89.pdf)
+
+[C++ 标准库（第2版）](https://nme-file.oss-cn-hangzhou.aliyuncs.com/github/zstu-study/itbooks/C%2B%2B%E6%A0%87%E5%87%86%E5%BA%93%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89.epub)
+
+[Java编程思想（第4版）](https://nme-file.oss-cn-hangzhou.aliyuncs.com/github/zstu-study/itbooks/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%EF%BC%88%E7%AC%AC4%E7%89%88%EF%BC%89%20.pdf)
+
 
 
 <img src="https://nme-200t.oss-cn-hangzhou.aliyuncs.com/template/202206201920193.png" alt="image-20220620192055156" style="zoom:80%;" />
