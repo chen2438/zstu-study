@@ -8,7 +8,9 @@ zstu学习资料.
 
 [v0.1.5](https://github.com/chen2438/zstu-study/releases/tag/0.1.5) 版本已发布.
 
-预计下一个版本 v0.1.6, 作为 v0.1.5 的补充版本, 将于 2022 年 6 月底至 7 月初发布.
+[v0.1.6](https://github.com/chen2438/zstu-study/releases/tag/0.1.6) 版本已发布.
+
+下一个版本发布时间待定.
 
 此 repo 仅作学习交流使用，请勿用于商业用途.
 
