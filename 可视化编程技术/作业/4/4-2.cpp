@@ -3,7 +3,6 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 BOOL InitWindowsClass(HINSTANCE hInstance);
-
 BOOL InitWindows(HINSTANCE hInstance, int nCmdShow);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -49,8 +48,8 @@ BOOL InitWindows(HINSTANCE hInstance, int nCmdShow) {  // 初始化窗口
 }
 
 // 消息处理函数
-static LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam,
-                                LPARAM lParam) {
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam,
+                         LPARAM lParam) {
     static long nXChar, nYChar;
     HDC hDC;  // 定义指向设备上下文的句柄
     static TEXTMETRIC tm;

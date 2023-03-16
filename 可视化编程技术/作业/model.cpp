@@ -1,9 +1,11 @@
 #include <tchar.h>
 #include <windows.h>
+// wcslen(LPCWSTR)
+//
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 BOOL InitWindowsClass(HINSTANCE hInstance);
 BOOL InitWindows(HINSTANCE hInstance, int nCmdShow);
-// InitWindowsClass()和InitWindows()函数体略，详见网络学堂代码 
+
 // 主函数
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    LPSTR lpCmdLine, int nCmdShow) {
