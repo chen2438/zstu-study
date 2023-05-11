@@ -11,7 +11,7 @@ class PARSER {
     int index = 0, oldIndex = 0, slen = 0;
     void getToken() {
         // cin >> input;
-        input = "a*b+b*(d)";
+        input = "(a(b(2))(c))";
         slen = input.size();
         /*for (auto i : input) {
             token.push_back("" + i);
@@ -19,7 +19,7 @@ class PARSER {
     }
     void getSymbol() {
         if (index >= slen) {
-            // cout << "getSymbol: out of token range" << endl;
+            cout << "getSymbol: out of token range" << endl;
             symbol = '`';
             index++;
             return;
@@ -43,87 +43,74 @@ class PARSER {
         // cout << "Err: " + func + " rollback" << endl;
         //  cout << func + " failed" << endl;
     }
-    bool E0(int depth) {
-        start("E", depth);
-        if (T0(depth + 1)) {
-            if (E1(depth + 1)) {
-                success("E");
-                return true;
-            }
+    bool lexp(int depth) {
+        start("lexp", depth);
+        if (atom(depth + 1) or list(depth + 1)) {
+            success("lexp");
+            return true;
         }
-        failed("E", depth);
+        failed("lexp", depth);
         return false;
     }
-    bool E1(int depth) {
-        start("E'", depth);
+    bool atom(int depth) {
+        start("atom", depth);
         oldIndex = index;
         getSymbol();
-        if (symbol == '+') {
+        if (symbol >= '0' and symbol <= '9') {
             string tmp(1, symbol);
             start(tmp, depth + 1);
-            if (T0(depth)) {
-                if (E1(depth)) {
-                    success("E'");
-                    return true;
-                }
-            }
+            success("atom");
+            return true;
+        } else if (symbol >= 'a' and symbol <= 'z') {
+            string tmp(1, symbol);
+            start(tmp, depth + 1);
+            success("atom");
+            return true;
         }
+        failed("atom", depth);
         index = oldIndex;
-        success("E'");
-        return true;
-    }
-    bool T0(int depth) {
-        start("T", depth);
-        if (F(depth + 1)) {
-            if (T1(depth + 1)) {
-                success("T");
-                return true;
-            }
-        }
-        failed("T", depth);
         return false;
     }
-    bool T1(int depth) {
-        start("T'", depth);
+    bool list(int depth) {
+        start("list", depth);
         oldIndex = index;
-        getSymbol();
-        if (symbol == '*') {
-            start("*", depth + 1);
-            if (F(depth + 1)) {
-                if (T1(depth + 1)) {
-                    success("T'");
-                    return true;
-                }
-            }
-        }
-        index = oldIndex;
-        success("T'");
-        return true;
-    }
-    bool F(int depth) {
-        start("F", depth);
         getSymbol();
         if (symbol == '(') {
             start("(", depth + 1);
-            if (E0(depth + 1)) {
+            if (lexpSeq0(depth + 1)) {
                 getSymbol();
                 if (symbol == ')') {
                     start(")", depth + 1);
-                    success("F");
+                    success("list");
                     return true;
                 }
             }
-            failed("F", depth + 1);
-            return false;
         }
-        if (symbol >= 'a' and symbol <= 'z') {
-            string tmp(1, symbol);
-            start(tmp, depth + 1);
-            success("F");
-            return true;
-        }
-        failed("F", depth + 1);
+        failed("list", depth);
+        index = oldIndex;
         return false;
+    }
+    bool lexpSeq0(int depth) {
+        start("lexp-seq", depth);
+        if (lexp(depth + 1)) {
+            if (lexpSeq1(depth + 1)) {
+                success("lexp-seq");
+                return true;
+            }
+        }
+        failed("lexp-seq", depth);
+        return false;
+    }
+    bool lexpSeq1(int depth) {
+        start("lexp-seq'", depth);
+        if (lexp(depth + 1)) {
+            if (lexpSeq1(depth + 1)) {
+                success("lexp-seq'");
+                return true;
+            }
+        }
+        success("lexp-seq'");
+        return true;
     }
 };
 
@@ -131,10 +118,10 @@ int main() {
     // cout << "unit test" << endl;
     PARSER parser;
     parser.getToken();
-    if (parser.E0(1)) {
+    if (parser.lexp(1)) {
         cout << "LL(1) parse success" << endl;
     } else {
-        cout << "LL(1) parse failed" << endl;
+        cout << "LL(1) parse failed";
     }
     return 0;
 }
