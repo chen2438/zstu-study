@@ -2,28 +2,66 @@
 
 
 
-论文题目是《BBR拥塞控制算法在GOST安全隧道的应用》，写出以下部分的内容：
-二、相关技术介绍
-3. GOST安全隧道技术
-提示：
-GOST（GO Simple Tunnel）是GO语言实现的安全隧道，有以下功能特性：
-{
-多端口监听
-可设置转发代理，支持多级转发(代理链)
-支持标准HTTP/HTTPS/HTTP2/SOCKS4(A)/SOCKS5代理协议
-Web代理支持探测防御
-SOCKS5代理支持TLS协商加密
-支持多种隧道类型
-Tunnel UDP over TCP
-本地/远程TCP/UDP端口转发
-TCP/UDP透明代理
-支持Shadowsocks(TCP/UDP)协议
-支持SNI代理
-权限控制
-负载均衡
-路由控制
-DNS解析和代理
-TUN/TAP设备
-}
+论文题目是《BBR拥塞控制算法在GOST安全隧道的应用》，请补充【2. 实验设计和步骤】的部分
+## 三、实验设计与方法
+
+ 2. 实验设计和步骤
 
 
+请根据以下数据分析 BBR 和 Cubic 算法的表现，写在【4.1.3 Cubic 与 BBR 拥塞控制算法的表现分析】部分
+
+#### 4.1.1 Cubic 拥塞控制算法下的网络基准数据
+
+- Client 服务器
+
+```bash
+----------------------------------------------------------------------
+ I/O Speed(1st run) : 144 MB/s
+ I/O Speed(2nd run) : 147 MB/s
+ I/O Speed(3rd run) : 147 MB/s
+ I/O Speed(average) : 146.0 MB/s
+----------------------------------------------------------------------
+ Node Name        Upload Speed      Download Speed      Latency     
+ Speedtest.net    1954.79 Mbps      7374.16 Mbps        12.57 ms    
+ Los Angeles, US  1957.25 Mbps      14988.12 Mbps       7.05 ms     
+ Dallas, US       1941.00 Mbps      13482.85 Mbps       32.00 ms    
+ Montreal, CA     330.19 Mbps       929.67 Mbps         72.00 ms    
+ Paris, FR        629.89 Mbps       5547.61 Mbps        137.06 ms   
+ Amsterdam, NL    540.70 Mbps       5308.17 Mbps        143.84 ms   
+ Shanghai, CN     10.80 Mbps        1673.54 Mbps        164.74 ms   
+ Nanjing, CN      13.35 Mbps        4154.15 Mbps        191.70 ms   
+ Guangzhou, CN    1.25 Mbps         277.28 Mbps         180.48 ms   
+ Hongkong, CN     4.88 Mbps         5.02 Mbps           144.51 ms   
+ Singapore, SG    506.56 Mbps       387.64 Mbps         174.27 ms   
+ Tokyo, JP        750.76 Mbps       7349.17 Mbps        105.96 ms   
+----------------------------------------------------------------------
+```
+
+#### 4.1.2 BBR 拥塞控制算法下的网络基准数据
+
+- Client 服务器
+
+```bash
+----------------------------------------------------------------------
+ I/O Speed(1st run) : 143 MB/s
+ I/O Speed(2nd run) : 147 MB/s
+ I/O Speed(3rd run) : 147 MB/s
+ I/O Speed(average) : 145.7 MB/s
+----------------------------------------------------------------------
+ Node Name        Upload Speed      Download Speed      Latency     
+ Speedtest.net    1967.57 Mbps      7509.90 Mbps        12.61 ms    
+ Los Angeles, US  1966.73 Mbps      15272.12 Mbps       6.38 ms     
+ Dallas, US       1947.09 Mbps      13304.51 Mbps       33.37 ms    
+ Montreal, CA     595.09 Mbps       897.22 Mbps         73.50 ms    
+ Paris, FR        593.63 Mbps       4466.88 Mbps        137.05 ms   
+ Amsterdam, NL    561.35 Mbps       3817.62 Mbps        143.90 ms   
+ Shanghai, CN     281.54 Mbps       859.40 Mbps         164.79 ms   
+ Guangzhou, CN    28.43 Mbps        37.23 Mbps          215.87 ms   
+ Hongkong, CN     4.97 Mbps         2.77 Mbps           145.93 ms   
+ Singapore, SG    460.10 Mbps       366.10 Mbps         172.76 ms   
+ Tokyo, JP        749.45 Mbps       7380.51 Mbps        105.26 ms   
+----------------------------------------------------------------------
+```
+
+
+#### 4.1.3 Cubic 与 BBR 拥塞控制算法的表现分析
