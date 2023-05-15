@@ -1,0 +1,29 @@
+以《BBR拥塞控制算法在GOST安全隧道的应用》为论文题目，写出论文的大纲。要求涉及BBR与Cubic在GOST搭建隧道中的网络情况（带宽、延迟、丢包率等）对比。
+
+
+
+论文题目是《BBR拥塞控制算法在GOST安全隧道的应用》，写出以下部分的内容：
+二、相关技术介绍
+3. GOST安全隧道技术
+提示：
+GOST（GO Simple Tunnel）是GO语言实现的安全隧道，有以下功能特性：
+{
+多端口监听
+可设置转发代理，支持多级转发(代理链)
+支持标准HTTP/HTTPS/HTTP2/SOCKS4(A)/SOCKS5代理协议
+Web代理支持探测防御
+SOCKS5代理支持TLS协商加密
+支持多种隧道类型
+Tunnel UDP over TCP
+本地/远程TCP/UDP端口转发
+TCP/UDP透明代理
+支持Shadowsocks(TCP/UDP)协议
+支持SNI代理
+权限控制
+负载均衡
+路由控制
+DNS解析和代理
+TUN/TAP设备
+}
+
+
