@@ -1,3 +1,18 @@
+---
+description: 发布于 2023-05-15, 修订于 2023-05-22
+categories:
+- linux
+date: 2023-05-15
+slug: bbr-gost-study
+title:  BBR 拥塞控制算法在 GOST 安全隧道的应用
+updated: 2023-05-22
+tags:
+- linux
+- bbr
+- gost
+copyright: true
+---
+
 # BBR拥塞控制算法在GOST安全隧道的应用
 
 ## 1. 绪论
