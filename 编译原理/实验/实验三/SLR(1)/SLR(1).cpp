@@ -16,7 +16,7 @@ int step = 1;
 
 namespace Graph {  // 处理分析树
     const int N = 1000, M = N * 2;
-    int nodemap[N] = {0, 'E'};
+    int nodemap[N] = { 0, 'E' };
     int depth[N];
 
     struct Edge {
@@ -26,7 +26,7 @@ namespace Graph {  // 处理分析树
     int adt, head[N];
 
     void add(int u, int v) {
-        e[++adt] = {v, head[u]};
+        e[++adt] = { v, head[u] };
         head[u] = adt;
     }
 
@@ -46,7 +46,7 @@ namespace Graph {  // 处理分析树
     }
 
     void parseTree() {
-        int vst[1000] = {0};
+        int vst[1000] = { 0 };
         depth[1] = 0;
         int cnt = 2;
         while (!reduceResult.empty()) {  // 读出规约结果
@@ -145,14 +145,14 @@ int parseTable() {
         iStk.push(inputString[i]);
     }
     cout << "---------------------------"
-         << "--------------------------" << endl;
+        << "--------------------------" << endl;
     cout << "Step   Parsing Stack       Input    Action" << endl;
     while (!iStk.empty() and !pStk.empty()) {
         cout << step << "     ";
         if (step++ < 10) putchar(' ');
         show(pStk, iStk);
         int pTop = pStk.top(), iTop = iStk.top();
-        int action[2] = {table[pTop][mp[iTop]][0], table[pTop][mp[iTop]][1]};
+        int action[2] = { table[pTop][mp[iTop]][0], table[pTop][mp[iTop]][1] };
         if (action[0] == 'A') {  // 接受
             cout << "    Accept" << endl;
             return 200;
@@ -164,9 +164,8 @@ int parseTable() {
         } else if (action[0] == 'R') {  // 规约
             reduceResult.push(action[1]);
 
-            cout << "    Reduce " << action[1]
-                 << ": " + reduce[action[1]][0] + " -> "
-                 << reverse(reduce[action[1]][1]) << endl;
+            cout << "    Reduce " << action[1] << ": " + reduce[action[1]][0] + " -> "
+                << reverse(reduce[action[1]][1]) << endl;
 
             for (auto i : reduce[action[1]][1]) {
                 while (!pStk.empty()) {
@@ -203,8 +202,8 @@ void solve() {
 
 int main() {
     FILE* fp;
-    // freopen_s(&fp, "input.txt", "r", stdin);
-    freopen("../input.txt", "r", stdin);
+    freopen_s(&fp, "input.txt", "r", stdin);
+    // freopen("../input.txt", "r", stdin);
     solve();
     // fclose(fp);
 }
