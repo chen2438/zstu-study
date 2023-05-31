@@ -10,9 +10,67 @@ int mp[200];//映射
 string terminals = "+*()i$ETF";
 string inputString = "(a+b)*c+(d+e)";
 stack<int> pStk, iStk; //parse stack, input stack
+stack<int> reduceResult;//存储规约结果, 用于分析树
 string reduce[7][2]; //规约
 int step = 1;
-stack<int> reduceResult;//存储规约结果, 用于分析树
+
+namespace Graph { //处理分析树
+    const int N = 1000, M = N * 2;
+    int nodemap[N] = { 0, 'E' };
+    int depth[N];
+
+    struct Edge {
+        int to, nxt;
+    }e[M];
+
+    int adt, head[N];
+
+    void add(int u, int v) {
+        e[++adt] = { v,head[u] };
+        head[u] = adt;
+    }
+
+    int fa[N];
+
+    void dfs(int p1) {//输出分析树
+        for (int i = 0; i < depth[p1]; i++) {
+            cout << "   |";
+        }
+        cout << "--" << (char)nodemap[p1] << endl;
+        for (int i = head[p1]; i != 0; i = e[i].nxt) {
+            int p2 = e[i].to;
+            if (p2 == fa[p1]) continue;
+            fa[p2] = p1;
+            dfs(p2);
+        }
+    }
+
+    void parseTree() {
+        int vst[1000] = { 0 };
+        depth[1] = 0;
+        int cnt = 2;
+        while (!reduceResult.empty()) {//读出规约结果
+            int rTop = reduceResult.top(); reduceResult.pop();
+            int leftChar = reduce[rTop][0][0];//产生式左部
+            string rightString = reduce[rTop][1];//产生式右部
+            int oldCnt = cnt;
+            for (int j = oldCnt - 1; j >= 1; j--) {//从右往左匹配父节点
+                if (nodemap[j] == leftChar and !vst[j]) {
+                    vst[j] = 1;
+                    for (char k : rightString) {
+                        nodemap[cnt] = k;//给节点编号 加映射
+                        depth[cnt] = depth[j] + 1;
+                        add(j, cnt);
+                        cnt++;
+                    }
+                    break;
+                }
+            }
+        }
+        dfs(1);
+    }
+}
+
 
 stack<int> reverse(stack<int> s) {
     stack<int> tmp;
@@ -128,11 +186,6 @@ int parseTable() {
     return 500;
 }
 
-void parseTree() {
-    // TODO
-    // Hard to finish it.
-}
-
 void solve() {
     init();
     int res = parseTable();
@@ -141,7 +194,8 @@ void solve() {
     } else {
         puts("\nParsing Failed");
     }
-    parseTree();
+    puts("\nParsing Tree:");
+    Graph::parseTree();
 }
 
 int main() {
