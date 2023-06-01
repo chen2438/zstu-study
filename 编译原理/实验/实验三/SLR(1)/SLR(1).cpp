@@ -6,7 +6,7 @@
 using namespace std;
 
 int table[20][20][2];  // I,(non)terminals,action
-int mp[200];           // 映射
+int mp[200];           // 映射 (non)terminals -> number
 string terminals = "+*()i$ETF";
 string inputString = "(a+b)*c+(d+e)";
 stack<int> pStk, iStk;    // parse stack, input stack
@@ -202,8 +202,8 @@ void solve() {
 
 int main() {
     FILE* fp;
-    freopen_s(&fp, "input.txt", "r", stdin);
-    // freopen("../input.txt", "r", stdin);
+    // freopen_s(&fp, "input.txt", "r", stdin);
+    freopen("../input.txt", "r", stdin);
     solve();
     // fclose(fp);
 }
