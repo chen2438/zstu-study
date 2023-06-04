@@ -2,7 +2,7 @@
 
 ### 项目简介
 
-zstu学习资料(计算机类, 电子信息类).
+浙江理工大学 学习资料(计算机类, 电子信息类).
 
 [计算机入门教程](https://github.com/chen2438/zstu-study/blob/main/01%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B)
 
