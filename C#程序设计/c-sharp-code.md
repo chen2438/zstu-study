@@ -1763,3 +1763,35 @@ public class Program{
 ```
 
 这个例子中，`Person`类实现了`IComparable<Person>`接口，以便可以根据年龄对`Person`实例进行排序。`PersonComparer`类实现了`IComparer<Person>`接口，用于根据姓名对`Person`实例进行排序。在`Main`方法中，我们创建了一个包含三个`Person`实例的列表，并分别使用`IComparable<T>`和`IComparer<T>`接口对其进行排序。
+
+## 方法重载
+
+方法重载（Method Overloading）是指在同一个类中，允许存在多个具有相同名称但参数列表不同的方法。这些方法在功能上通常是相关的，但是处理不同类型或数量的参数。方法重载是一种多态性（Polymorphism）的表现，它允许程序员使用一个方法名来表示多个功能，使得代码更加简洁易读。
+
+方法重载的规则：
+
+1. 方法名必须相同。
+2. 参数列表必须不同，可以是参数数量、参数类型或参数顺序的不同。
+3. 返回类型可以相同或不同，**但仅仅返回类型的不同不构成重载**。
+4. 重载方法可以具有不同的访问修饰符（如public、private等）。**仅仅具有不同的访问修饰符不构成重载**
+
+以下是C#中的一个简单方法重载示例：
+
+```csharp
+class Calculator{
+    // 方法1：两个整数相加
+    public int Add(int a, int b){
+        return a + b;
+    }
+    // 方法2：两个浮点数相加（重载）
+    public double Add(double a, double b){
+        return a + b;
+    }
+    // 方法3：三个整数相加（重载）
+    public int Add(int a, int b, int c){
+        return a + b + c;
+    }
+}
+```
+
+在这个例子中，`Add`方法被重载了三次，分别处理两个整数相加、两个浮点数相加和三个整数相加的情况。当你调用`Add`方法时，C#编译器会根据传递的参数类型和数量自动选择合适的重载方法。
