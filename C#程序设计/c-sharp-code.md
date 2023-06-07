@@ -1,4 +1,20 @@
-### 随机数、排序
+---
+description: 发布于 2023-06-07
+categories:
+- study
+date: 2023-06-07
+slug: c-sharp-code
+title: C# 程序设计 作业和实验 例题
+updated: 
+tags: 
+- study
+- c#
+copyright: false
+---
+
+# C# 程序设计 作业和实验 例题
+
+## 随机数、排序
 
 生成20个不同的随机数，要求利用一维数组来求解问题。利用Random类可生成随机数，每个数在10（含）和100（不含）之间。在生成每个数值时，检查一下是否和之前已存的数一样，如果相同则舍去，不同则存入数组。对这20个各不相同的数排序（使用Array.Sort()方法），最后输出。
 提示：
@@ -33,7 +49,7 @@ for (int i = 0; i < values.Length; i++) {
 
 ```
 
-### 字符串
+## 字符串
 
 西绪福斯黑洞也就是所谓的123数字黑洞。数学中的123就跟英语中的ABC一样平凡和简单。然而，按以下运算顺序，就可以观察到这个最简单的数字黑洞的值：
 例如：1234567890，进行以下统计：
@@ -198,7 +214,7 @@ class Program {
 
 
 
-### 委托
+## 委托
 
 已有程序框架如下，其中有部分代码缺失，以[--a--]的形式标注。
 根据注释中的要求填上与注释相匹配的代码（可以提交全部代码，也可只提交缺失部分代码。要在注释标出abcdef）。
@@ -295,7 +311,7 @@ class Delegates {
 }
 ```
 
-### 类
+## 类
 
 创建一个Vector类,既可表示一个三维向量，也可表示三维空间的点。它具有以下成员：
 （1）double类型属性X, Y, Z，代表向量三个维度上的分量；
@@ -925,7 +941,7 @@ namespace ConsoleApp {
 
 
 
-### 继承
+## 继承
 
 已有两个接口，IBankAccount接口代表一个银行账户能提供的操作，包括存入、支付、查询余额。ITransferBankAccount接口继承IBankAccount接口，并提供转账功能。
 ```c#
@@ -1114,7 +1130,7 @@ Console.WriteLine(ss.port);
 7.父类构造函数；
 8.子类构造函数。
 
-### List
+## List
 
 要求模拟string类的部分功能，写一个MyString类，它的部分代码如下所示：
 
@@ -1343,7 +1359,7 @@ class Ex4 : Object {
 
 
 
-### LINQ
+## LINQ
 
 编写一个控制台程序：
 1）将30个随机字母加入到`List<char>`中。（可使用Random类和它的Next(int MaxValue)方法）
@@ -1373,7 +1389,7 @@ foreach (var c in result.Distinct()) {
 }
 ```
 
-### 矩阵数组
+## 矩阵数组
 
 矩阵求和：
 
@@ -1449,7 +1465,7 @@ class Ex4 {
 }
 ```
 
-### 参数修饰符
+## 参数修饰符
 
 `ref`和`out`都是C#中的参数修饰符，它们允许方法修改调用方传递的变量值。尽管它们有相似之处，但它们之间还是存在一些关键区别：
 
@@ -1588,7 +1604,7 @@ class Ex3 {
 
 ```
 
-### 值类型 引用类型
+## 值类型 引用类型
 
 ```c#
 struct SomeVal { public int x; }
@@ -1642,7 +1658,7 @@ class Program {
 }
 ```
 
-### Lambda
+## Lambda
 
 按要求编写Lambda表达式：
 
@@ -1690,3 +1706,60 @@ foreach (int value in lst)
     Console.WriteLine(value);
 ```
 
+## IComparable IComparer
+
+`IComparable`和`IComparer`都是在C#中用于比较对象的接口，但它们的使用方式和目的有所不同。
+
+`IComparable<T>`接口用于让一个类或结构体的实例可以与其他实例进行比较。实现此接口的类需要定义一个`CompareTo`方法，该方法返回一个整数，表示两个实例的相对顺序。如果实例等于传入的对象，则返回0；如果实例小于传入的对象，则返回负数；如果实例大于传入的对象，则返回正数。
+
+`IComparer<T>`接口用于定义一个比较器，它可以比较两个对象的相对顺序。实现此接口的类需要定义一个`Compare`方法，该方法接受两个参数，表示要比较的对象。`Compare`方法的返回值与`IComparable<T>`的`CompareTo`方法相同。
+
+下面是一个简单的代码示例，展示了如何使用这两个接口：
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+public class Person : IComparable<Person>{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public int CompareTo(Person other){
+        if (other == null) return 1;
+        return Age.CompareTo(other.Age);
+    }
+}
+
+public class PersonComparer : IComparer<Person>{
+    public int Compare(Person x, Person y){
+        if (x == null) return y == null ? 0 : -1;
+        if (y == null) return 1;
+        return x.Name.CompareTo(y.Name);
+    }
+}
+
+public class Program{
+    public static void Main(){
+        List<Person> people = new List<Person>{
+            new Person { Name = "Alice", Age = 30 },
+            new Person { Name = "Bob", Age = 25 },
+            new Person { Name = "Charlie", Age = 35 }
+        };
+
+        // 使用IComparable<T>接口对列表进行排序
+        people.Sort();
+        Console.WriteLine("Sorted by age:");
+        foreach (var person in people){
+            Console.WriteLine($"{person.Name}, {person.Age}");
+        }
+
+        // 使用IComparer<T>接口对列表进行排序
+        people.Sort(new PersonComparer());
+        Console.WriteLine("\nSorted by name:");
+        foreach (var person in people){
+            Console.WriteLine($"{person.Name}, {person.Age}");
+        }
+    }
+}
+```
+
+这个例子中，`Person`类实现了`IComparable<Person>`接口，以便可以根据年龄对`Person`实例进行排序。`PersonComparer`类实现了`IComparer<Person>`接口，用于根据姓名对`Person`实例进行排序。在`Main`方法中，我们创建了一个包含三个`Person`实例的列表，并分别使用`IComparable<T>`和`IComparer<T>`接口对其进行排序。
