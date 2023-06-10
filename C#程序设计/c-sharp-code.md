@@ -1763,3 +1763,61 @@ public class Program{
 ```
 
 这个例子中，`Person`类实现了`IComparable<Person>`接口，以便可以根据年龄对`Person`实例进行排序。`PersonComparer`类实现了`IComparer<Person>`接口，用于根据姓名对`Person`实例进行排序。在`Main`方法中，我们创建了一个包含三个`Person`实例的列表，并分别使用`IComparable<T>`和`IComparer<T>`接口对其进行排序。
+
+## 方法重载
+
+方法重载（Method Overloading）是指在同一个类中，允许存在多个具有相同名称但参数列表不同的方法。这些方法在功能上通常是相关的，但是处理不同类型或数量的参数。方法重载是一种多态性（Polymorphism）的表现，它允许程序员使用一个方法名来表示多个功能，使得代码更加简洁易读。
+
+方法重载的规则：
+
+1. 方法名必须相同。
+2. 参数列表必须不同，可以是参数数量、参数类型或参数顺序的不同。
+3. 返回类型可以相同或不同，**但仅仅返回类型的不同不构成重载**。
+4. 重载方法可以具有不同的访问修饰符（如public、private等）。**仅仅具有不同的访问修饰符不构成重载**
+
+以下是C#中的一个简单方法重载示例：
+
+```csharp
+class Calculator{
+    // 方法1：两个整数相加
+    public int Add(int a, int b){
+        return a + b;
+    }
+    // 方法2：两个浮点数相加（重载）
+    public double Add(double a, double b){
+        return a + b;
+    }
+    // 方法3：三个整数相加（重载）
+    public int Add(int a, int b, int c){
+        return a + b + c;
+    }
+}
+```
+
+在这个例子中，`Add`方法被重载了三次，分别处理两个整数相加、两个浮点数相加和三个整数相加的情况。当你调用`Add`方法时，C#编译器会根据传递的参数类型和数量自动选择合适的重载方法。
+
+## 常用容器
+
+C#中常用的容器主要来自于System.Collections和System.Collections.Generic命名空间。以下是一些常用的容器：
+
+```
+1. List<T>：表示可调整大小的动态数组，用于存储同一类型的对象。
+2. Dictionary<TKey, TValue>：表示键值对的集合，它允许你通过键来访问值。这是一个哈希表实现。
+3. HashSet<T>：表示一组不包含重复元素的集合，它提供了高性能的集合操作，如插入、删除和查找。
+4. Stack<T>：表示一个后进先出（LIFO）的对象集合，可以用于存储和检索对象。
+5. Queue<T>：表示一个先进先出（FIFO）的对象集合，用于存储和检索对象。
+6. LinkedList<T>：表示一个双向链表，它提供了在链表中插入和删除节点的高效操作。
+7. SortedList<TKey, TValue>：表示根据键排序的键值对的集合。它允许你通过键来访问值。
+8. SortedSet<T>：表示一组不包含重复元素的集合，元素按排序顺序存储。
+9. SortedDictionary<TKey, TValue>：表示根据键排序的键值对的集合，它允许你通过键来访问值。
+```
+
+这些容器大多数都有泛型和非泛型版本。泛型容器（如`List<T>`）允许你指定元素的类型，从而提供类型安全和性能优势。非泛型容器（如`ArrayList`）则可以存储任何类型的对象，但可能需要进行类型转换和装箱/拆箱操作。在实际编程中，推荐使用泛型容器。
+
+System.Collections 和 System.Collections.Generic 是 C# 中两个不同的命名空间，它们都包含了一组用于存储和操作数据的容器。这两个命名空间的主要区别在于容器的类型安全性和性能。
+
+1. System.Collections：这个命名空间包含了非泛型容器，例如 ArrayList、Hashtable 和 Stack 等。非泛型容器可以存储任意类型的对象，但在使用时可能需要进行类型转换和装箱/拆箱操作。这可能导致运行时错误（例如类型转换错误）和性能损失。此外，由于缺乏类型约束，代码可读性和维护性也可能受到影响。
+
+2. System.Collections.Generic：这个命名空间包含了泛型容器，例如 `List<T>、Dictionary<TKey, TValue> 和 HashSet<T>` 等。泛型容器允许你指定容器中元素的类型，从而提供了类型安全性。这意味着编译器在编译时会检查类型，减少了运行时错误的可能性。泛型容器还提供了更好的性能，因为它们避免了装箱/拆箱操作和不必要的类型转换。泛型容器还提高了代码的可读性和维护性，因为它们明确指定了容器中元素的类型。
+
+总之，System.Collections 和 System.Collections.Generic 的主要区别在于类型安全性和性能。在实际编程中，推荐使用 System.Collections.Generic 中的泛型容器，因为它们提供了更好的类型安全性和性能。
