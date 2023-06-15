@@ -14,6 +14,10 @@ copyright: false
 
 # 编译原理（双语） 期末复习
 
+注意：部分资料来自 `chouxianyu.github.io`，版权归原作者所有。
+
+本文图片较多，加载速度受图床服务器网络状况限制，请耐心等待。
+
 ## 概论
 
 ![概论_page-0001](https://media.opennet.top/i/2023/06/11/6485e65a80573.jpg)
@@ -38,7 +42,7 @@ copyright: false
 
 #### 题：检查匹配
 
-![IMG_1044](https://media.opennet.top/i/2023/06/11/64858f4d6d99e.png)
+![IMG_1065](https://media.opennet.top/i/2023/06/14/64897e5558670.png)
 
 ### 有限自动机
 
@@ -66,7 +70,7 @@ copyright: false
 
 #### 题：正则->NFA->DFA
 
-![IMG_1045](https://media.opennet.top/i/2023/06/11/6485c9ec63915.png)
+![IMG_1064](https://media.opennet.top/i/2023/06/14/6489738c97569.png)
 
 ![image-20230611212740620](https://media.opennet.top/i/2023/06/11/6485cbcd32c1d.png)
 
