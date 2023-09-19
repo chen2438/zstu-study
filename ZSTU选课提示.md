@@ -202,7 +202,7 @@ The views and opinions expressed in this article are those of the author alone a
 
 ### 计算机组成原理课程设计
 
-李俊松：非常困难的硬课。会点名，有学习通课堂测试，两道选择/判断题。绩点未出（2023-07-23）
+李俊松：非常困难的硬课。会点名，有学习通课堂测试，两道选择/判断题。绩点3.5
 
 ### 编译原理（双语）
 
