@@ -218,3 +218,60 @@
 
 ### 1.7.4 实体、协议、服务和服务访问点
 
+### 1.7.5 TCP/IP 的体系结构
+
+# 第 2 章 物理层
+
+## 2.1 物理层的基本概念
+
+## 2.2 数据通信的基础知识
+
+### 2.2.1 数据通信的模型
+
+![image-20230921200032428](https://media.opennet.top/i/2023/09/21/x2y2s1-0.png)
+
+![image-20230921195903839](https://media.opennet.top/i/2023/09/21/wedaad-0.png)
+
+### 2.2.2 有关信道的几个基本概念
+
+![image-20230921195951281](https://media.opennet.top/i/2023/09/21/wendv7-0.png)
+
+![image-20230921200212457](https://media.opennet.top/i/2023/09/21/x40os8-0.png)
+
+### 2.2.3 信道的极限容量
+
+#### 奈氏准则
+
+![image-20230921213700202](https://media.opennet.top/i/2023/09/21/zccqqq-0.png)
+
+![image-20230921213813645](https://media.opennet.top/i/2023/09/21/zd01ga-0.png)
+
+#### 香农定理
+
+![image-20230921213853591](https://media.opennet.top/i/2023/09/21/zd8gyw-0.png)
+
+![image-20230921213903222](https://media.opennet.top/i/2023/09/21/zdj3pk-0.png)
+
+![image-20230921213926446](https://media.opennet.top/i/2023/09/21/zdo3qe-0.png)
+
+## 2.4 信道复用技术
+
+### 2.4.3 码分复用
+
+![image-20230921215143726](https://media.opennet.top/i/2023/09/21/zkx6be-0.png)
+
+![image-20230921215158345](https://media.opennet.top/i/2023/09/21/zl03kx-0.png)
+
+# 第 3 章 数据链路层
+
+## 3.1 数据链路层的几个共同问题
+
+### 3.1.1 数据链路和帧
+
+#### 封装成帧
+
+#### 透明传输
+
+#### 差错控制
+
+![image-20230921221347497](https://media.opennet.top/i/2023/09/21/10luyp8-0.png)
