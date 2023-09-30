@@ -228,15 +228,29 @@
 
 ### 2.2.1 数据通信的模型
 
+#### 码元
+
 ![image-20230921200032428](https://media.opennet.top/i/2023/09/21/x2y2s1-0.png)
 
 ![image-20230921195903839](https://media.opennet.top/i/2023/09/21/wedaad-0.png)
 
 ### 2.2.2 有关信道的几个基本概念
 
+#### 全双工通信
+
 ![image-20230921195951281](https://media.opennet.top/i/2023/09/21/wendv7-0.png)
 
+#### 波特率
+
 ![image-20230921200212457](https://media.opennet.top/i/2023/09/21/x40os8-0.png)
+
+#### 曼彻斯特编码
+
+![image-20230930222407991](https://media.opennet.top/i/2023/09/30/10s63m3-0.png)
+
+![image-20230930222428252](https://media.opennet.top/i/2023/09/30/10sajy5-0.png)
+
+![image-20230930222445876](https://media.opennet.top/i/2023/09/30/10seam5-0.png)
 
 ### 2.2.3 信道的极限容量
 
@@ -275,3 +289,13 @@
 #### 差错控制
 
 ![image-20230921221347497](https://media.opennet.top/i/2023/09/21/10luyp8-0.png)
+
+## 3.2 点对点协议 PPP
+
+### 3.2.2 PPP协议的帧格式
+
+#### 字节填充
+
+![image-20230930220650301](https://media.opennet.top/i/2023/09/30/10hpsi5-0.png)
+
+注意：第 3 点，要将 0x03 与 0x20 进行异或，0x03 XOR 0x20 = 0x23
