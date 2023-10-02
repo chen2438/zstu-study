@@ -299,3 +299,23 @@
 ![image-20230930220650301](https://media.opennet.top/i/2023/09/30/10hpsi5-0.png)
 
 注意：第 3 点，要将 0x03 与 0x20 进行异或，0x03 XOR 0x20 = 0x23
+
+## 3.3 使用广播信道的数据链路层
+
+### 3.3.2 CSMA/CD 协议
+
+![image-20231002224039592](https://media.opennet.top/i/2023/10/02/111wdjq-0.png)
+
+![image-20231002224106156](https://media.opennet.top/i/2023/10/02/112a109-0.png)
+
+![image-20231002224120985](https://media.opennet.top/i/2023/10/02/112dind-0.png)
+
+## 3.4 扩展的以太网
+
+### 3.4.3 虚拟局域网
+
+![image-20231002225323406](https://media.opennet.top/i/2023/10/02/119k7h3-0.png)
+
+![image-20231002225347796](https://media.opennet.top/i/2023/10/02/119oa37-0.png)
+
+![image-20231002225406830](https://media.opennet.top/i/2023/10/02/11a1t10-0.png)
