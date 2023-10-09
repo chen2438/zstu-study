@@ -7482,12 +7482,41 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ol start="4">
-<li>思考题:利率 <br/>
-你去银行存过钱吧，这个我们并不陌生。我们现在假定银行一年<font color="red">内</font>的年利率都是<font color="red">100%</font>，好像银行大发慈悲。:-)<br/>
+<h1 id="%E4%BD%9C%E4%B8%9A1">作业1<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A1">¶</a></h1><h2 id="%E5%AE%9E%E9%AA%8C/%E4%BD%9C%E4%B8%9A%E7%9B%AE%E7%9A%84%EF%BC%9A">实验/作业目的：<a class="anchor-link" href="#%E5%AE%9E%E9%AA%8C/%E4%BD%9C%E4%B8%9A%E7%9B%AE%E7%9A%84%EF%BC%9A">¶</a></h2><p>建立Python环境<br/>
+掌握在Jupyter下进行Python初步编程的知识和能力<br/>
+掌握变量、表达式的概念<br/>
+掌握选择、循环结构<br/></p>
+<h2 id="%E5%AE%9E%E9%AA%8C/%E4%BD%9C%E4%B8%9A-%E5%86%85%E5%AE%B9%EF%BC%9A">实验/作业 内容：<a class="anchor-link" href="#%E5%AE%9E%E9%AA%8C/%E4%BD%9C%E4%B8%9A-%E5%86%85%E5%AE%B9%EF%BC%9A">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%E9%A2%981%EF%BC%9A%E6%80%9D%E8%80%83%E9%A2%98:%E5%88%A9%E7%8E%87">题1：思考题:利率<a class="anchor-link" href="#%E9%A2%981%EF%BC%9A%E6%80%9D%E8%80%83%E9%A2%98:%E5%88%A9%E7%8E%87">¶</a></h3><p>你去银行存过钱吧，这个我们并不陌生。我们现在假定银行一年<font color="red">内</font>的年利率都是<font color="red">100%</font>，好像银行大发慈悲。:-)<br/>
 现在，问你，如果你有1元，如何设定存钱策略，让你的收益最大化？<br/>
-你的最大化收益是多少？</li>
-</ol>
+你的最大化收益是多少？</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%E8%A7%A3%E7%AD%94%EF%BC%9A">解答：<a class="anchor-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A">¶</a></h3><p>将现有的存款不断分割，使得在每一小段时间内都能获得最高的收益。</p>
+<p>根据连续复利公式:</p>
+<p>$A = P e^{(rt)}$</p>
+<p>其中：</p>
+<p>A 是最终的金额, P 是本金, r 是年利率, t 是时间（年）</p>
+<p>代入，得：</p>
+<p>$A = 1  e^{1} = e$</p>
 </div>
 </div>
 </div>
@@ -7499,8 +7528,14 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">a</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 本金</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 年利率</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 时间</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">P</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7510,10 +7545,86 @@ a.anchor-link {
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>1</pre>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>2.718281828459045
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3>题2：CPU乱序执行<font color="red">***</font><br/></h3>
+<p>统筹方法在CPU指令执行上的表现，就是乱序执行。所谓乱序执行，就是在后面的指令可能比前面的指令先执行。现在，请你设计一个程序，能够证明CPU执行代码时，是乱序执行的。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%E8%A7%A3%E7%AD%94%EF%BC%9A">解答：<a class="anchor-link" href="#%E8%A7%A3%E7%AD%94%EF%BC%9A">¶</a></h3><p>由于全局解释器锁GIL，即使在多线程环境下，Python代码也总是按顺序执行的。在Python中观察CPU的乱序执行非常困难，因为Python的执行模型已经隐藏了底层硬件的很多细节。编译器和操作系统会自动处理乱序执行带来的同步问题。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%E9%A2%983%EF%BC%9A%E8%9A%82%E8%9A%81%E9%87%91%E6%9C%8D%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%B8%8A%E5%B8%82%E4%BA%86%EF%BC%9F">题3：蚂蚁金服为什么不上市了？<a class="anchor-link" href="#%E9%A2%983%EF%BC%9A%E8%9A%82%E8%9A%81%E9%87%91%E6%9C%8D%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%B8%8A%E5%B8%82%E4%BA%86%EF%BC%9F">¶</a></h3><ol>
+<li>蚂蚁金服核心业务就是放贷——花呗是信用卡消费模式，借呗是小额贷模式；而花呗通过还款分期与借呗绑定在一起。其实本质上就是银行的业务。</li>
+<li>马云喷银行保守、没有互联网思维，那是因为银行被层层制度和监管束缚着——这种监管是必要的，是对社会负责的体现。否则这样大体量的金融企业暴雷，全社会来买单。</li>
+<li>蚂蚁赚钱的本质：走高杠杆与“放贷+卖债”的组合。</li>
+<li>假定：蚂蚁有1亿，放100000笔贷款，每笔1000元，利率10%，贷款违约率是多少蚂蚁开始亏钱？</li>
+<li>加一次杠杆，也就是从银行用这1亿贷款的利润融资0.1亿，利息收益和银行对半分，贷款违约率多少蚂蚁开始亏钱？</li>
+<li>最最重要的是：<font color="red">$x$倍杠杆时，蚂蚁的本金只能保证多大违约率</font>？。</li>
+</ol>
+<p>你可以得到什么结论？</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"杠杆次数：</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">while</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">0.05</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">8</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"违约数：</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, 违约率：</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">((</span><span class="mi">10</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>杠杆次数：20
+违约数：95239, 违约率：0.0476195
+</pre>
 </div>
 </div>
 </div>
