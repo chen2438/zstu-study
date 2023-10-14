@@ -1,1 +1,0 @@
-https://nme-file.oss-cn-hangzhou.aliyuncs.com/github/zstu-study/Dev-Cpp.7z
