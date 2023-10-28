@@ -319,3 +319,55 @@
 ![image-20231002225347796](https://media.opennet.top/i/2023/10/02/119oa37-0.png)
 
 ![image-20231002225406830](https://media.opennet.top/i/2023/10/02/11a1t10-0.png)
+
+# 第 4 章 网络层
+
+## 4.2 网际协议 IP
+
+### 4.2.2 IP 地址
+
+#### 分类的 IP 地址
+
+![image-20231027230503197](https://media.opennet.top/i/2023/10/27/124dpfh-0.png)
+
+#### 无分类编址 CIDR
+
+![image-20231027231149011](https://media.opennet.top/i/2023/10/27/128886q-0.png)
+
+![image-20231027231210451](https://media.opennet.top/i/2023/10/27/128liiw-0.png)
+
+![image-20231027231228674](https://media.opennet.top/i/2023/10/27/128p11g-0.png)
+
+![image-20231027231303943](https://media.opennet.top/i/2023/10/27/1294z57-0.png)
+
+### 4.2.5 IP 数据报的格式
+
+![image-20231027232234160](https://media.opennet.top/i/2023/10/27/12eoi6h-0.png)
+
+![image-20231027232253502](https://media.opennet.top/i/2023/10/27/12esnu9-0.png)
+
+![image-20231027232313283](https://media.opennet.top/i/2023/10/27/12f62t2-0.png)
+
+## 4.3 IP 层转发分组的过程
+
+### 4.3.1 基于终点的转发
+
+![image-20231027233042789](https://media.opennet.top/i/2023/10/27/12ji8ph-0.png)
+
+![image-20231027233056617](https://media.opennet.top/i/2023/10/27/12ju8ow-0.png)
+
+### 4.3.2 最长前缀匹配
+
+![image-20231027233242698](https://media.opennet.top/i/2023/10/27/12kol02-0.png)
+
+![image-20231027233255336](https://media.opennet.top/i/2023/10/27/12l0bbi-0.png)
+
+## 4.6 互联网的路由选择协议
+
+### 4.6.2 内部网关协议 RIP
+
+![image-20231027234009100](https://media.opennet.top/i/2023/10/27/12p9m7q-0.png)
+
+![image-20231027234028361](https://media.opennet.top/i/2023/10/27/12pd8st-0.png)
+
+![image-20231027234039446](https://media.opennet.top/i/2023/10/27/12pfwap-0.png)
