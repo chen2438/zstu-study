@@ -1,5 +1,7 @@
 # zstu-study
 
+欢迎关注：[www.chenhaotian.top](www.chenhaotian.top)
+
 ### 项目简介
 
 浙江理工大学 学习资料(计算机类, 电子信息类).
