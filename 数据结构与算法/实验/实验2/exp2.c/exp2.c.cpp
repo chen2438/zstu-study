@@ -1,37 +1,40 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 typedef struct TreeNode {
     char val;
-    struct TreeNode* left, * right;
+    struct TreeNode *left, *right;
 } TreeNode;
 
 TreeNode* createTree(const char* preorder);
-bool findPath(TreeNode* root, char x, int path[], int* pathIndex);
+bool dfs(TreeNode* root, char x, int path[], int* pathIndex);
+void freeTree(TreeNode* root);
 
 int main() {
     char preorder[100];
-    int x;
-    int path[100];
+    int x;          // 目标节点
+    int path[100];  // 路径
     int pathIndex = 0;
 
     scanf("%s", preorder);
-    scanf(" %c", &x); // 空格跳过换行
+    scanf(" %c", &x);  // 空格跳过换行
 
     TreeNode* root = createTree(preorder);
 
-    if (findPath(root, x, path, &pathIndex)) {// 查找路径
-        for (int i = 0; i < pathIndex; i++) // 输出路径
+    if (dfs(root, x, path, &pathIndex)) {    // 查找路径
+        for (int i = 0; i < pathIndex; i++)  // 输出路径
             printf("%c ", path[i]);
         putchar('\n');
-    } else printf("404\n");
+    } else
+        printf("404\n");
+    freeTree(root);
     return 0;
 }
 
 // 构建二叉树
-int idx = 0;// 输入的先序序列的当前位置
+int idx = 0;  // 输入的先序序列的当前位置
 TreeNode* createTree(const char* preorder) {
     if (preorder[idx] == '#') {
         idx++;
@@ -44,17 +47,24 @@ TreeNode* createTree(const char* preorder) {
     return node;
 }
 
-// 递归查找路径的函数
-bool findPath(TreeNode* root, char x, int path[], int* pathIndex) {
+// 搜索路径
+bool dfs(TreeNode* root, char x, int path[], int* pathIndex) {
     if (root == NULL) return false;
-    path[(*pathIndex)++] = root->val;// 当前节点值添加到路径
-    if (root->val == x) return true;// 到达目标节点
+    path[(*pathIndex)++] = root->val;  // 记录当前节点值
+    if (root->val == x) return true;   // 到达目标节点
 
-    // 递归检查左右子树
-    if (findPath(root->left, x, path, pathIndex) ||
-        findPath(root->right, x, path, pathIndex)) {
+    // 搜索检查左右子树
+    if (dfs(root->left, x, path, pathIndex) ||
+        dfs(root->right, x, path, pathIndex))
         return true;
-    }
-    (*pathIndex)--;// 没找到，回溯
+    (*pathIndex)--;  // 没找到，回溯
     return false;
+}
+
+// 释放二叉树
+void freeTree(TreeNode* root) {
+    if (root == NULL) return;
+    freeTree(root->left);
+    freeTree(root->right);
+    free(root);
 }

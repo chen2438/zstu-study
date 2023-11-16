@@ -4,7 +4,7 @@
 
 typedef struct TreeNode {
     char data;
-    struct TreeNode* left, * right;
+    struct TreeNode *left, *right;
 } TreeNode;
 
 TreeNode* createTree(const char* preorder);
@@ -12,6 +12,7 @@ void preorderTraversal(TreeNode* root);
 void inorderTraversal(TreeNode* root);
 void postorderTraversal(TreeNode* root);
 int countLeaves(TreeNode* root);
+void freeTree(TreeNode* root);
 
 int main() {
     char preorder[100];
@@ -34,11 +35,12 @@ int main() {
     // 叶子节点数
     printf("%d\n", countLeaves(root));
 
+    freeTree(root);
     return 0;
 }
 
 // 构建二叉树
-int idx = 0;// 输入的先序序列的当前位置
+int idx = 0;  // 输入的先序序列的当前位置
 TreeNode* createTree(const char* preorder) {
     if (preorder[idx] == '#' || preorder[idx] == '\0') {
         idx++;
@@ -77,7 +79,15 @@ void postorderTraversal(TreeNode* root) {
 
 // 叶子节点数
 int countLeaves(TreeNode* root) {
-    if (root == NULL)  return 0;
-    if (root->left == NULL && root->right == NULL)  return 1;
+    if (root == NULL) return 0;
+    if (root->left == NULL && root->right == NULL) return 1;
     return countLeaves(root->left) + countLeaves(root->right);
+}
+
+// 释放二叉树
+void freeTree(TreeNode* root) {
+    if (root == NULL) return;
+    freeTree(root->left);
+    freeTree(root->right);
+    free(root);
 }
