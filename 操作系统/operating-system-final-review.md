@@ -389,3 +389,19 @@ Multileved Feedback Queue
 ![image-20231116233208058](https://media.opennet.top/i/2023/11/16/12khom2-0.png)
 
 ![image-20231116233339249](https://media.opennet.top/i/2023/11/16/12l9ooo-0.png)
+
+![image-20231117092000107](https://media.opennet.top/i/2023/11/17/f7sjxn-0.png)
+
+![image-20231117092011142](https://media.opennet.top/i/2023/11/17/f7uoom-0.png)
+
+### 4.6.2 哲学家进餐问题
+
+![image-20231117092150252](https://media.opennet.top/i/2023/11/17/f8opg3-0.png)
+
+![image-20231117092332246](https://media.opennet.top/i/2023/11/17/f9scrr-0.png)
+
+![image-20231117092411580](https://media.opennet.top/i/2023/11/17/fa8zro-0.png)
+
+### 4.6.3 读者-写者问题
+
+![image-20231117092606445](https://media.opennet.top/i/2023/11/17/fbe8km-0.png)
