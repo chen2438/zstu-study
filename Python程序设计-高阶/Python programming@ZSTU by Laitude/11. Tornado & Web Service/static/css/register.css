@@ -1,0 +1,21 @@
+.submit_form {
+    margin: auto;
+    width: 50%;
+    height: 100%;
+    padding-top: 200px;
+    padding-bottom: 200px;
+    background-color: rgba(38,181,215,0.53);
+}
+
+.main_form {
+     text-align: center;
+}
+
+.sub_button {
+    color: greenyellow;
+    background-color: rgba(98,124,101,0.53);
+    width: 150px;
+    height: 40px;
+    font-family: "Lato Black";
+    font-size: 1.3em;
+}

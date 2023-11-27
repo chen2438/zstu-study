@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Kain Huck">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/register.css')}}">
+</head>
+<div class="submit_form">
+    <h1 style="text-align: center"><span style="color: darkred;"><i>贪玩蓝月</i></span>注册页面</h1>
+<div>
+    <form action="/postfile" method="post" class="main_form">
+        {% module xsrf_form_html() %}
+        <p><input type="text" placeholder="请输入用户名" name="username"></p>
+        <p><input type="password" placeholder="请输入密码" name="password"></p>
+        <p><input type="password" placeholder="请再次输入密码" name="re_password"></p>
+        <p><input type="submit" value="注册" class="sub_button"></p>
+    </form>
+</div>
+</div>
+</body>
+</html>
