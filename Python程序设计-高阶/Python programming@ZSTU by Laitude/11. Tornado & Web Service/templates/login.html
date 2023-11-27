@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Kain Huck">
+    <title>登录页面</title>
+</head>
+<body>
+    <form action="{{ url }}" method="post">
+        {% module xsrf_form_html() %}
+        <span>请输入用户名:</span><input type="text" name="username">
+        <hr>
+        <span>请输入密码:</span><input type="password" name="password">
+        <hr>
+        <input type="submit" value="登录">
+    </form>
+</body>
+</html>
