@@ -1,4 +1,4 @@
-# 第2章 进程的描述与控制
+# 第 2 章 进程的描述与控制
 
 ## 2.1 前驱图和程序执行
 
@@ -405,3 +405,232 @@ Multileved Feedback Queue
 ### 4.6.3 读者-写者问题
 
 ![image-20231117092606445](https://media.opennet.top/i/2023/11/17/fbe8km-0.png)
+
+待补充
+
+
+# 第 5 章 存储器管理
+
+##  5.1 存储器的层次结构
+
+![image-20231130162140267](https://media.opennet.top/i/2023/11/30/qs02wf-0.png)
+
+## 5.2 程序的装入与链接
+
+![image-20231130162414052](https://media.opennet.top/i/2023/11/30/qtegqa-0.png)
+
+![image-20231130162438207](https://media.opennet.top/i/2023/11/30/qts8h3-0.png)
+
+### 5.2.1 地址绑定和内存保护
+
+![image-20231130162659828](https://media.opennet.top/i/2023/11/30/qv3rym-0.png)
+
+![image-20231130162710358](https://media.opennet.top/i/2023/11/30/qv6drg-0.png)
+
+![image-20231130163013731](https://media.opennet.top/i/2023/11/30/qwyxig-0.png)
+
+![image-20231130163025075](https://media.opennet.top/i/2023/11/30/qxan22-0.png)
+
+### 5.2.2 程序的装入
+
+![image-20231130163422110](https://media.opennet.top/i/2023/11/30/qzod0x-0.png)
+
+![image-20231130163446758](https://media.opennet.top/i/2023/11/30/qzs6po-0.png)
+
+### 5.2.3 程序的链接
+
+![image-20231130164337657](https://media.opennet.top/i/2023/11/30/r53unh-0.png)
+
+## 5.3 对换与覆盖*
+
+## 5.4 连续分配存储管理方式
+
+![image-20231130164658425](https://media.opennet.top/i/2023/11/30/r701ex-0.png)
+
+### 5.4.1 单一连续分配
+
+![image-20231130165847623](https://media.opennet.top/i/2023/11/30/re2wqz-0.png)
+
+### 5.4.2 固定分区分配
+
+![image-20231130170016336](https://media.opennet.top/i/2023/11/30/revsmo-0.png)
+
+### 5.4.3 动态分区分配
+
+![image-20231130201128978](https://media.opennet.top/i/2023/11/30/x84it2-0.png)
+
+![image-20231130201145659](https://media.opennet.top/i/2023/11/30/x89z14-0.png)
+
+![image-20231130201213265](https://media.opennet.top/i/2023/11/30/x8g87n-0.png)
+
+### 5.4.4 动态重定位分区分配
+
+![image-20231130201442256](https://media.opennet.top/i/2023/11/30/xa1h0l-0.png)
+
+![image-20231130202526991](https://media.opennet.top/i/2023/11/30/xghrde-0.png)
+
+![image-20231130202554629](https://media.opennet.top/i/2023/11/30/xgn6rv-0.png)
+
+## 5.5 分页存储管理方式
+
+![image-20231130202730865](https://media.opennet.top/i/2023/11/30/xhoogb-0.png)
+
+### 5.5.1 分页存储管理的基本方法
+
+![image-20231130203621940](https://media.opennet.top/i/2023/11/30/xn0i3v-0.png)
+
+![image-20231130203649832](https://media.opennet.top/i/2023/11/30/xn5f2w-0.png)
+
+### 5.5.2 地址变换机构
+
+![image-20231130204241884](https://media.opennet.top/i/2023/11/30/xqp1rp-0.png)
+
+![image-20231130204325833](https://media.opennet.top/i/2023/11/30/xr5zig-0.png)
+
+![image-20231130204700125](https://media.opennet.top/i/2023/11/30/xt66l1-0.png)
+
+![image-20231130205106587](https://media.opennet.top/i/2023/11/30/xvln4r-0.png)
+
+![image-20231130205127799](https://media.opennet.top/i/2023/11/30/xw6byn-0.png)
+
+![image-20231130205217879](https://media.opennet.top/i/2023/11/30/xw8ncn-0.png)
+
+### 5.5.3 引入快表后的内存有效访问时间
+
+![image-20231130205800018](https://media.opennet.top/i/2023/11/30/xzqvxv-0.png)
+
+### 5.5.4 两级页表和多级页表
+
+![image-20231130210312873](https://media.opennet.top/i/2023/11/30/yqmra5-0.png)
+
+![image-20231130210339184](https://media.opennet.top/i/2023/11/30/yqzi7p-0.png)
+
+## 5.6 分段存储管理方式
+
+### 5.6.1 分段存储管理方式的引入
+
+![image-20231130210507254](https://media.opennet.top/i/2023/11/30/yrq2di-0.png)
+
+### 5.6.2 分段系统的基本原理
+
+![image-20231130211125158](https://media.opennet.top/i/2023/11/30/yvno4p-0.png)
+
+![image-20231130211204353](https://media.opennet.top/i/2023/11/30/yvvd9u-0.png)
+
+![image-20231130211214196](https://media.opennet.top/i/2023/11/30/yvy0xf-0.png)
+
+![image-20231130211424071](https://media.opennet.top/i/2023/11/30/yxgjrj-0.png)
+
+### 5.6.3 信息共享
+
+![image-20231130211732739](https://media.opennet.top/i/2023/11/30/yzawdh-0.png)
+
+## 5.7 段页式存储管理方式
+
+![image-20231130214437553](https://media.opennet.top/i/2023/11/30/zfedjj-0.png)
+
+![image-20231130214458861](https://media.opennet.top/i/2023/11/30/zfjf3o-0.png)
+
+![image-20231130214521737](https://media.opennet.top/i/2023/11/30/zfn6ec-0.png)
+
+# 第 6 章 虚拟存储器
+
+## 6.1 虚拟存储器概述
+
+### 6.1.1 传统存储器和局部性原理
+
+![image-20231130215220741](https://media.opennet.top/i/2023/11/30/zk2jg4-0.png)
+
+### 6.1.2 虚拟存储器的定义和特征
+
+![image-20231130215723043](https://media.opennet.top/i/2023/11/30/zn1dny-0.png)
+
+![image-20231130220451754](https://media.opennet.top/i/2023/11/30/10f69a4-0.png)
+
+### 6.1.3 虚拟存储器的实现方法
+
+![image-20231130220608632](https://media.opennet.top/i/2023/11/30/10fv8py-0.png)
+
+## 6.2 请求分页存储管理方式
+
+![image-20231130220738546](https://media.opennet.top/i/2023/11/30/10gvtpx-0.png)
+
+### 6.2.1 请求分页中的硬件支持
+
+![image-20231130220824600](https://media.opennet.top/i/2023/11/30/10hemjp-0.png)
+
+![image-20231130220839885](https://media.opennet.top/i/2023/11/30/10hh1v3-0.png)
+
+![image-20231130221243272](https://media.opennet.top/i/2023/11/30/10jw16f-0.png)
+
+![image-20231130221345294](https://media.opennet.top/i/2023/11/30/10khjlq-0.png)
+
+![image-20231130221354192](https://media.opennet.top/i/2023/11/30/10kjil6-0.png)
+
+![image-20231130221404838](https://media.opennet.top/i/2023/11/30/10klvbi-0.png)
+
+### 6.2.2 请求分页中的内存分配
+
+![image-20231130221647860](https://media.opennet.top/i/2023/11/30/10mbkb4-0.png)
+
+![image-20231130222029661](https://media.opennet.top/i/2023/11/30/10olex5-0.png)
+
+![image-20231130222101470](https://media.opennet.top/i/2023/11/30/10oqt00-0.png)
+
+![image-20231130222110043](https://media.opennet.top/i/2023/11/30/10osp3e-0.png)
+
+### 6.2.3 页面调入策略
+
+![image-20231130222232729](https://media.opennet.top/i/2023/11/30/10psd82-0.png)
+
+![image-20231130222520248](https://media.opennet.top/i/2023/11/30/10r983j-0.png)
+
+![image-20231130222617425](https://media.opennet.top/i/2023/11/30/10rtuwd-0.png)
+
+## 6.3 页面置换算法
+
+![image-20231130223933597](https://media.opennet.top/i/2023/11/30/10zwj29-0.png)
+
+### 6.3.1 最佳 先进先出
+
+![image-20231130224313998](https://media.opennet.top/i/2023/11/30/111xpnb-0.png)
+
+![image-20231130224411521](https://media.opennet.top/i/2023/11/30/112je69-0.png)
+
+![image-20231130224427335](https://media.opennet.top/i/2023/11/30/112u848-0.png)
+
+### 6.3.2 最近最久未使用 最少使用
+
+![image-20231130224648015](https://media.opennet.top/i/2023/11/30/1146827-0.png)
+
+![image-20231130224741105](https://media.opennet.top/i/2023/11/30/114qxyh-0.png)
+
+### 6.3.3 Clock 页面置换算法
+
+![image-20231130225223614](https://media.opennet.top/i/2023/11/30/117lfy5-0.png)
+
+![image-20231130225244288](https://media.opennet.top/i/2023/11/30/117qft0-0.png)
+
+![image-20231130225415039](https://media.opennet.top/i/2023/11/30/118hqrd-0.png)
+
+![image-20231130225449742](https://media.opennet.top/i/2023/11/30/118xduq-0.png)
+
+### 6.3.4 页面缓冲算法*
+
+### 6.3.5 请求分页系统的内存有效访问时间
+
+![image-20231130225621077](https://media.opennet.top/i/2023/11/30/119ztfa-0.png)
+
+## 6.4 抖动与工作集
+
+### 6.4.1 抖动
+
+![image-20231130225838063](https://media.opennet.top/i/2023/11/30/11b8zmh-0.png)
+
+### 6.4.2 工作集
+
+![image-20231130225956932](https://media.opennet.top/i/2023/11/30/11byt1n-0.png)
+
+### 6.4.3 抖动的预防方法*
+
+## 6.5 请求分段存储管理方式*
