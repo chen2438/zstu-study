@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>图层的添加与移除</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container"></div>
+<div class="input-card" style="width:24rem;">
+    <h4>添加、删除图层（Layer）</h4>
+    <div class="input-item">
+        <label>卫星图层：</label>
+        <button class="btn" id="add-satellite-layer" style="margin-right:1rem;">添加卫星图层</button>
+        <button class="btn" id="remove-satellite-layer">删除卫星图层</button>
+    </div>
+    <div class="input-item">
+        <label>红色标记：</label>
+        <button class="btn" id="add-roadnet-layer" style="margin-right:1rem;">添加路网图层</button>
+        <button class="btn" id="remove-roadnet-layer">删除路网图层</button>
+    </div>
+</div>
+
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=241c26aea06ed390a44598314eefd604"></script>
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<script>
+  //创建地图
+  var map = new AMap.Map('container', {
+    resizeEnable: true,
+    zoom: 11,
+    center: [116.405285, 39.904989]
+  });
+
+  // 构造官方卫星、路网图层
+  var satelliteLayer = new AMap.TileLayer.Satellite();
+  var roadNetLayer =  new AMap.TileLayer.RoadNet();
+
+  //批量添加图层
+  map.add([satelliteLayer, roadNetLayer]);
+
+  //事件绑定
+  document.querySelector("#add-satellite-layer").onclick = function() {
+    map.add(satelliteLayer);
+  }
+
+  document.querySelector("#remove-satellite-layer").onclick = function() {
+    map.remove(satelliteLayer);
+  }
+
+  document.querySelector("#add-roadnet-layer").onclick = function() {
+    map.add(roadNetLayer);
+  }
+
+  document.querySelector("#remove-roadnet-layer").onclick = function() {
+    map.remove(roadNetLayer);
+  }
+</script>
+</body>
+
+</html>
