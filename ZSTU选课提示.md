@@ -262,7 +262,7 @@ The views and opinions expressed in this article are those of the author alone a
 
 ### 操作系统课程设计
 
-田秋红、郭奕亿：根据任务书自选题目，可以与老师商量组队做操作系统，默认是单人做文件系统。绩点未出
+田秋红、郭奕亿：根据任务书自选题目，可以与老师商量组队做操作系统，默认是单人做文件系统。绩点3.5
 
 ### 计算机网络
 
