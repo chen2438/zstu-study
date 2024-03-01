@@ -1,8 +1,8 @@
 # zstu-study
 
-欢迎关注: [www.chenhaotian.top](www.chenhaotian.top)
-
 合租拼车: [ChatGPT 合租, NNR 流量转发合租, 香港CMI美国CMIN2德国9929 线路合租](https://share.vayki.com/)
+
+欢迎关注：[www.chenhaotian.top](https://www.chenhaotian.top)
 
 ### 项目简介
 
@@ -25,6 +25,8 @@
 [0.2.5](https://github.com/chen2438/zstu-study/releases/tag/0.2.5) 存档已释出.
 
 [0.3.0](https://github.com/chen2438/zstu-study/releases/tag/0.3.0) 存档已释出.
+
+将于2024年3月释出1个补充版本.
 
 ### 宇宙安全声明
 
