@@ -57,6 +57,7 @@ The views and opinions expressed in this article are those of the author alone a
 ### 毛泽东思想和中国特色社会主义理论体系概论
 
 苏晓云：水课。有课前分享，建议每次都分享，有加分。会点名。期末会划重点。讲课水平不错。绩点4.6
+肖驰：水课。有加分。会点名。期末会划重点，重点考得挺多。讲课水平不错。绩点4.0
 
 ### 形势与政策
 
@@ -276,9 +277,11 @@ The views and opinions expressed in this article are those of the author alone a
 
 骆淑云：硬课，考研课程。会点名，会学习通叫人。期末会划重点。上课时有些知识点期末不考。期末卷子不难。绩点4.2
 
+
 ### 数据结构与算法课程设计
 
 胡洁、杨东鹤：根据任务书自选题目，计算机指定选择哈夫曼编码。绩点未出
+
 
 ### 软件工程A
 
