@@ -1,6 +1,6 @@
 # zstu-study
 
-合租拼车:  [ChatGPT 合租, NNR 流量转发合租, 香港CMI美国CMIN2德国9929 线路合租](https://share.vayki.com/)
+合租拼车: [ChatGPT 合租, NNR 流量转发合租, 香港CMI美国CMIN2德国9929 线路合租](https://share.vayki.com/)
 
 欢迎关注: [www.chenhaotian.top](https://www.chenhaotian.top)
 
@@ -26,7 +26,7 @@
 
 [0.3.0](https://github.com/chen2438/zstu-study/releases/tag/0.3.0) 存档已释出.
 
-将于2024年3月释出1个补充版本.
+[0.3.1](https://github.com/chen2438/zstu-study/releases/tag/0.3.1) 存档已释出.
 
 ### 宇宙安全声明
 
@@ -45,3 +45,7 @@ All resources in this project are for reference and learning purposes only and d
 All resources in this project are open access or shared resources. If any copyright or intellectual property rights are infringed, please contact us in a timely manner. We will delete the relevant resources or make other reasonable adjustments as soon as possible.
 
 Finally, we are happy to see any achievements and benefits brought by the use of these resources, but we are not responsible for any results that may be brought by the use of these resources. Users should remain diligent and cautious when using these resources to achieve the best learning effect.
+
+## Stars
+
+[![Stargazers over time](https://starchart.cc/chen2438/zstu-study.svg?variant=adaptive)](https://starchart.cc/chen2438/zstu-study)
