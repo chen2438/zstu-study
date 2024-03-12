@@ -57,6 +57,7 @@ The views and opinions expressed in this article are those of the author alone a
 ### 毛泽东思想和中国特色社会主义理论体系概论
 
 苏晓云：水课。有课前分享，建议每次都分享，有加分。会点名。期末会划重点。讲课水平不错。绩点4.6
+
 肖驰：水课。有加分。会点名。期末会划重点，重点考得挺多。讲课水平不错。绩点4.0
 
 ### 形势与政策
@@ -271,7 +272,7 @@ The views and opinions expressed in this article are those of the author alone a
 
 ### 计算机网络课程设计
 
-黄海2、杨东鹤：根据任务书，按资料上的步骤做题目。可在B站上找到相应视频。答辩为考试，根据给出的网络拓扑图在Cisco Packet Tracer软件中构建网络。完成后老师会问你问题、查看路由表。绩点未出
+黄海2、杨东鹤：根据任务书，按资料上的步骤做题目。可在B站上找到相应视频。答辩为考试，根据给出的网络拓扑图在Cisco Packet Tracer软件中构建网络。完成后老师会问你问题、查看路由表。绩点3.5
 
 ### 数据结构与算法
 
@@ -280,7 +281,7 @@ The views and opinions expressed in this article are those of the author alone a
 
 ### 数据结构与算法课程设计
 
-胡洁、杨东鹤：根据任务书自选题目，计算机指定选择哈夫曼编码。绩点未出
+胡洁、杨东鹤：根据任务书自选题目，计算机指定选择哈夫曼编码。绩点4.5
 
 
 ### 软件工程A
@@ -289,4 +290,4 @@ The views and opinions expressed in this article are those of the author alone a
 
 ### 生产实习
 
-马俊福、许立成：实践课，自己找企业实习。绩点未出
+马俊福、许立成：实践课，自己找企业实习。绩点4.5
