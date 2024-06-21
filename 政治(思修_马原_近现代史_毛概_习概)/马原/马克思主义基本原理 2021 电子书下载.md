@@ -1,0 +1,1 @@
+https://storage.opennet.top/local/zstu-study/books
