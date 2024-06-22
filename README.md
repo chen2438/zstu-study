@@ -1,8 +1,12 @@
 # zstu-study
 
-合租拼车: [ChatGPT 合租, NNR 流量转发合租, 香港CMI美国CMIN2德国9929 线路合租](https://share.vayki.com/)
+感谢所有贡献者！欢迎提交 [Pull requests](https://github.com/chen2438/zstu-study/pulls) 参与维护此仓库或练习 Github 使用方法. 推荐提交至 `dev` 分支，也可提交至 `main` 分支.
 
 欢迎关注: [www.chenhaotian.top](https://www.chenhaotian.top)
+
+电子邮件: admin@vayki.com
+
+友情链接: [zstu.wiki](https://zstu.wiki/)
 
 ### 项目简介
 
