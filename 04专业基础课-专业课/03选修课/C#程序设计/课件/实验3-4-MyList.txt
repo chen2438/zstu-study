@@ -1,0 +1,94 @@
+    class MyList : List<int>, IComparable<MyList>
+    {
+        public MyList(List<int> lst)
+        {
+            if(lst != null)
+                AddRange(lst);
+        }
+        public static MyList operator+(MyList left, MyList right)
+        {
+            MyList list = new MyList(left);
+            list.AddRange(right);
+            return list;
+        }
+        public static MyList operator *(MyList left, int numOfCopies)
+        {
+            MyList list = new MyList(left);
+            while(numOfCopies != 1)
+            {
+                list.AddRange(left);
+                numOfCopies--;
+            }
+            return list;
+        }
+        public MyList SubList(int start, int stop = 0, int step = 1)
+        {
+            if (start < 0)
+                start = Count + start;
+            if (stop < 0)
+                stop = Count + stop;
+            if (step == 0)
+                throw new ArgumentException("step不可为负数");
+            MyList result = new MyList(null);
+            if (step > 0)
+            {
+                for (int i = start; i < stop; i+=step)
+                {
+                    result.Add(this[i]);
+                }
+            }
+            else
+            {
+                for (int i = start ; i > stop; i += step)
+                {
+                    result.Add(this[i]);
+                }
+            }
+            return result;
+        }
+        public override string ToString()
+        {
+            StringBuilder result = new StringBuilder("[");
+            for (int i = 0; i < Count; i++)
+            {
+                result.Append(this[i]);
+                if (i != Count - 1)
+                    result.Append(", ");
+            }
+            result.Append("]");
+            return result.ToString();
+        }
+
+        public int CompareTo(MyList? other)
+        {
+            if (other == null)
+                throw new ArgumentNullException("Argument null in CompareTo");
+            int size = (Count < other.Count) ? Count : other.Count;
+            for (int i = 0; i < size; i++)
+            {
+                if (this[i] != other[i])
+                    return this[i] - other[i];
+            }
+            return Count - other.Count;
+        }
+    }
+    class Ex4 : Object
+    {
+        public static void Main()
+        {
+            List<int> lst = new List<int>() { 1, 4, 9, 6, 3, 5};
+            WriteLine(lst);
+            MyList lst1 = new MyList(lst);
+            WriteLine("1: " + lst1);
+            MyList lst2 = lst1 * 2;
+            WriteLine("2: " + lst2);
+            MyList lst3 = lst2.SubList(4, 8);
+            WriteLine("3 从4到8: " + lst3);
+            MyList lst4 = lst2.SubList(4, 8, 2);
+            WriteLine("4 从4到8步长2: " + lst4);
+            MyList lst5 = lst2.SubList(-2, 1, -3);
+            WriteLine("5 从-2到1步长-3: " + lst5);
+            WriteLine("1比2: " + lst1.CompareTo(lst2));
+            WriteLine("3比4: " + lst3.CompareTo(lst4));
+        }
+    }
