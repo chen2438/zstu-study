@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "实验四-MFC编程-2021329600006-陈昊天", "实验四-MFC编程-2021329600006-陈昊天.vcxproj", "{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Debug|x64.ActiveCfg = Debug|x64
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Debug|x64.Build.0 = Debug|x64
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Debug|x86.ActiveCfg = Debug|Win32
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Debug|x86.Build.0 = Debug|Win32
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Release|x64.ActiveCfg = Release|x64
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Release|x64.Build.0 = Release|x64
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Release|x86.ActiveCfg = Release|Win32
+		{A729BEA7-0A20-4198-9F3C-FFF4321DB87E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB365EEE-C63E-499D-8082-AE2158CD5ACA}
+	EndGlobalSection
+EndGlobal
