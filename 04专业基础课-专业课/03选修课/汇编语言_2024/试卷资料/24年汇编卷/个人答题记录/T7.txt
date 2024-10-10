@@ -1,0 +1,26 @@
+DATAS SEGMENT
+    ;此处输入数据段代码  
+DATAS ENDS
+ 
+ 
+CODES SEGMENT
+    ASSUME CS:CODES,DS:DATAS
+START:
+    MOV AX,DATAS
+    MOV DS,AX
+    MOV SI,2
+    MOV BX,1
+    MOV CX,1
+    
+L1:
+    ADD BX,SI
+    ADD CX,1
+    ADD SI,1;实现1+2+3....
+   CMP BX,5000
+    JNA L1;与1000比较
+    MOV DX,CX
+    MOV AX,BX
+    MOV AH,4CH
+    INT 21H
+CODES ENDS
+    END START

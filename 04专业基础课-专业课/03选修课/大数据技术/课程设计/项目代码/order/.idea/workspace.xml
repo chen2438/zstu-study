@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7da9c6a6-e65b-4be0-a5e1-b770e640f7e2" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/src/main/java/com/bigdata/mapreduce/flowsum/FlowBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/src/main/java/com/bigdata/mapreduce/flowsum/FlowCountMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/src/main/java/com/bigdata/mapreduce/flowsum/FlowCountReducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/src/main/java/com/bigdata/mapreduce/flowsum/FlowsumDriver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/src/main/java/com/bigdata/mapreduce/flowsum/ProvincePartitioner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/src/main/resources/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum.partition/src/main/resources/phone_data.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/src/main/java/com/bigdata/mapreduce/flowsum/FlowBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/src/main/java/com/bigdata/mapreduce/flowsum/FlowCountMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/src/main/java/com/bigdata/mapreduce/flowsum/FlowCountReducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/src/main/java/com/bigdata/mapreduce/flowsum/FlowsumDriver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/src/main/resources/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../flowsum/src/main/resources/phone_data.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bigdata/mapreduce/order/OrderBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bigdata/mapreduce/order/OrderDriver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bigdata/mapreduce/order/OrderGroupingComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bigdata/mapreduce/order/OrderMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bigdata/mapreduce/order/OrderPartitioner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bigdata/mapreduce/order/OrderReducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/GroupingComparator.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/src/main/java/com/bigdata/mapreduce/sort/FlowBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/src/main/java/com/bigdata/mapreduce/sort/FlowCountSortDriver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/src/main/java/com/bigdata/mapreduce/sort/FlowCountSortMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../sort/src/main/java/com/bigdata/mapreduce/sort/FlowCountSortReducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/src/main/java/com/bigdata/mapreduce/table/TableBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/src/main/java/com/bigdata/mapreduce/table/TableDriver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/src/main/java/com/bigdata/mapreduce/table/TableMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/src/main/java/com/bigdata/mapreduce/table/TableReducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/src/main/resources/order.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../table/src/main/resources/pd.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/src/main/java/com/bigdata/mapreduce/wordcount/WordcountDriver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/src/main/java/com/bigdata/mapreduce/wordcount/WordcountMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/src/main/java/com/bigdata/mapreduce/wordcount/WordcountReducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/src/main/resources/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../wordcount/src/main/resources/wordcount.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../实操（8个单元）/实操5-hadoop_day03（mapreduce）.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../实操（8个单元）/实操5-hadoop_day03（mapreduce）.docx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2iErbOP9fyOjsVoWsrE6npmmcBu" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.order [package].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "dev",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.18071.24" />
+        <option value="bundled-js-predefined-d6986cc7102b-cec29f6fc0a3-JavaScript-IU-242.18071.24" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="7da9c6a6-e65b-4be0-a5e1-b770e640f7e2" name="更改" comment="" />
+      <created>1719066647667</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1719066647667</updated>
+      <workItem from="1719066648782" duration="1669000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
