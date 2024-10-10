@@ -1,0 +1,3 @@
+I love python.
+I think python is the best language.
+Is the Php the best language?

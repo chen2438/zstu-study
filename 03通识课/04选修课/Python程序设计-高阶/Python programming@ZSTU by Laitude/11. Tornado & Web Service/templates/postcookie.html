@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Kain Huck">
+    <title>postcookie</title>
+</head>
+<body>
+    <form method="post">
+        {% module xsrf_form_html() %}
+        <input type="text">
+        <input type="submit" value="submit">
+    </form>
+
+</body>
+</html>

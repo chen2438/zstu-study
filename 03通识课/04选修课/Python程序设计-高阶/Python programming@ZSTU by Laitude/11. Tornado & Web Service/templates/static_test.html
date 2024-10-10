@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Kain Huck">
+    <title>这个页面是测试静态文件的啦</title>
+    <!--static_url()该函数会将config下的设置里的static_path和()里的参数拼接成为一个路径-->
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/hellostatic.css')}}">
+</head>
+<body>
+    <h1>我的颜色是由static文件夹下的某个CSS文件决定的</h1>
+</body>
+</html>
