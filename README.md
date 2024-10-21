@@ -8,6 +8,10 @@
 
 友情链接: [zstu.wiki](https://zstu.wiki/)
 
+### 分支说明
+
+main分支为项目主分支，dev分支为建议pull request分支，merge分支为经文件整理后分支（目前由zyrzjyzxy维护，含ZSTU_选课提示）。
+
 ### 项目简介
 
 浙江理工大学 学习资料(计算机类).
