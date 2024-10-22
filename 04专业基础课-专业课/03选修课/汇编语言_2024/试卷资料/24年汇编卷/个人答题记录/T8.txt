@@ -1,0 +1,38 @@
+
+
+data segment
+    X dw 20      ; 字类型变量 X 的初始值为 20
+    Y dw -10     ; 字类型变量 Y 的初始值为 -10
+    Z dw 100     ; 字类型变量 Z 的初始值为 100
+    V dw 200     ; 字类型变量 V 的初始值为 200
+
+code segment
+main proc
+    mov ax, @data
+    mov ds, ax
+
+    ; 计算 X * Y
+    mov ax, X
+    imul Y       ; AX = X * Y
+
+    ; 计算 X * Y + Z
+    add ax, Z    ; AX = X * Y + Z
+
+    ; 计算 X * Y + Z - 500
+    sub ax, 500  ; AX = X * Y + Z - 500
+
+    ; 计算 V - (X * Y + Z - 500)
+    mov bx, V
+    sub bx, ax   ; BX = V - (X * Y + Z - 500)
+
+    ; 计算 (V - (X * Y + Z - 500)) / X
+    mov ax, bx   ; 将结果移动到 AX 中
+    cwd          ; 扩展 AX 到 DX:AX
+    idiv X       ; AX = 商, DX = 余数
+
+    ; 结束程序
+    mov ax, 4C00h
+    int 21h
+main endp
+
+end main

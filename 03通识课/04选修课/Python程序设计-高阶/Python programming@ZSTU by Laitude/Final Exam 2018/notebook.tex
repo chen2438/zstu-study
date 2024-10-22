@@ -1,0 +1,566 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Final Exam}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Python考试题}\label{pythonux8003ux8bd5ux9898}
+
+\subsection{说明}\label{ux8bf4ux660e}
+
+\begin{itemize}
+\tightlist
+\item
+  所有考试题都是开放的，也就是说，并没有标准答案，你的得分完全是根据你\textbf{最终的方法、努力的过程、提交的程序和报告}来决定。
+\item
+  题号后面的★代表了题目的难度，最低★，最高★★★★★，最终得分会考虑题的难度。
+\item
+  如果对应的题目有数据文件，则以题号相同名称的文件都为该题的数据文件，例：4.png，4.rar都是4号题的数据文件。
+\item
+  \textbf{每一题只能一个小组做，所以注册前，请务必确认该题没有被占用，并截图发到Python通知郡}。
+\item
+  \textbf{注册必须以小组注册，至少3人，不多于5人，否则注册无效}。
+\end{itemize}
+
+\subsection{\texorpdfstring{\textbf{以下内容不允许编辑}。}{以下内容不允许编辑。}}\label{ux4ee5ux4e0bux5185ux5bb9ux4e0dux5141ux8bb8ux7f16ux8f91}
+
+1 王贵平 陈影柔 吴鑫 林航 唐锦涛 2 武文静 姜惠文 孙远昭 3 余泓锷 黄欣悦
+郭仲 4 黄少捷 李星灿 许登 李想 5 张雪容 季玉文 杨海东 6 余建彩 蔡诚鑫
+彭书海 7 彭彦铮 王硕 赵恪振 姜丰怡 梁晨 8 陈柄翰、蔡乐圆、叶欢、王宣凯 9
+吴伟杰 任富彬 冯嘉东 杜尊仲 10 李巍岷 周彬馨 徐倩惠 洪骁涛 11 陈宏安
+郭庆刚 何志杨 12 李彩娟 徐青怡 杨静 王耀宗 张硕 13 林嘉豪 葛林焱 魏敏
+莫怡超 14 崔哲豪 刘刚杰 温兴森 15 李建鹏、张逸恺、林志坤、黎子维、钱柱
+16 马丽娜 王宁 康宇哲 何飞 王思敏 17 王仕琪、古强、张飞达、陶昱松、刘琦
+
+    \subsection{1.豆瓣爬虫★★★}\label{ux8c46ux74e3ux722cux866b}
+
+\begin{itemize}
+\tightlist
+\item
+  请你在豆瓣上爬取关于影视的相关信息，内容包括：片名，上映时间，演员，评论及数量等；保存到一个数据库中。
+\item
+  然后自己定义一个评价体系，按这个评价体系，对你爬取到的电影数据进行分类、排序和评价。
+\item
+  将你的分类、排序、评价以一种可视化的方式展示出来（如可以使用matplotlib）。
+\item
+  这里是队的注册：王贵平 陈影柔 吴鑫 林航 唐锦涛
+\end{itemize}
+
+    \subsection{2.
+网页表格转换为pdf★★★}\label{ux7f51ux9875ux8868ux683cux8f6cux6362ux4e3apdf}
+
+\begin{itemize}
+\tightlist
+\item
+  将任意一个网页表格的Html代码，转换为Latex的表格脚本，并生成一个Latex文件
+\item
+  调用CCTex，将Latex文件转换为一个pdf文件。
+\item
+  需要考虑复杂的表格。
+\item
+  这里是队的注册：16武文静、16姜惠文、16孙远昭
+\end{itemize}
+
+    \subsection{3.
+文本转换为pdf★★★}\label{ux6587ux672cux8f6cux6362ux4e3apdf}
+
+\begin{itemize}
+\tightlist
+\item
+  将一个文本文件，转换为Latex一个Latex文件。
+\item
+  调用CCTex，将Latex文件转换为一个pdf文件。
+\item
+  文本文件内容应该包括自己定义的一些格式或标识，转换后特定的格式如3.pdf所示，原来的内容如3.doc所示。
+\item
+  可以不考虑表格、公式，如果能够考虑，本题可以变为★★★★★
+\item
+  这里是队的注册：16项梦梵、16阮昊青、16杨天庸
+\end{itemize}
+
+    \subsection{4.
+水体数据可视化展示★★★★}\label{ux6c34ux4f53ux6570ux636eux53efux89c6ux5316ux5c55ux793a}
+
+\begin{itemize}
+\tightlist
+\item
+  将一系列水质仪检测到的水体数据，结合百度地图，将水体数据以可视化的形式进行展示。
+\item
+  展示的图包括平面图和断面图等,以下是一个例子。 
+\item
+  这里是队的注册：黄少捷 李星灿 许登 李想
+\end{itemize}
+
+    \subsection{5.
+Tornado地图服务★★★}\label{tornadoux5730ux56feux670dux52a1}
+
+\begin{itemize}
+\tightlist
+\item
+  使用Tornado构建一个Web服务，根据前面页面输入的经度纬度坐标，调用百度地图服务，截取特定大小的地图，以图片的形式返回给前端。
+\item
+  建立一个前端页面，输入经度、纬度、图片的高度、宽度，调用后端服务后，将返回的图片显示在该页面上。
+\item
+  这里是队的注册：张雪容、季玉文、杨海东
+\end{itemize}
+
+    \subsection{6.
+曲线曲面造型★★★★}\label{ux66f2ux7ebfux66f2ux9762ux9020ux578b}
+
+\begin{itemize}
+\tightlist
+\item
+  给定几个平面上点的坐标，画出过这几个点的样条曲线，和以这几个点为控制点的贝赛尔曲线。
+\item
+  给定空间内若干个点的坐标，画出过这几个点的曲面，曲面方程由你自己定义。
+\item
+  这里是队的注册：余建彩 蔡诚鑫 彭书海
+\end{itemize}
+
+    \subsection{7.
+图片重叠处理★★★}\label{ux56feux7247ux91cdux53e0ux5904ux7406}
+
+\begin{itemize}
+\tightlist
+\item
+  给定若干个图片，将这些图片以层叠的方式进行展示，以下是一个例子。 
+\item
+  使用的图片由你自己指定，显示的角度这些，自行指定，关键是显示效果。
+\item
+  这里是队的注册：彭彦铮 ，王硕 ，赵恪振 ，姜丰怡 ，梁晨
+\end{itemize}
+
+    \subsection{8.
+标准和GDP可视化分析★★★}\label{ux6807ux51c6ux548cgdpux53efux89c6ux5316ux5206ux6790}
+
+\begin{itemize}
+\tightlist
+\item
+  参考给出的爬虫例子，爬取标准服务网上的国家、行业标准。
+\item
+  爬取国家有关GDP数据（网站自己找）。
+\item
+  对标准数量和GDP数量之间的关系进行可视化分析，研究它们之间的相关性。
+\item
+  这里是队的注册：陈柄翰、蔡乐圆、叶欢、王宣凯
+\end{itemize}
+
+    \section{9. GeeTest破解★★★★★}\label{geetestux7834ux89e3}
+
+\begin{itemize}
+\tightlist
+\item
+  无论你用什么方法，使用Python破解GeeTest的一种认证形式（如下图）。 
+\item
+  自己找一个网站，使用GeeTest认证的，来验证你的方法。
+\item
+  视你实现的效果给分。
+\item
+  这里是队的注册：无人东渡小组：（吴伟杰，任富彬，冯嘉东，杜尊仲）
+\end{itemize}
+
+    \subsection{10.
+货币政策分析★★★}\label{ux8d27ux5e01ux653fux7b56ux5206ux6790}
+
+\begin{itemize}
+\tightlist
+\item
+  M0、M1、M2分别对应流通货币、狭义货币和广义货币，它们数量对于一个国家的经济非常重要。
+\item
+  请你用爬虫爬取尽可能多的我国M0、M1、M2货币及GDP等相关经济数据。
+\item
+  对你爬取到的数据，使用matplotlib或其他库进行可视化数据分析，然后再诠释你的数据分析结果，最好能够给出对经济数据的一些分析结论。
+\item
+  这里是队的注册：李巍岷 周彬馨 徐倩惠 洪晓涛
+\end{itemize}
+
+    \subsection{11. 程序员招聘★★★}\label{ux7a0bux5e8fux5458ux62dbux8058}
+
+\begin{itemize}
+\tightlist
+\item
+  我们中的很多人，以后都要做程序员，那让我们来看一下现在程序员的需求情况。
+\item
+  请你用爬虫爬取任何一个或多个招聘网站中，对程序员的招聘信息。
+\item
+  对你爬取到的数据，使用matplotlib或其他库进行可视化数据分析，然后再诠释你的数据分析结果，看看目前哪种语言的程序员最热门。
+\item
+  这里是队的注册：陈宏安 郭庆刚 何志扬
+\end{itemize}
+
+    \subsection{12.
+商品数据分析★★★}\label{ux5546ux54c1ux6570ux636eux5206ux6790}
+
+\begin{itemize}
+\tightlist
+\item
+  电子商务越来越成为我们生活中不可或缺的一部分。
+\item
+  请你用爬虫爬取任何一个电子商务网站，如京东、淘宝、苏宁等，中的某一类商品数据。
+\item
+  对你爬取到的数据，你自己提出一些需求，然后根据这些需要分析这些数据，得到相关的结论。
+\item
+  这里是队的注册：李敬贤
+\end{itemize}
+
+    \subsection{13.
+微信日程提醒★★★}\label{ux5faeux4fe1ux65e5ux7a0bux63d0ux9192}
+
+\begin{itemize}
+\tightlist
+\item
+  知道Server酱吗？
+\item
+  请你利用Server酱，实现一个微信的日程提醒功能，能够实现你定义的一个日程提醒，即：在特定的时间，发一个微信消息给你，提醒你要干什么。
+\item
+  自己定义详细的需求，根据你的需求来实现相应的功能。
+\item
+  这里是队的注册：林嘉豪、葛林焱、莫怡超、魏敏
+\end{itemize}
+
+    \subsection{14. 一门新语言★★★★}\label{ux4e00ux95e8ux65b0ux8bedux8a00}
+
+\begin{itemize}
+\tightlist
+\item
+  现在请你来自己构造一门解释型的语言。
+\item
+  利用Python实现一门语言的解释器，它能够识别你的语言的程序，实现相应的功能。
+\item
+  实现功能可以有：输入输出，文件读写等，具体由你自己定义。
+\item
+  这里是队的注册：崔哲豪、刘刚杰、温兴森
+\end{itemize}
+
+    \subsection{15.基于Notebook的试题库★★★★}\label{ux57faux4e8enotebookux7684ux8bd5ux9898ux5e93}
+
+\begin{itemize}
+\tightlist
+\item
+  现在让你做一个基于Notebook的试题库。
+\item
+  Notebook的每一节（就像本页的每一道题）都是一道题，内容包含：课程名，知识点，题目，分值和答案。
+\item
+  Python程序的输入是一个Notebook文件及相关附件所在目录，因为题目可能包含图片，Python自动把这些内容保存在数据库中。
+\item
+  Python程序的输出是一个Word或Pdf文件，内容是一张试卷，试卷的题目是从数据库中选择的，试卷中的每一题，最前面是一个二维码，这个二维码的内容包含了课程名称、知识点和分值。
+\item
+  试卷的版面，由你自己设定，尽可能美观。
+\item
+  这里是队的注册：李建鹏、张逸恺、林志坤、黎子维、钱柱
+\end{itemize}
+
+    \subsection{16.二维码识别★★★}\label{ux4e8cux7ef4ux7801ux8bc6ux522b}
+
+\begin{itemize}
+\tightlist
+\item
+  现在请你用Python编程实现二维码的识别。
+\item
+  在一个二值或灰度或彩色，有多个二维码，请你全部识别出来。
+\item
+  允许使用第三方库。
+\item
+  本题最终的成绩是识别15题打印的扫描图片，对课程、题型、分数进行统计，识别的图像类型越多，识别率越高，分数越高。
+\item
+  如果15题未能作出结果，请你自己生成若干类似文件，扫描后，进行识别。
+\item
+  这里是队的注册：马丽娜 王宁 康宇哲 何飞 王思敏
+\end{itemize}
+
+    \subsection{17.空间闭包★★★★★}\label{ux7a7aux95f4ux95edux5305}
+
+\begin{itemize}
+\tightlist
+\item
+  三维空间内有若干个点，画出这些点的最小闭包。
+\item
+  这个闭包最好是曲面围合的。
+\item
+  给定一个与任意一个座标轴垂直的平面\(\alpha\)，能够显示\(\alpha\)与这个闭包的相交曲面。
+\item
+  这里是队的注册：王仕琪、古强、张飞达、陶昱松、刘琦
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
