@@ -1,0 +1,114 @@
+    public class Time2
+    {
+        private int hour;
+        private int minute;
+        private int second;
+
+        public Time2(int hour = 0, int minute = 0, int second = 0)
+        {
+            SetTime(hour, minute, second);
+        }
+        public Time2(Time2 t) :
+            this(t.Hour, t.Minute, t.Second)
+        {
+        }
+        public void SetTime(int hour, int minute, int second)
+        {
+            Hour = hour;
+            Minute = minute;
+            Second = second;
+        }
+        public Time2 Next(int hour = 0, int minute = 0, int second = 0)
+        {
+            int seconds = (Hour + hour) * 3600 + (Minute + minute) * 60 + Second + second;
+            Time2 newTime = new Time2();
+            newTime.Hour = (seconds / 3600) % 24;
+            newTime.Minute = (seconds % 3600) / 60;
+            newTime.Second = seconds % 60;
+            return newTime;
+        }
+        public int Hour
+        {
+            get
+            {
+                return hour;
+            }
+            set
+            {
+                if (value < 0 || value > 23)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), value,
+                        $"{nameof(Hour)} must be 0 - 23");
+                }
+                hour = value;
+            }
+        }
+        public int Minute
+        {
+            get
+            {
+                return minute;
+            }
+            set
+            {
+                if (value < 0 || value > 59)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), value,
+                        $"{nameof(Minute)} must be 0 - 59");
+                }
+                minute = value;
+            }
+        }
+        public int Second
+        {
+            get
+            {
+                return second;
+            }
+            set
+            {
+                if (value < 0 || value > 59)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), value,
+                        $"{nameof(Second)} must be 0 - 59");
+                }
+                second = value;
+            }
+        }
+        public string ToUniversalString() =>
+            $"{Hour:D2}:{Minute:D2}:{Second:D2}";
+        public override string ToString() =>
+            $"{((Hour == 0 || Hour == 12) ? 12 : Hour % 12)}:" +
+            $"{Minute:D2}:{Second:D2} {(Hour < 12 ? "AM" : "PM")}";
+    }
+    class Ex4 : Object
+    {
+        public static void Main()
+        {
+            var t1 = new Time2();
+            var t2 = new Time2(2);
+            var t3 = new Time2(21, 34);
+            var t4 = new Time2(12, 25, 42);
+            var t5 = new Time2(t4);
+            t5.Hour = 15;
+            var t6 = t5.Next(10, 40, 0);
+            Console.WriteLine("t1:");
+            Console.WriteLine($"{t1.ToUniversalString()}");
+            Console.WriteLine($"{t1.ToString()}\n");
+            Console.WriteLine("t2:");
+            Console.WriteLine($"{t2.ToUniversalString()}");
+            Console.WriteLine($"{t2.ToString()}\n");
+            Console.WriteLine("t3:");
+            Console.WriteLine($"{t3.ToUniversalString()}");
+            Console.WriteLine($"{t3.ToString()}\n");
+            Console.WriteLine("t4:");
+            Console.WriteLine($"{t4.ToUniversalString()}");
+            Console.WriteLine($"{t4.ToString()}\n");
+            Console.WriteLine("t5:");
+            Console.WriteLine($"{t5.ToUniversalString()}");
+            Console.WriteLine($"{t5.ToString()}\n");
+            Console.WriteLine("t6:");
+            Console.WriteLine($"{t6.ToUniversalString()}");
+            Console.WriteLine($"{t6.ToString()}\n");
+        }
+    }
