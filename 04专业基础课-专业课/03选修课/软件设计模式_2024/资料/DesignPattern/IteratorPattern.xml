@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<!-- <className>iteratorpattern.SkyworthTelevision</className> -->
+	<className>iteratorpattern.TCLTelevision</className>
+</config>
