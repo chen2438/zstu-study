@@ -1,0 +1,82 @@
+<mxfile host="Electron" modified="2024-05-27T15:04:08.670Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.4.0 Chrome/112.0.5615.204 Electron/24.5.1 Safari/537.36" etag="YICsa6ihzbcu-9K7wZrC" version="21.4.0" type="device">
+  <diagram name="Page-1" id="52a04d89-c75d-2922-d76d-85b35f80e030">
+    <mxGraphModel dx="781" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1fdf3b25b50cf41e-1" value="第一章" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=宋体;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="395" y="50" width="220" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-2" value="绪论" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=center;fontFamily=宋体;" parent="1fdf3b25b50cf41e-1" vertex="1">
+          <mxGeometry y="26" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-13" value="" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=宋体;" parent="1" vertex="1">
+          <mxGeometry x="360" y="213" width="290" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-7" value="第二章" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=宋体;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="395" y="140" width="220" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-8" value="地库车位设计方式及深度强化学习理论" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=center;fontFamily=宋体;" parent="1fdf3b25b50cf41e-7" vertex="1">
+          <mxGeometry y="26" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-17" value="第五章" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=宋体;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="395" y="410" width="220" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-18" value="实验例证" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=center;fontFamily=宋体;" parent="1fdf3b25b50cf41e-17" vertex="1">
+          <mxGeometry y="26" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-19" value="第四章" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=宋体;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="395" y="320" width="220" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-20" value="基于PER-D3QN的道路铺设算法" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=center;fontFamily=宋体;" parent="1fdf3b25b50cf41e-19" vertex="1">
+          <mxGeometry y="26" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-21" value="第三章" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=宋体;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="395" y="230" width="220" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="1fdf3b25b50cf41e-22" value="基于智能体行为导向的车位布局" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=center;fontFamily=宋体;" parent="1fdf3b25b50cf41e-21" vertex="1">
+          <mxGeometry y="26" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-11" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;endWidth=12.093023255813954;endSize=5;fontFamily=宋体;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="499.83000000000004" y="106" as="sourcePoint" />
+            <mxPoint x="500" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-14" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;endWidth=12.093023255813954;endSize=5;fontFamily=宋体;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="499.71000000000004" y="196" as="sourcePoint" />
+            <mxPoint x="499.88" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-15" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;endWidth=12.093023255813954;endSize=5;fontFamily=宋体;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="499.71000000000004" y="286" as="sourcePoint" />
+            <mxPoint x="499.88" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-17" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;endWidth=12.093023255813954;endSize=5;fontFamily=宋体;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="499.71000000000004" y="376" as="sourcePoint" />
+            <mxPoint x="499.88" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-21" value="第六章" style="swimlane;html=1;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e0e0e0;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;align=center;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=宋体;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="395" y="500" width="220" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-22" value="总结与展望" style="text;html=1;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;align=center;fontFamily=宋体;" parent="6bFNg9o8jFOGxVV2emvv-21" vertex="1">
+          <mxGeometry y="26" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-23" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;endWidth=12.093023255813954;endSize=5;fontFamily=宋体;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="499.71000000000004" y="466" as="sourcePoint" />
+            <mxPoint x="499.88" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6bFNg9o8jFOGxVV2emvv-18" value="&lt;font face=&quot;宋体&quot; style=&quot;font-size: 14px;&quot;&gt;本文核心部分&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=宋体;" parent="1" vertex="1">
+          <mxGeometry x="626" y="308.5" width="17.5" height="85" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

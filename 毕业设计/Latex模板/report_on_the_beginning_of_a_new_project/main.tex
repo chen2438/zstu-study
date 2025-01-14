@@ -1,0 +1,44 @@
+\documentclass[UTF8, AutoFakeBold]{ctexart}
+\usepackage{adjustbox, geometry, amsfonts, float, tabularray, titlesec, caption, amsmath, bbm, pdfpages}
+% \usepackage[backend=biber,style=gb7714-2015,gbnamefmt=lowercase]{biblatex}
+\RequirePackage[backend=biber,style=gb7714-2015,gbnoauthor=true,gbnamefmt=lowercase,gbpunctin=false]{biblatex}
+\DeclareFieldFormat[inproceedings]{booktitle}{#1[C]}
+\DefineBibliographyStrings{english}{in={In:\ }}
+\usepackage[inkscapeformat=pdf, inkscapelatex=false]{svg}
+\usepackage[hidelinks=false]{hyperref}
+\linespread{1.5}
+\geometry{a4paper,left=0.98in,right=0.98in,top=0.98in,bottom=0.98in}
+
+\DeclareCaptionFormat{myformat}{\songti\zihao{5}\textbf{\selectfont#1\;#2#3}}
+\captionsetup[figure]{name=图,format=myformat,labelsep=space}
+\captionsetup[table]{name=表,format=myformat,labelsep=space}
+
+% page
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+% reference
+\defbibheading{heading_style}{
+    \vspace{1ex}
+    \noindent \heiti \zihao{4} \textbf{参考文献}
+}
+\addbibresource[location=local]{reference.bib}
+
+\NewTblrTheme{plain}{
+  \DefTblrTemplate{contfoot}{default}{}
+  \DefTblrTemplate{head}{default}{}
+}
+
+\titleformat{\section}[block]{\bfseries\zihao{4}\heiti}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\zihao{-4}\heiti}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\zihao{-4}\heiti}{(\arabic{subsubsection})}{1em}{}
+
+\begin{document}
+\input{title/title.tex}
+\includepdf[pages=-]{res/开题报告成绩和答辩意见.pdf}
+% \input{table/table.tex}
+\input{main_body/main_body.tex}
+
+\printbibliography[heading=heading_style]
+
+\end{document}

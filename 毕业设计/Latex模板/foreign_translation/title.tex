@@ -1,0 +1,49 @@
+
+\newlength\myheight
+\newcommand\Mysavedprevdepth{}%
+\newcommand\UnderlineCentered[3]{%
+  \begin{adjustbox}{minipage=[t]{\dimexpr#1\relax},gstore totalheight=\myheight,margin=0pt}%
+    \centering\leavevmode#3\par\xdef\Mysavedprevdepth{\the\prevdepth}%
+  \end{adjustbox}%
+  \hspace*{-\dimexpr#1\relax}%
+  \begin{adjustbox}{minipage=[t][\myheight]{\dimexpr#1\relax},margin=0pt}%
+    \vphantom{Eg}\lower\dimexpr#2\relax\hbox to\hsize{\leaders\hrule\hfill\kern0pt}\par
+    \kern-\dimexpr#2\relax
+    \xleaders\vbox to\baselineskip {\vfill\hbox{\lower\dimexpr#2\relax\hbox to\hsize{\leaders\hrule\hfill\kern0pt}}\kern-\dimexpr#2\relax}\vfill
+    \kern\Mysavedprevdepth
+  \end{adjustbox}%
+}%
+\newlength{\lwtm}
+\setlength{\lwtm}{22mm}
+\newlength{\remainingwidth}
+\setlength{\remainingwidth}{35em}
+% \setlength{\lwtm}{\widthof{原文1：}}
+\newgeometry{left=0.58in,right=0.58in,top=0.98in,bottom=0.98in}
+
+\thispagestyle{empty}
+\vspace{42pt} 
+\zihao{-2}
+\begin{center}
+    \textbf{\zihao{1}外\,文\,翻\,译}
+    
+\end{center}
+\vspace{42pt}
+
+\textbf{毕业设计题目：\UnderlineCentered{15.8em}{2mm}{基于机器学习的车位规划}}
+
+\vspace{64pt}
+
+\begin{tabular}{p{\lwtm}p{\remainingwidth}}%
+\textbf{原文1：} & \UnderlineCentered{\remainingwidth}{2mm}{\textbf{\textrm{Spatial planning of urban communities via deep reinforcement learning}}} \\
+& \\[-14pt]
+\textbf{译文1：} & \UnderlineCentered{\remainingwidth}{2mm}{\textbf{基于深度强化学习的城市社区空间规划}} \\
+\end{tabular}
+
+\vspace{92pt}
+
+\begin{tabular}{p{\lwtm}p{\remainingwidth}}%
+\textbf{原文2：} & \UnderlineCentered{\remainingwidth}{2mm}{\textbf{\textrm{Puzzle-based parking}}} \\
+\textbf{译文2：} & \UnderlineCentered{\remainingwidth}{2mm}{\textbf{基于谜题的停车}} \\
+\end{tabular}
+
+\restoregeometry

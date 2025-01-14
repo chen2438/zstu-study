@@ -1,0 +1,118 @@
+% !TeX program = xelatex
+% !TEX root = main.tex
+% !TeX encoding = UTF-8
+\documentclass[UTF8,fontset=none,AutoFakeBold,AutoFakeSlant]{ctexart}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{indentfirst}
+\usepackage[hidelinks=false]{hyperref}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{adjustbox}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e} 
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{bbm}
+\usepackage{unicode-math}
+
+
+% 字体设置
+\setCJKfamilyfont{tnr_}{Times New Roman}
+\setCJKfamilyfont{st_}{宋体}
+\setCJKfamilyfont{fs_}{仿宋}
+\setCJKmainfont{宋体}
+\setmainfont{Times New Roman}
+\setCJKfamilyfont{ht_}{黑体}
+\setCJKfamilyfont{kt_}{楷体}
+
+% 1.5倍行距
+\linespread{1.5}
+\geometry{a4paper,left=0.98in,right=0.98in,top=0.98in,bottom=0.98in}
+
+\newcommand{\songti}{\CJKfamily{st_}}
+\newcommand{\heiti}{\CJKfamily{ht_}}
+\newcommand{\fangsong}{\CJKfamily{fs_}}
+\newcommand{\kt}{\CJKfamily{kt_}}
+\newcommand{\tnr}{\CJKfamily{tnr_}}
+
+\newcommand{\zuozhe}{\fontsize{11pt}{16.5pt}\selectfont}
+\newcommand{\xuexiao}{\fontsize{10pt}{15pt}\selectfont}
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+% 图片路径
+\graphicspath{ {pictures} }
+
+\captionsetup[table]{position=top}
+\captionsetup[figure]{position=bottom}
+\titlespacing{\section}{0pt}{1.5ex}{1.5ex}
+\titlespacing{\subsection}{0pt}{1.2ex}{1.2ex}
+\titlespacing{\subsubsection}{0pt}{1ex}{1ex}
+
+\DeclareCaptionFormat{enformat}{#1\;#2#3}
+\newcommand{\entitle}{
+    \newpage
+    \resetcounter
+    \titleformat{\section}[block]{\centering\bfseries}{\thesection}{1em}{}
+    \titleformat{\subsection}[block]{\fontsize{10.5pt}{10.5pt}\selectfont\bfseries}{\thesubsection}{1em}{}
+    \titleformat{\subsubsection}[block]{\fontsize{10.5pt}{10.5pt}\selectfont}{\thesubsubsection)}{1em}{}
+    \captionsetup[figure]{name=Fig.,labelsep=space,format=enformat}
+    \captionsetup[table]{name=Table.,labelsep=space,format=enformat}
+    \renewcommand{\algorithmcfname}{Algorithm}
+}
+\DeclareCaptionFormat{zhformat}{\songti\zihao{5}\textbf{\selectfont#1\;#2#3}}
+\newcommand{\zhtitle}{
+    \newpage
+    \resetcounter
+    \titleformat{\section}[block]{\bfseries}{\thesection.}{1em}{}
+    \titleformat{\subsection}[block]{\zihao{-4}\bfseries}{\thesubsection}{1em}{}
+    \titleformat{\subsubsection}[block]{\zihao{-4}}{\thesubsubsection)}{1em}{}
+    \captionsetup[figure]{name=图,format=zhformat,labelsep=space}
+    \captionsetup[table]{name=表,format=zhformat,labelsep=space}
+    \renewcommand{\algorithmcfname}{算法}
+}
+\newcommand{\resetcounter}{
+    \setcounter{page}{1}
+    \setcounter{section}{0}
+    \setcounter{subsection}{0}
+    \setcounter{subsubsection}{0}
+    \setcounter{figure}{0}
+    \setcounter{table}{0}
+    \setcounter{equation}{0}
+    \setcounter{algocf}{0}
+    \setcounter{footnote}{0}
+}
+
+\begin{document}
+\input{title.tex}
+
+\entitle
+\noindent \zihao{4}\heiti 原文1\newline
+\input{passage1/original_text.tex}
+
+\zhtitle
+\noindent \zihao{4}\heiti 译文1\newline
+\input{passage1/translation_text.tex}
+
+\entitle
+\noindent \zihao{4}\heiti 原文2\newline
+\input{passage2/original_text.tex}
+
+\zhtitle
+\noindent \zihao{4}\heiti 译文2\newline
+\input{passage2/translation_text.tex}
+
+\end{document}
