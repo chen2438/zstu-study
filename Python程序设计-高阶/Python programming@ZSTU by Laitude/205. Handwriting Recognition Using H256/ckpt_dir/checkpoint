@@ -1,6 +1,0 @@
-model_checkpoint_path: "mnist_h256_model.ckpt"
-all_model_checkpoint_paths: "mnist_h256_model_000015.ckpt"
-all_model_checkpoint_paths: "mnist_h256_model_000020.ckpt"
-all_model_checkpoint_paths: "mnist_h256_model_000025.ckpt"
-all_model_checkpoint_paths: "mnist_h256_model_000030.ckpt"
-all_model_checkpoint_paths: "mnist_h256_model.ckpt"
