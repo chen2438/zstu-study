@@ -1,0 +1,17 @@
+\abstractzh{
+	随着我国汽车保有量持续增长，城市化进程加速，地面停车资源日益紧张。为解决停车难题，地下停车场被认为是一种有效的解决方案。然而，地库设计与建设依然面临多重挑战，如规范不统一、设计参数繁多、结构复杂等。由于人工设计效率低下，且难以充分利用空地，因此亟需一种能够减轻设计压力、高效利用空地的车位自动化排布算法，同时，能够向设计师提供多种方案参考，并降低图纸设计、修改成本。
+
+	针对以上问题，本文提出了一种基于智能体行为导向和PER-D3QN的车位排布算法。首先，根据障碍物等条件确定地库边界，将图纸栅格化，并在状态矩阵中初始化各地块状态。其次，根据智能体的行为和位置，设计了一种创新的车位布局方法，考虑了排布过程中障碍物、柱网等的影响。随后，本文构建了一个基于PER-D3QN的强化学习模型，其中状态空间由智能体为中心的状态矩阵、智能体距离障碍、车位、边界的信息以及智能体朝向组成，行动空间定义为前进、左转和右转。模型通过数据初始化、特征提取网络、特征融合网络、增强探索性的噪声网络以及决斗网络输出每个行为的预期回报（Q值）。为了更有效地利用有限的数据，本文使用PER算法根据数据优先级进行多次利用。最后，为了评估道路铺设和车位排布效果，本文设计了一个奖励评价系统，主要从车辆和交通两个方面考虑，其中交通包含直路奖励、道路过宽惩罚和重复铺设惩罚。为了验证算法有效性，本文使用了6张不同的标准CAD工程图纸对比了现有算法和本文算法，发现本文提出的算法在处理大规模和复杂障碍的图纸时表现优异，能够在有限空间内最大化车位数量，同时考虑全局和局部信息，得到更优的布局。
+}
+{
+	地下停车场；车位排布；D3QN；PER；智能体行为导向
+}
+
+\abstracten{
+	As the number of automobiles in China continues to increase and urbanization accelerates, the shortage of surface parking resources becomes increasingly severe. Underground parking lots are considered an effective solution to alleviate this parking problem. However, the design and construction of underground garages still face multiple challenges, such as inconsistent regulations, numerous design parameters, and complex structures. Given the inefficiency of manual design and challenges in space utilization, there's a pressing demand for an automated parking layout algorithm. It should alleviate design pressure, optimize space, offer diverse design options, and cut down on drawing costs and modifications.
+
+	In response to these issues, this paper proposes a parking layout algorithm based on agent behavior guidance and PER-D3QN. Firstly, determine the boundaries of the underground garage based on obstacles and other conditions, gridify the drawings, and initialize the status of each grid block in the state matrix. Secondly, an innovative parking layout method is designed based on the behavior and position of agent, considering the influence of obstacles and columns during the layout process. Thirdly, a reinforcement learning model based on PER-D3QN is constructed, where the state space consists of information such as the state matrix centered on the agent, the distance from obstacles, parking spaces, and boundaries, as well as the orientation of the agent, and the action space is defined as forward, left turn, and right turn. The model outputs the expected return (Q-value) for each action through data initialization, feature extraction network, feature fusion network, enhanced exploratory noise network, and duel network. To more effectively utilize limited data, the PER algorithm is used for multiple exploits based on data priority. Finally, to evaluate the effectiveness of road paving and parking layout, a reward evaluation system is designed, mainly considering vehicles and traffic, where traffic includes rewards for straight roads, penalties for excessively wide roads and redundant paving. To validate the effectiveness of the algorithm, this paper compared the existing algorithm with the proposed one using six different standard CAD engineering drawings. It was found that the algorithm proposed in this paper performs excellently when dealing with large-scale and complex obstacle layouts, maximizing the number of parking spaces within limited space. Additionally, it takes into account both global and local information to achieve optimal layouts.
+}
+{
+	Underground Parking Lot; Parking Space Arrangement; D3QN; PER; Agent Behavior Guidance
+}

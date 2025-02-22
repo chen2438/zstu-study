@@ -1,6 +1,6 @@
 # zstu-study
 
-感谢所有贡献者！欢迎提交 [Pull requests](https://github.com/chen2438/zstu-study/pulls) 参与维护此仓库或练习 Github 使用方法. 推荐提交至 `dev` 分支，也可提交至 `main` 分支.
+感谢所有贡献者！欢迎提交 [Pull requests](https://github.com/chen2438/zstu-study/pulls) 参与维护此仓库或练习 Github 使用方法。推荐提交至 `dev` 分支。`main` 分支受保护，禁止直接`commit` 或 `force push`，需提交 `pull request` 以更改。
 
 欢迎关注: [www.chenhaotian.top](https://www.chenhaotian.top)
 
@@ -35,6 +35,8 @@ main分支为项目主分支，dev分支为建议pull request分支，merge分�
 [0.3.0](https://github.com/chen2438/zstu-study/releases/tag/0.3.0) 存档已释出.
 
 [0.3.1](https://github.com/chen2438/zstu-study/releases/tag/0.3.1) 存档已释出.
+
+[0.4.0](https://github.com/chen2438/zstu-study/releases/tag/0.4.0) 存档已释出.
 
 ### 宇宙安全声明
 
