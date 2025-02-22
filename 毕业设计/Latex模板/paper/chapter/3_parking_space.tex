@@ -1,0 +1,176 @@
+\section{基于智能体行为导向的车位布局}
+\subsection{地库环境构建}
+\subsubsection{问题描述}
+地库排布问题的输入为CAD图纸，但由于图纸情况较为复杂，存在着斜边、障碍等，同时道路、车位、柱网等尺寸都不相同，因此需要简化图纸，便于后续处理。本文将按照如下步骤进行地库环境矩阵化：
+\begin{enumerate}
+    \item 首先，根据给定的边界内部点，确定地库边界，其中，包含该点的最大多边形区域记为$S_{boundary}$。
+    \item 其次，遍历获取图中的障碍块$S_{bar}=\{S_{bar}^{j}|j\in \{1,2,\dots,n_{bar}\}\}$与其对应的建筑集$S_{build}^{j}=\{S_{build_i}^{j}|j\in \{1,2,\dots,n_{build}\}\}$，以及出入口$S_{ent}=\{S_{ent}^{j}|j\in \{1,2,\dots,n_{ent}\}\}$，其中$\forall S_{build_i}^{j} \subseteq S_{bar}^{j}$。
+    \item 接着，根据当前坐标轴，寻找$S_{boundary}$的轴对齐外接矩形$S_{rec}$，其平行于x轴长度为$length_x$，平行于y轴长度为$length_y$。并以$\mu = 0.50m$的精度\cite{1023719817.nh}对$S_{rec}$、$S_{bar}$、$S_{ent}$进行矩阵化操作，确定了矩阵$S_{rec}$的行列数分别为$m$、$n$,其中$m=\lceil \frac{length_y}{\mu} \rceil$，$n=\lceil \frac{length_x}{\mu} \rceil$，矩阵化结果如图~\ref{fig:matrixization} 所示。
+          \begin{figure}[!htb]
+              \centering
+              \includesvg[width=0.5\textwidth]{3/图纸矩阵化}
+              \caption{图纸矩阵化示例图}
+              \label{fig:matrixization}
+          \end{figure}
+    \item 同时，为了初始化$S_{rec}$得到初始状态矩阵$S_{state}^0$，需针对每个地块$S_{cell}^{(i,j)}=\{(x_0,y_0),(x_1,y_1)\}$定义不同的标记，其中$(x_0,y_0)$为该地块左下角坐标，$(x_1,y_1)$为该地块右上角坐标。若地块位于出入口$S_{ent}$区域，则标记为-3；若地块位于边界$S_{border}$区域，则标记为-2；若地块位于障碍区域$S_{bar}$，则标记为-1；若地块已被铺设为道路$S_{road}$，则标记为1；若地块已被放置为车位$S_{car}$，则被标记为2；其余为空地$S_{space}$，标记为0。矩阵$S_{state}$中所有网格的状态标记如公式~\ref{state} 所示，其计算或放置优先级如表~\ref{tab:diff_sqaure} 所示。
+          \begin{equation}
+              \label{state}
+              S_{state}(i,j)=\left\{
+              \begin{array}{ll}
+                  -3, \quad & S_{cell}^{(i,j)} \in S_{space}  \\
+                  -2,       & S_{cell}^{(i,j)} \in S_{border} \\
+                  -1,       & S_{cell}^{(i,j)} \in S_{bar}    \\
+                  0,        & S_{cell}^{(i,j)} \in S_{space}  \\
+                  1,        & S_{cell}^{(i,j)} \in S_{road}   \\
+                  2,        & S_{cell}^{(i,j)} \in S_{car}
+              \end{array}
+              \right.,i \in [0,m), j \in [0,n)
+          \end{equation}
+          \begin{table}[!htb]
+              \caption{不同地块含义及优先级}
+              \label{tab:diff_sqaure}
+              \centering
+              \linespread{1.25}\selectfont
+              % 调整表格缩放
+              \begin{tabular}{C{1cm} C{1.5cm} C{1.5cm}}
+                  \hline
+                  标记 & 含义  & 优先级 \\
+                  \hline
+                  -3 & 出入口 & 3   \\
+                  -2 & 边界  & 1   \\
+                  -1 & 障碍  & 2   \\
+                  0  & 空地  & 5   \\
+                  1  & 道路  & 4   \\
+                  2  & 车位  & 6   \\
+                  \hline
+                  
+              \end{tabular}
+              % \caption{(a)不同地块含义及其优先级(b)状态矩阵示例图}
+          \end{table}
+    \item 完成以上初始化后，智能体便于该图中边铺设道路，边放置车位。最终生成的状态矩阵$S_{state}^n$如图~\ref{fig:matrix_exam} 所示。
+          \begin{figure}[!htb]
+              \centering
+              \includesvg[width=0.5\textwidth]{3/状态矩阵示例图}
+              \caption{状态矩阵示例图}
+              \label{fig:matrix_exam}
+          \end{figure}
+\end{enumerate}
+\subsubsection{约束条件}
+在地库车位排布问题中，主体部分包括道路$R=\{R_k|k=\{1,2,\dots,n_{road}\}\}$、车位$P_m=\{P_m^k|k=\{1,2,\dots,n_{car}\}\}$、障碍$S_{bar}$，本文主要考虑以下三个约束条件：
+\paragraph{内在约束}确保道路的连通性和车位间的独立性。
+\begin{itemize}
+    \item 道路：为保证道路的连通性，算法中的智能体会向相邻网格移动，从而确保道路构成一个连通图。
+    \item 车位：为精确记录车位的位置，本文使用具体的车位坐标进行存储，即$P_m^k=\{(x_0,y_0),(x_1,y_1)\}$，其中$(x_0,y_0)$为车位的左下角坐标，$(x_1,y_1)$为车位的右上角坐标。在$S_{state}$中，为了便于后续处理，本文需要对每个车位进行网络切割并标记。为确保车位的有效使用，车位间不能重叠，即$$\forall P_m^i,P_m^j \in P_m,i \neq j,P_m^i \cap P_m^j = \varnothing,$$车位只可相邻排布，既保证了足够的停放空间，又确保交通流畅。
+\end{itemize}
+\paragraph{交叉约束}
+道路、障碍和车位两两互不相交。
+\begin{itemize}
+    \item 道路与障碍：需保证道路不被障碍遮挡，即$$\forall S_{bar}^i \in S_{bar},\forall R_j \in R,S_{bar}^i \cap R_j.$$
+    \item 道路与车位：为同时保证道路和车位的空间占用，需避免两者重合，即$$\forall P_m^i \in P_m,\forall R_j \in R,P_m^i \cap R_j.$$
+    \item 障碍与车位：为保证车位尺寸达到标准，需保证放置位置不与障碍重合，即$$\forall P_m^i \in P_m,\forall S_{bar}^j \in S_{bar},P_m^i \cap S_{bar}^j.$$
+\end{itemize}
+\paragraph{包含约束}
+为保证道路、障碍和车位的有效性，需保证其均位于边界内，即$$\forall R_j \in R,\forall S_{bar}^i \in S_{bar},\forall P_m^k \in P_m,R_j \cup S_{bar}^i \cup P_m^k \subseteq S_{boundary}.$$
+% 训练集相当于经验池
+\subsection{智能体行为导向的车位排布算法}
+在地库排布问题中，智能体仅需要进行道路铺设任务，根据当前智能体铺设道路时的朝向、行为和位置，判断当前道路周围应如何放置车位。
+
+\subsubsection{车位铺设方向选择}
+智能体的大致行为可以分为直行和转弯两种，其中直行行为是指智能体在当前位置沿着当前方向直行，转弯行为是指智能体在当前位置转向。
+
+若是直行，则只需在道路两侧铺设，如图~\ref{fig:stri_pave}，若是转向，则需在道路外侧铺路，如图~\ref{fig:turn_pave}。
+\begin{figure}[!htb]
+    \centering
+	\subfigure[\label{fig:stri_pave}车位直行铺设]{
+		\includesvg[width=0.32\linewidth]{3/直行铺设}}\hspace{2cm}
+	\subfigure[\label{fig:turn_pave}车位转向铺设]{
+		\includesvg[width=0.26\linewidth]{3/转向铺设}}
+    \caption{车位铺设示意图}
+\end{figure}
+
+\subsubsection{无障碍的车位布局}
+\label{section:no_obstacle}
+在无障碍的情况下，可进行更自由地布置车位。具体来说，先向道路两侧拓展一个车位宽和道路长的矩形区域，然后在这个区域内布置车位。
+\paragraph{直行放置}
+在直行铺设车位时，从当前道路两侧的基础排布点开始计算，如图~\ref{fig:stri_pave_pro} 所示。其中，图~\ref{fig:stri_pave_pro}~\subref{fig:stri_pave_1} 展示了铺设前车位放置的情况，图~\ref{fig:stri_pave_pro}~\subref{fig:stri_pave_2} 展示了当前步在待铺设区域内铺设车位后的情况。
+\begin{figure}[!htb]
+    \centering
+	\subfigure[\label{fig:stri_pave_1}铺设前车位放置状况]{
+		\includesvg[width=0.4\linewidth]{3/无障碍直行铺路1}}\hspace{1cm}
+	\subfigure[\label{fig:stri_pave_2}铺设后车位放置情况]{
+		\includesvg[width=0.4\linewidth]{3/无障碍直行铺路2}}
+    \caption{\label{fig:stri_pave_pro}无障碍直行铺路过程}
+\end{figure}
+
+\paragraph{转向放置}
+在转向铺设车位时，向需铺设的边拓展一个车位宽和道路长的矩形区域，也同样从基础排布点开始计算车位的位置，如图~\ref{fig:turn_pave_pro} 所示。其中，图~\ref{fig:turn_pave_pro}~\subref{fig:turn_pave_1} 展示了铺设前车位放置的情况。铺设总体分为两步，第一步铺设转向前外侧区域，并在铺设完成后重置转向后的两侧道路初始排布位置，其中内侧取决于上一边最后的车位，外侧则取决于转弯点，如图~\ref{fig:turn_pave_pro}~\subref{fig:turn_pave_2} 所示；第二步铺设转后前外侧区域，如图~\ref{fig:turn_pave_pro}~\subref{fig:turn_pave_3} 所示。
+\begin{figure}[!htb]
+    \centering
+	\subfigure[\label{fig:turn_pave_1}铺设前车位放置状况]{
+		\includesvg[width=0.42\linewidth]{3/无障碍转向铺路1}}
+	\subfigure[\label{fig:turn_pave_2}转向前外侧车位放置情况及基础排布点设置]{
+		\includesvg[width=0.4\linewidth]{3/无障碍转向铺路2}}\\
+	\subfigure[\label{fig:turn_pave_3}转向后外侧车位放置情况及基础排布点设置]{
+		\includesvg[width=0.42\linewidth]{3/无障碍转向铺路3}}
+    \caption{\label{fig:turn_pave_pro}无障碍转向铺路过程}
+\end{figure}
+
+\subsubsection{有障碍的车位布局}
+在有障碍的情况下，便有更多的限制因素，以避免与障碍物发生冲突。具体来说，需要根据障碍物到道路的距离，以及车辆的宽度和长度，来确定车位的布置方式。
+\paragraph{直行放置}
+在直行铺设车位时，本文将情况归纳为以下3种，如图~\ref{fig:stri_obstacle} 所示。记障碍物到道路的距离为$d$，车辆宽度为$car_{width}$，车辆长度为$car_{length}$。若$d<car_{width}$，则无法容纳任何车辆，该区域作废，从障碍的另一侧开始放置；若$d<car_{length}$，则可容纳横向车位，即平行于道路，在障碍和道路之间沿道路铺设横向车位；若$d\geq car_{length}$，则表示向外拓展的区域内无障碍，与\ref{section:no_obstacle}直行铺设中情况相同，则可正常铺设纵向车位，即垂直于道路。其中，此处的障碍物包含边界、障碍和车位。
+\begin{figure}[!htb]
+    \centering
+	\subfigure[\label{fig:dis_lt_cw}距离小于车位宽度]{
+		\includesvg[width=0.32\linewidth]{3/距离小于车位宽}}\hspace{1cm}
+	\subfigure[\label{fig:dis_lt_cl}距离小于车位长度]{
+		\includesvg[width=0.34\linewidth]{3/距离小于车位长}}\\
+	\subfigure[\label{fig:dis_gt_cl}距离大于等于车位长度]{
+		\includesvg[width=0.38\linewidth]{3/距离大于车位长}}
+    \caption{\label{fig:stri_obstacle}不同障碍与道路距离的直行铺设情况}
+\end{figure}
+\paragraph{转向放置}
+在转向铺设车位时，本文需要特别注意内侧有障碍物的情况。如图~\ref{fig:turn_obstacle} 所示，与\ref{section:no_obstacle}转向铺设中情况相似，但在转弯时，如果相较于最后的车位，障碍离转向处更近，则仅在第一步转向前车位放置完毕后有所不同，需将该内侧起始点移至障碍物在智能体转向后的朝向一侧，即图~\ref{fig:turn_pave} 中的障碍物的左侧。
+\begin{figure}[!htb]
+    \centering
+	\subfigure[\label{fig:turn_obstacle_pave_1}铺设前车位放置状况]{
+		\includesvg[width=0.4\linewidth]{3/有障碍转向铺路1}}\hspace{1cm}
+	\subfigure[\label{fig:turn_obstacle_pave_2}转向前外侧车位放置情况及基础排布点设置]{
+		\includesvg[width=0.42\linewidth]{3/有障碍转向铺路2}}\\
+	\subfigure[\label{fig:turn_obstacle_pave_3}转向后外侧车位放置情况及基础排布点设置]{
+		\includesvg[width=0.42\linewidth]{3/有障碍转向铺路3}}
+    \caption{\label{fig:turn_obstacle}有障碍转向铺路过程}
+\end{figure}
+\subsubsection{柱网的布置}
+在设计车位布局时，柱子的位置是一个重要的考虑因素，因为它们对车位的数量和布局有直接影响。如图~\ref{fig:column_pave} 所示，根据车位的朝向，需要添加的柱子的位置会有所不同。对于横向车位，为了保证车辆的安全和方便，至少每三个车位放置一个柱子，如图~\ref{fig:column_pave}~\subref{fig:vertical_parking} 所示。而对于纵向车位，由于空间的限制和车辆的行驶方向，需在每个车位之间都放置一个柱子，如图~\ref{fig:column_pave}~\subref{fig:horizontal_parking} 所示。
+\begin{figure}[!htb]
+    \centering
+	\subfigure[\label{fig:vertical_parking}纵向车位的柱网铺设]{
+		\includesvg[width=0.26\linewidth]{3/纵向车位}}
+	\subfigure[\label{fig:horizontal_parking}横向车位的柱网铺设]{
+		\includesvg[width=0.36\linewidth]{3/横向车位}}
+    \caption{\label{fig:column_pave}柱网铺设}
+\end{figure}
+\paragraph{直行放置}
+在直行铺设车位时，需在每条道路两侧，预先放置与行进方向相反侧的柱子，然后再放置车位。这样做的目的是为了确保车位的安全和方便。同时，在放置柱子之前，还需要判断当前是否还可以继续放置车位，以最大化车位的数量。如图~\ref{fig:strai_pillar} 所示，是直行时柱网的放置示意图。
+\begin{figure}[!htb]
+    \centering
+    \subfigure[\label{fig:strai_pillar_possible}未满足最少柱网放置要求]{
+        \includesvg[width=0.33\linewidth]{3/竖向车位1}\hspace{2cm}
+        \includesvg[width=0.33\linewidth]{3/竖向车位2}}\\
+    \subfigure[\label{fig:strai_pillar_impossible}满足最少柱网放置要求]{
+        \includesvg[width=0.26\linewidth]{3/竖向车位3}\hspace{2cm}
+        \includesvg[width=0.33\linewidth]{3/横向车位1}}
+    \caption{\label{fig:strai_pillar}直行时柱网的放置}
+\end{figure}
+\paragraph{转向放置}
+在转向铺设车位时，柱网的放置与直行放置基本相同，但还需额外考虑转向的影响。具体来说，需要判断当前道路最后的车位朝智能体转弯前朝向一侧是否可以放置一个柱子。如果可以，就在放置一个柱子；反之，则将最后一个车位移除，然后再紧接着车位放置一个柱子（若移除后是柱子，则不进行其他操作）。如图~\ref{fig:turn_pillar} 所示，是转向时向街边两侧放柱子的示意图。
+\begin{figure}[H]
+    \centering
+	\subfigure[\label{fig:turn_pillar_possible}转向街边两侧均可放柱子]{
+		\includesvg[width=0.3\linewidth]{3/转向可放柱}}\\
+	\subfigure[\label{fig:turn_pillar_impossible}转向街边两侧无法放柱子]{
+		\includesvg[width=0.3\linewidth]{3/转向不可放柱1}\hspace{1cm}
+		\includesvg[width=0.3\linewidth]{3/转向不可放柱2}}
+    \caption{\label{fig:turn_pillar}转向时向街边两侧放柱子}
+\end{figure}
