@@ -1,0 +1,39 @@
+\documentclass[UTF8, AutoFakeBold]{ctexart}
+\usepackage{adjustbox, geometry, amsfonts, float, tabularray, titlesec, subfig, graphicx, gensymb, amsmath}
+\usepackage[backend=biber,style=gb7714-2015,gbnamefmt=lowercase]{biblatex}
+\usepackage[hidelinks=false]{hyperref}
+\linespread{1.5}
+\geometry{a4paper,left=0.98in,right=0.98in,top=0.98in,bottom=0.98in}
+
+\DeclareCaptionFormat{myformat}{\songti\zihao{5}\textbf{\selectfont#1\;#2#3}}
+\captionsetup[figure]{name=图,format=myformat,labelsep=space}
+\captionsetup[table]{name=表,format=myformat,labelsep=space}
+
+% page
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+% reference
+\defbibheading{heading_style}{
+    \vspace{1ex}
+    \begin{center}
+        \noindent \bfseries \zihao{4} \textbf{参考文献}
+    \end{center}
+}
+\addbibresource[location=local]{reference.bib}
+
+\NewTblrTheme{plain}{
+  \DefTblrTemplate{contfoot}{default}{}
+  \DefTblrTemplate{head}{default}{}
+}
+
+\titleformat{\section}[block]{\bfseries\zihao{4}\heiti}{\thesection}{1em}{}
+\titleformat{\subsection}[block]{\zihao{-4}\heiti}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[block]{\zihao{-4}\heiti}{(\arabic{subsubsection})}{1em}{}
+
+\begin{document}
+\input{title/title.tex}
+\input{main_body/main_body.tex}
+
+\printbibliography[heading=heading_style]
+\end{document}

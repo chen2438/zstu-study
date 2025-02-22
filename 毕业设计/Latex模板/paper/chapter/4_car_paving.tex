@@ -1,0 +1,229 @@
+\section{基于PER-D3QN的道路铺设算法}
+为了解决地库车位排布问题，本文使用了深度强化学习中的一种算法——优先经验回放-决斗双重深度Q网络（Prioritized Experience Replay - Dueling Double Deep Q-Network，简称PER-D3QN）。在这个模型中，本文设计了一个神经网络来处理输入的状态信息，并输出各个行为相应的Q值。
+
+在地库车位排布问题中，本文将车位排布的过程抽象为一个强化学习问题。在这个问题中，本文定义了状态空间和行为空间，以及智能体的奖励机制，从而构建了一个完整的强化学习模型。
+\subsection{状态空间和行为空间}
+在模型中，状态空间和行为空间是两个关键的概念，它们定义了智能体的决策环境和可能的行为。
+\subsubsection{状态空间}
+状态空间是智能体环境感知的核心，它包含了丰富的环境元素信息，如车位、道路、空地、障碍、边界和出入口等。每个元素都被赋予了一个特定的数值，以表示其在环境中的位置和状态。这种数学表达方式使得复杂的环境信息得以简化，从而方便智能体进行处理和理解。
+
+状态空间主要由三个部分构成：以智能体为中心的$11\times 11$状态矩阵信息、智能体距离四周障碍、车位、边界等的距离信息、以及智能体的朝向信息。这些信息共同构成了智能体的环境感知，为智能体的决策提供了必要的信息。
+
+对于$11\times 11$状态矩阵信息，假设道路宽度为$M$，当前步所在矩阵为$$S_{cur}=\left\{S_{state}^{(o,p)}|m_i\leq o\leq m_i+M, m_j\leq p\leq m_j+M\right\}.$$因此，当前周边状态矩阵信息为$$S_{11aro}=\left\{S_{state}^{(o,p)}|m_i-5M\leq o\leq m_i+6M, m_j-5M\leq p\leq m_j+6M\right\}.$$当框取的矩阵超出边界时，边界外元素也置为边界。其拓展及未拓展情况如图~\ref{fig:11_11} 所示。
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=0.7\textwidth]{4/11_11_拓展}
+    \caption{四周状态矩阵及拓展示意图}
+    \label{fig:11_11}
+\end{figure}
+
+四周距离信息是通过在环境中向四周遍历得到的，遍历过程会在当前位置为障碍、车位、边界时停止。智能体的朝向信息用于模拟智能体在环境中的行为。
+
+这种状态空间的设计使得智能体能够有效地感知其周围环境，从而做出更加合理和高效的决策。
+\subsubsection{行为空间}
+行为空间则定义了智能体可以采取的所有行为。在模型中，智能体可以选择向前、向左或向右三个方向进行移动。每个行为都对应了一个特定的行为，例如，向前表示智能体向前移动一步，向左表示智能体向左转向，向右表示智能体向右转向。通过在行为空间中选择不同的行为，智能体可以根据当前的状态信息，做出最优的决策，从而有效地进行车位排布。
+\subsection{网络结构}
+本文设计了一个由多个主要部分组成的神经网络模型，如图~\ref{fig:network} 所示。该模型通过将周围信息放入状态矩阵信息提取网络，并同四周距离一期放入特征融合网络，最后输出各行为的Q值，以指导智能体进行车位排布。
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=\textwidth]{4/网络结构}
+    \caption{网络结构示意图}
+    \label{fig:network}
+\end{figure}
+\subsubsection{数据初始化}
+神经网络的输入由两部分信息组成：一部分是智能体距离四周障碍、车位、边界等的距离信息，另一部分是以智能体为中心的$11\times 11$的状态矩阵信息。状态矩阵包含了智能体周围的环境信息，如车位、道路、障碍物和边界等的位置信息。
+\paragraph{视角一致}
+为了模拟汽车在实际环境中的视野范围，本文还获取了智能体当前的朝向信息。这样，智能体就可以根据自己的朝向来理解和判断周围的环境，从而更好地进行决策。
+
+在处理输入信息的过程中，本文采用了一种特定的策略以适应智能体的视角，如图~\ref{fig:consistent_perspective} 所示。首先，设定智能体的默认朝向为向上。随后，需将以智能体为中心的$11\times 11$的状态矩阵进行旋转，使得智能体朝向始终保持向上。同样，对距离信息也进行类似的处理，将其调整为相对于智能体朝向的[前，左，后，右]的顺序。
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=\textwidth]{4/视角一致}
+    \caption{视觉一致性示意图}
+    \label{fig:consistent_perspective}
+\end{figure}
+
+通过这种方式，本文实现了一种视角一致的信息处理方式，使得智能体无论在何种朝向，都能以一致的方式理解其周围的环境。这大大简化了智能体的决策过程，使其能够更有效地进行学习和决策。
+\paragraph{独热编码}
+在处理状态矩阵时，本文采用了独热编码策略。由于状态矩阵中的元素是离散的，直接输入到神经网络可能会导致模型难以理解其含义。因此，将每个元素转换为一个独热编码向量，这样可以更直观地表示其在环境中的位置和状态，如图~\ref{fig:one_hot} 所示。
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=\textwidth]{4/独热编码}
+    \caption{独热编码示意图}
+    \label{fig:one_hot}
+\end{figure}
+
+通过这种方式，神经网络模型可以有效地处理和理解输入的状态信息，从而为智能体提供更准确的决策依据。这种处理输入信息的策略，使得模型能够更好地理解和处理复杂的环境信息，从而更好地进行决策。
+\subsubsection{特征提取网络}
+在神经网络模型中，特征提取是一个关键的步骤。为了从初始化后的数据中提取有用的特征，网络中引入了一个卷积神经网络（Convolutional Neural Network，简称CNN）。首先，通过两个卷积层进行特征提取。每个卷积层都包含了一组卷积核，这些卷积核可以在输入数据上滑动，从而提取出不同的特征。在每个卷积层后连接一个最大池化层，用于降低特征维度，同时保留最重要的信息，在保证减少模型计算复杂度的同时，避免过拟合。
+
+经过卷积和池化操作后，得到了一组二维的特征图。将这些特征图进行平坦化操作，将其转换为一维向量，方便与一维的四周距离信息进行连接，作为后续特征融合网络的输入。
+
+通过这种方式，模型能有效提取状态矩阵中的特征，从而更好地理解和判断智能体的周围环境，为智能体的决策提供更准确的依据。
+\subsubsection{特征融合网络}
+本文设计了一个特征融合网络，该网络将特征提取网络的输出与四周距离信息进行拼接，使得模型能够同时考虑到智能体的局部环境和全局环境，从而做出更全面的决策。
+
+特征融合网络主要由两个全连接层组成，它们的任务是进一步提取和整合特征。全连接层通过进行线性变换，将融合后的特征转换为新的特征空间，这种转换可以帮助模型学习到更复杂的特征和模式，从而提高模型的性能。本文还在全连接层之后引入了ReLU非线性激活函数，以增加模型的非线性表达能力。这种处理方式使得模型能够更好地理解和判断智能体的周围环境，为智能体的决策提供更准确的依据。
+
+通过这种方式，模型可以有效地处理和理解输入的状态信息，从而为智能体提供更准确的决策依据，进一步提高车位排布的效率和质量。
+\subsubsection{噪声网络及输出}
+在特征融合后，引入了一个噪声网络层，以增强模型的探索能力。在强化学习中，探索是关键，因为它使模型有可能发现更优的策略。然而，过度的探索可能导致模型训练过程中的不稳定性。为了解决这个问题，本文采用了噪声网络，它在训练过程中向模型的权重和偏置添加参数化噪声，以增强模型的探索性。
+
+噪声网络是一个带有参数化噪声的线性层，它在训练过程中向权重和偏置添加噪声。这种噪声不是固定的，而是作为模型的一部分进行学习和优化。这意味着，随着训练的进行，模型可以学习如何最好地利用这种噪声来增强其探索性，同时保持其性能的稳定性。
+
+在每次前向传播过程中，如果模块处于训练模式，它会重置噪声并将噪声添加到权重和偏置的均值上。如果模块处于评估模式，它将只使用权重和偏置的均值。这种设计使得模型在训练时能够增强探索性，而在评估时保持稳定性。
+
+最后，本文采用了决斗网络架构来进行决策。这种架构能够让模型更准确地估计每个行为的价值。通过这种方式，本文的模型可以有效地处理车位排布问题的状态信息，并输出相应的行为值，从而指导智能体进行有效的车位排布。
+\subsection{奖励设计}
+在模型中，设计了一个奖励评价体系来评估每一轮算法放置道路的效果。
+
+在强化学习中，奖励与惩罚机制的结合设置至关重要，因为它们协同作用，引导智能体学习最优策略。奖励机制通过正向激励来强化正确行为，帮助智能体识别并重复有助于实现目标的行为，从而提升策略的整体质量。另一方面，惩罚机制通过负向激励来抑制错误行为，促使智能体快速识别并避免低效或有害的行为，加速学习过程的收敛。奖励和惩罚的结合不仅有效地平衡了探索与利用，确保智能体在不同环境中高效学习，还通过规避高风险行为提升了系统的安全性和可靠性。
+
+本文中的奖励评价体系主要包括两个部分：车辆（Car）和交通（Traffic）\cite{zheng2023spatial}。每一步的具体奖励计算公式如下所示：
+\begin{equation}
+    \label{reward}
+    R_i = \alpha_c Car_i + \alpha_t Traffic_i
+\end{equation}
+
+交通部分则主要反映了当前的道路铺设情况，包括直路奖励$T_{linearity}$、道路过宽惩罚$T_{space}$和重复铺设惩罚$T_{overlap}$
+\begin{equation}
+    Traffic_i = \beta_l T_{linearity_i} + \beta_s T_{space_i} + \beta_o T_{overlap_i}
+\end{equation}
+
+其中$\alpha_c$、$\alpha_t$、$\beta_l$、$\beta_s$、$\beta_o$为权重参数。
+
+由于状态矩阵中每个元素表示精度大小的方形，当智能体铺设道路时，每一步均为道路宽度大小的方形，因此一步中包含$M\times M$个精度大小的方形。当第$i$步时，其左下角标记点位于第$m_i$行$n_i$列，定义其所在的方格为$B_i$，其中第$k$行$l$列为$$b^{i}_{kl} = S_{state}^{(m_i+m,n_i+n)}.$$
+
+\subsubsection{车辆}
+车辆部分主要考虑的是车位数量变化，当第$i$步时，其公式为：
+\begin{equation}
+    \label{car_num}
+    Car_i = \left\{
+    \begin{array}{ll}
+        Nc_i - Nc_{i-1},\quad & \quad i \geq 2 \\
+        0\quad                          & \quad i = 1
+    \end{array}
+    \right.
+\end{equation}
+
+公式中，$Nc_i$表示第$i$步车辆数。当式子返回的值大于0时，表示该步导致车辆数增加，为奖励；当值小于0时，表示该步导致车位减少，变为惩罚；否则车位数不变，不影响。
+\subsubsection{交通}
+\paragraph{直路奖励}
+当智能体在道路上行走时，需要保证道路的连通性，即道路尽量不断裂的情况。为了实现这一目标，本文设计了直路奖励机制，以鼓励智能体铺设连续的道路，如图~\ref{fig:stri_road} 。
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=0.5\linewidth]{4/直路}
+    \caption{\label{fig:stri_road}直路示意图}
+\end{figure}
+
+当第$i$步时，奖励为
+\begin{equation}
+    \begin{aligned}
+    T_{linearity_i} = & (U_{i-1}(o,p) \land D_{i-1}(o,p) \land \neg L_{i-1}(o,p) \land \neg R_{i-1}(o,p)) \lor \\ 
+    & (\neg U_{i-1}(o,p) \land \neg D_{i-1}(o,p) \land  L_{i-1}(o,p) \land  R_{i-1}(o,p)).
+    \end{aligned}
+\end{equation}
+
+实际计算中，需考虑上一步的相邻路块中是否全为道路，即从宏观上与相邻路块联通。设$U$、$D$、$L$、$R$为方格$B$的上、下、左、右方格。若对向方向均为道路，则返回1，为奖励；否则，返回0，不影响。
+\paragraph{道路过宽惩罚}
+道路过宽惩罚主要考虑的是道路的宽度是否超过了预设的最大宽度，如图~\ref{fig:excessive_road} 所示：
+\begin{figure}[!htb]
+    \centering
+    \includesvg[width=0.3\textwidth]{4/道路过宽}
+    \caption{道路过宽示例图}
+    \label{fig:excessive_road}
+\end{figure}
+
+当第 $i$ 步时，公式如下：
+\begin{equation}
+    T_{space_i} = \left\{
+    \begin{array}{ll}
+        -1,\quad & \quad i\geq 2 \land ( W_{i-1} > W_{\max}) \\
+        0\quad   & \quad \text{otherwise}
+    \end{array}
+    \right.
+\end{equation}
+
+公式中，$W_{i-1}$表示第$i-1$步的道路宽度，$W_{\max}$表示最大道路宽度。当式子返回-1时，表示第$i-1$步的道路宽度超过了预设的最大宽度；否则，道路未过宽$T_{space} = 0$。
+
+虽然利用广度优先遍历全图能计算获得道路是否过宽的信息，但效率过低，而本文想仅通过当前步附近的信息进行计算，仅凭临近方块无法判别道路是否过宽，例如直行后，与先前走过的道路连结时，当前方格三向均为道路，但并未产生过宽的道路，如图~\ref{fig:no_excessive_road}~\subref{fig:no_excessive_road_1} 所示；再如转弯后，其一侧为道路，但此时也并无过宽道路，如图~\ref{fig:no_excessive_road}~\subref{fig:no_excessive_road_2} 所示。
+\begin{figure}[!htb]
+    \centering
+    \subfigure[\label{fig:no_excessive_road_1}]{
+        \includesvg[width=0.25\linewidth]{4/道路未过宽1}}\hspace{1.5cm}
+    \subfigure[\label{fig:no_excessive_road_2}]{
+        \includesvg[width=0.25\linewidth]{4/道路未过宽2}}
+    \caption{\label{fig:no_excessive_road}道路未过宽}
+\end{figure}
+
+在实际计算中，通过通过当前步，推断前一步周围是否存在重复区域。假设道路过宽判别矩阵为$S_{overlap}$，False为道路未过宽（图中用0表示），True为道路过宽（图中用1表示），当前步覆盖的区域为当前区域，而当前区域后侧一排的两侧区域为检查区域。在智能体的每一步中，需进行如下步骤的判断：
+\begin{enumerate}
+    \item 重置$S_{overlap}$所有元素为False；
+    \item \label{s1} 将$S_{overlap}$中当前区域的元素重置为False；
+    \item 判断$S_{state}$中检查区域是否均为道路，若是，则跳转至\ref{s3}，否则，智能体继续行进；
+    \item \label{s3}判断$S_{overlap}$中检查区域是否存在过宽的道路，若是，则跳转至\ref{s4}，否则，智能体继续行进；
+    \item \label{s4}从智能体朝向的一侧开始，遍历$S_{state}$中智能体朝向反向黄色区域中的网格。若全为道路，则智能体继续行进，如图~\ref{fig:judege_excessive_road}~\subref{fig:no_excessive_road_sig} 所示，否则，跳转到\ref{s5}。
+    \item \label{s5}从智能体朝向反向的一侧开始，遍历$S_{state}$中智能体朝向黄色区域中的网格。若为道路，则在$S_{overlap}$中标记为过宽，如图~\ref{fig:judege_excessive_road}~\subref{fig:no_excessive_road_sig} 所示，否则，智能体继续行进。
+\end{enumerate}
+\begin{figure}[!htb]
+    \centering
+    \subfigure[\label{fig:no_excessive_road_sig}]{
+        \includesvg[width=0.46\linewidth]{4/无需标记过宽}}\hspace{10pt}
+    \subfigure[\label{fig:nexcessive_road_sig}]{
+        \includesvg[width=0.46\linewidth]{4/需标记过宽}}
+    \caption{\label{fig:judege_excessive_road}道路是否过宽判别示意图}
+\end{figure}
+\paragraph{重复铺设惩罚}
+重复铺设惩罚主要关注的是智能体是否再次抵达已经铺设过的道路，如图~\ref{fig:no_excessive_road}~\subref{fig:no_excessive_road_1} 所示，其目的为增加探索性。当第 $i$ 步时，惩罚为
+\begin{equation}
+    T_{overlap_i} = -\frac{\sum_{m,n} \mathbbm{1}[B_{state_i}(m,n)=1]}{M^2}.
+\end{equation}
+
+公式计算了当前步骤中已铺设道路的比例，用于精确评估智能体是否重新进入已铺设的道路。已铺设道路的比例越高，惩罚就越大。
+\subsection{算法流程}
+PER-D3QN算法流程与DQN基本一致，具体流程如下：
+
+在训练开始前，首先初始化状态 $s_1$，该状态包含智能体周围$11\times11$的状态矩阵$squ\textunderscore aro$、智能体距离四周障碍、边界、车位等的距离$dis\textunderscore aro$、智能体当前朝向$ori$以及初始奖励$r_1$。同时，设置结束状态$d$为False。
+
+在第$t$轮训练中，智能体根据当前状态$s_t$，利用D3QN算法选择最优行为$a_t$。执行行为$a_t$后，环境返回新的状态$s_{t+1}$、奖励$r_t$和结束状态$d$。智能体根据当前的行为和位置，在道路周围铺设车位。然后，将经验$(s_t, a_t, r_t, s_{t+1})$以最大优先级$p_t = \max_{i<t} p_i$存储在优先级经验回放池$D$中。将$s_{t+1}$设为新的当前状态，重复上述步骤，直到优先级经验回放池被填满。
+
+当优先级经验回放池被填满后，开始周期性地更新网络参数。首先，根据优先级在$D$中进行抽样，采样概率$P(i)$与优先级$P$成正比。然后，为每个经验计算一个重要性采样权重（ISW）。将抽样得到的奖励$r_t$和新的状态$s_{t+1}$输入目标网络，计算新的$Q$值。接着，将这个$Q$值输入行为网络，计算TD误差并更新相应经验的优先级。这个过程中，目标网络的参数也会进行更新，以保持网络的稳定性。
+
+在未来的时间步中，智能体继续与环境交互，产生新的经验并将其存储在经验回放池中。随后，从经验回放池中抽样以更新行为网络，并周期性地使用行为网络来更新目标网络。这一过程持续进行，直到模型收敛。
+
+其伪代码如算法\ref{alo:per_d3qn}所示。
+
+\begin{algorithm}[!htb]
+    \linespread{1.5}\selectfont
+    \KwIn{智能体周围$11\times11$的状态矩阵$squ\textunderscore aro$，智能体距离四周障碍，边界，车位等的距离$dis\textunderscore aro$，智能体当前朝向$ori$}
+    \KwOut{总奖励数和PER-D3QN的参数$\theta$}
+    \caption{\label{alo:per_d3qn}PER-D3QN}
+    初始化环境$Env$，经验回放池 $D$，行为网络$Q$权重参数$\theta$，目标网络$Q'$权重参数$\theta'$\;
+    设置总迭代轮次 $T$，折扣因子$\gamma$，ISW影响因子$\alpha$，目标网络更新频率 $C$，批量取样大小$m$，经验回放池大小 $k$，当前步数$step$，软更新参数$\tau$\;
+    % 随机初始化，初始化经验回放池$D$，设置训练超参数如表\ref{tab:hyper_para}所示\;
+    \For{$t \leftarrow 1$ \KwTo $T$}{
+    初始化$Env$，获取观测值$s_1=(squ\textunderscore aro, dis\textunderscore aro, ori)$，初始奖励$r_1$，结束状态$d = False$\;
+    $step=0$\;
+    \While{not $d$}{
+        根据当前策略$\pi$选择行为$a_t=\arg\max_{a_t}Q(s_t, a; \theta)$\;
+        在环境执行行为$a_t$，获取新的观测值$s_{t+1}$和奖励$r_t$，以及结束状态$d$\;
+        根据智能体行为和位置，在周边铺设道路\;
+        将经验数据$(s_t, a_t, r_t, s_{t+1}, d)$以最大优先级$p_t = \max_{i<t} p_i$ 的方式存储到$D$中\;
+        \If{$step \equiv 1 \mod C$ \textbf{and} $step \neq 1$ \textbf{and} $len(D)\geq k$}{
+            从$D$中按优先级$m$个经验数据$(s_j, a_j, r_j, s_{j+1}, d),j=\{1,2,\dots,m\}$\;
+            \For{$j \leftarrow 1$ \KwTo $m$}{
+                计算经验的采样概率 $P(j) = (\frac{p_j}{\sum_i p_i})^\alpha$\;
+                计算经验的重要性采样权重 $w_j = (N \cdot P(j))^{-\beta}$\;
+                计算TD误差 $\delta_j = r_j + \gamma Q'(s_{j+1}, \arg \max_{a} Q(s_{j+1}, a)) - Q(s_j, a_j)$\;
+                更新经验优先级$p_j \leftarrow |\delta_j| + \epsilon$\;
+            }
+            计算损失函数$loss = \frac{1}{m}\sum_{j=1}^n w_j\times(\delta_j)^2$，反向传播更新参数$\theta$\;
+            更新目标网络参数：$\theta' \leftarrow \tau\times\theta+(1-\tau)\times\theta'$\;
+        }
+        $s_t= s_{t+1}$\;
+        $step+=1$
+    }
+    保存D3QN网络参数$\theta$
+    }
+\end{algorithm}
+

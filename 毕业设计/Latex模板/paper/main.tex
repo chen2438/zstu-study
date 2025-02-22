@@ -1,0 +1,49 @@
+\documentclass{zstu_paper}
+\usepackage{array, tabularx, bbm, fontspec, multirow}
+\setmainfont[BoldFont={Times New Roman Bold}]{Times New Roman}
+\usepackage[inkscapeformat=pdf, inkscapelatex=false]{svg}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage{afterpage}
+\newcommand\myemptypage{
+    \null
+    \thispagestyle{empty}
+    \addtocounter{page}{-1}
+    \newpage
+    }
+
+% \renewcommand\thesubfigure{(\alph{subfigure})}
+
+\usepackage[labelformat=simple]{subcaption}
+% 设置图片存放路径
+\graphicspath{{images}}
+
+\begin{document}
+
+% 用于放在页眉
+\title{基于机器学习的车位规划}
+
+% 诚信声明页
+\includepdf[pages=-]{res/诚信声明.pdf}
+\myemptypage
+% 摘要
+\include{chapter/0_abstract.tex}
+\myemptypage
+% 目录
+\maketoc
+\myemptypage
+
+% 正文
+\include{chapter/1_introduction.tex}
+\include{chapter/2_model_building.tex}
+\include{chapter/3_parking_space.tex}
+\include{chapter/4_car_paving.tex}
+\include{chapter/5_verification.tex}
+\include{chapter/6_conclustion.tex}
+
+% 参考文献
+\makereference
+
+% 致谢，没有就注释掉
+\include{chapter/9_acknowledgement.tex}
+
+\end{document}
