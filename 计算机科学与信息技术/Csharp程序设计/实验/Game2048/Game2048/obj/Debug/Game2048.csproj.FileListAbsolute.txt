@@ -1,0 +1,17 @@
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\obj\Debug\Game2048.csprojResolveAssemblyReference.cache
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\obj\Debug\Game2048.Form1.resources
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\obj\Debug\Game2048.Properties.Resources.resources
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\obj\Debug\Game2048.csproj.GenerateResource.Cache
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\bin\Debug\Game2048.exe
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\bin\Debug\Game2048.pdb
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\obj\Debug\Game2048.exe
+c:\users\tds\documents\visual studio 2013\Projects\Game2048\Game2048\obj\Debug\Game2048.pdb
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\bin\Debug\Game2048.exe
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\bin\Debug\Game2048.pdb
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\obj\Debug\Game2048.csproj.AssemblyReference.cache
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\obj\Debug\Game2048.Form1.resources
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\obj\Debug\Game2048.Properties.Resources.resources
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\obj\Debug\Game2048.csproj.GenerateResource.cache
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\obj\Debug\Game2048.csproj.CoreCompileInputs.cache
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\obj\Debug\Game2048.exe
+E:\Projects\Github\zstu-study\C#程序设计\实验\Game2048\Game2048\obj\Debug\Game2048.pdb

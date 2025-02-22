@@ -1,0 +1,340 @@
+using System;
+using System.Collections;
+using System.Diagnostics;
+using static System.Console;
+
+namespace ConsoleApp
+{
+    public interface ICircle
+    {
+        double Radius { get; set; }
+        double CenterX { get; set; }
+        double CenterY { get; set; }
+        double Area { get; }
+        double Perimeter { get; }
+        bool Contains(double x, double y);
+        bool Contains(ICircle circle);
+        bool Overlaps(ICircle circle);
+    }
+    class CircleComparer : IComparer<ICircle>
+    {
+        public string CompareType { get; set; }
+        public int Compare(ICircle c1, ICircle c2) //throws ArgumentNullException
+        {
+            if (c1 == null || c2 == null)
+                throw new ArgumentNullException();
+
+            switch (CompareType)
+            {
+                case "radius":
+                    return c1.Radius.CompareTo(c2.Radius);
+                case "x":
+                    return c1.CenterX.CompareTo(c2.CenterX);
+                case "y":
+                    return c1.CenterY.CompareTo(c2.CenterY);
+                default:
+                    throw new ArgumentException("不支持该比较方式");
+            }
+        }
+    }
+    class Ellipse
+    {
+        public double CenterX { get; set; }
+        public double CenterY { get; set; }
+        protected double radiusLong;
+        public virtual double RadiusLong
+        {
+            get
+            {
+                return radiusLong;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException("RadiusLong", value, "RadiusLong必须赋正值");
+
+                radiusLong = value;
+                if (radiusShort > 0 && value < radiusShort)
+                {
+                    radiusLong = radiusShort;
+                    radiusShort = value;
+                }
+            }
+        }
+        protected double radiusShort;
+        public virtual double RadiusShort
+        {
+            get
+            {
+                return radiusShort;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException("RadiusShort", value, "RadiusShort必须赋正值");
+                if (value > radiusLong)
+                {
+                    radiusShort = radiusLong;
+                    radiusLong = value;
+                }
+                else
+                {
+                    radiusShort = value;
+                }
+            }
+        }
+        public Ellipse(double cx, double cy, double rx, double ry)
+        {
+            CenterX = cx;
+            CenterY = cy;
+            RadiusLong = rx;
+            RadiusShort = ry;
+        }
+        public virtual double Area
+        {
+            get
+            {
+                return Math.PI * RadiusLong * RadiusShort;
+            }
+        }
+        public virtual double Perimeter
+        {
+            get
+            {
+                return 2 * Math.PI * RadiusShort + 4 * (RadiusLong - RadiusShort);
+            }
+        }
+        public double DistanceTo(double x, double y)
+        {
+            return Math.Sqrt((CenterX - x) * (CenterX - x) +
+                (CenterY - y) * (CenterY - y));
+        }
+        public override string ToString()
+        {
+            return $"椭圆：圆心在({CenterX}, {CenterY})，长短半轴为({RadiusLong}, {RadiusShort})";
+        }
+    }
+    class DerivingCircle : Ellipse, ICircle, IComparable
+    {
+        public double Radius
+        {
+            get
+            {
+                return RadiusLong;
+            }
+            set
+            {
+                RadiusLong = value;
+                RadiusShort = value;
+            }
+        }
+        public DerivingCircle() : this(0, 0, 1)
+        {
+        }
+        public DerivingCircle(double cx, double cy, double r)
+            : base(cx, cy, r, r)
+        {
+            Radius = r;
+        }
+        public override double Area
+        {
+            get { return Math.PI * Radius * Radius; }
+        }
+        public override double Perimeter
+        {
+            get { return 2 * Math.PI * Radius; }
+        }
+        public bool Contains(double x, double y)
+        {
+            return DistanceTo(x, y) <= Radius;
+        }
+        public bool Contains(ICircle circle)
+        {
+            return DistanceTo(circle.CenterX, circle.CenterY) <= Radius - circle.Radius;
+        }
+        public bool Overlaps(ICircle circle)
+        {
+            return DistanceTo(circle.CenterX, circle.CenterY) <= Radius + circle.Radius;
+        }
+        public bool Extend(double range, out ICircle newCircle)
+        {
+            if (Radius + range < 0)
+            {
+                newCircle = new DerivingCircle(CenterX, CenterY, Radius);
+                return false;
+            }
+
+            newCircle = new DerivingCircle(CenterX, CenterY, Radius + range);
+            return true;
+        }
+        public override string ToString()
+        {
+            return $"派生的圆：圆心在({CenterX}, {CenterY})，半径为{Radius}";
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is ICircle))
+                throw new ArgumentException();
+
+            ICircle circle = obj as ICircle;
+            return Radius.CompareTo(circle.Radius);
+        }
+    }
+
+    class ComposingCircle : ICircle, IComparable<ICircle>
+    {
+        private Ellipse ellipse;
+        public double Radius
+        {
+            get
+            {
+                return ellipse.RadiusLong;
+            }
+            set
+            {
+                ellipse.RadiusLong = value;
+                ellipse.RadiusShort = value;
+            }
+        }
+        public double CenterX
+        {
+            get => ellipse.CenterX;
+            set => ellipse.CenterX = value;
+        }
+        public double CenterY
+        {
+            get => ellipse.CenterY;
+            set => ellipse.CenterY = value;
+        }
+        public ComposingCircle() : this(0, 0, 1)
+        {
+        }
+        public ComposingCircle(double cx, double cy, double r)
+        {
+            ellipse = new Ellipse(cx, cy, r, r);
+        }
+        public double Area
+        {
+            get { return Math.PI * Radius * Radius; }
+        }
+        public double Perimeter
+        {
+            get { return 2 * Math.PI * Radius; }
+        }
+        public bool Contains(double x, double y)
+        {
+            return ellipse.DistanceTo(x, y) <= Radius;
+        }
+        public bool Contains(ICircle circle)
+        {
+            return ellipse.DistanceTo(circle.CenterX, circle.CenterY) <= Radius - circle.Radius;
+        }
+        public bool Overlaps(ICircle circle)
+        {
+            return ellipse.DistanceTo(circle.CenterX, circle.CenterY) <= Radius + circle.Radius;
+        }
+        public bool Extend(double range, out ICircle newCircle)
+        {
+            if (Radius + range < 0)
+            {
+                newCircle = new DerivingCircle(CenterX, CenterY, Radius);
+                return false;
+            }
+
+            newCircle = new DerivingCircle(CenterX, CenterY, Radius + range);
+            return true;
+        }
+        public override string ToString()
+        {
+            return $"包含的圆：圆心在({CenterX}, {CenterY})，半径为{Radius}";
+        }
+
+        public int CompareTo(ICircle obj)
+        {
+            return Radius.CompareTo(obj.Radius);
+        }
+    }
+    //创建委托类型
+    public delegate bool CirclePredicate(ICircle number);
+    public class Exp3_1
+    {
+        public static void Main()
+        {
+            ComposingCircle c1 = new ComposingCircle();
+            c1.Radius = 6;
+            DerivingCircle c2 = new DerivingCircle(1, 1, 3);
+            Console.WriteLine(c1);
+            Console.WriteLine(c2);
+            Console.WriteLine("c1是否包含(1, 1)：" + c1.Contains(1, 1));
+            Console.WriteLine("c1是否包含c2：" + c1.Contains(c2));
+            Console.WriteLine("c1与c2是否有重叠：" + c1.Overlaps(c2));
+
+            Random rd = new Random();
+            ICircle[] cirs = new ICircle[10];
+            for (int i = 0; i < 5; i++)
+            {
+                cirs[2 * i] = new ComposingCircle(rd.Next(-100, 100), rd.Next(-100, 100), rd.Next(100));
+                cirs[2 * i + 1] = new DerivingCircle(rd.Next(-100, 100), rd.Next(-100, 100), rd.Next(100));
+            }
+            Console.WriteLine("基于半径进行比较");
+            Array.Sort(cirs, new CircleComparer { CompareType = "radius" });
+            Array.ForEach(cirs, x => Console.WriteLine(x));
+            Console.WriteLine("基于圆心X坐标进行比较");
+            Array.Sort(cirs, new CircleComparer { CompareType = "x" });
+            Array.ForEach(cirs, x => Console.WriteLine(x));
+            Console.WriteLine("基于圆心Y坐标进行比较");
+            Array.Sort(cirs, new CircleComparer { CompareType = "y" });
+            Array.ForEach(cirs, x => Console.WriteLine(x));
+
+            //生成委托实例
+            CirclePredicate predicate = InFirstQuadrant;
+
+            //从上面数组中任意选择一个圆，利用委托变量来判断该圆是否位于第一象限
+            Console.WriteLine("利用委托变量判断是否位于第一象限: {0}", predicate(cirs[0]));
+
+            //选出位于第一象限的圆
+            List<ICircle> selected = FilterArray(cirs, predicate);
+
+            //描述并输出
+            DisplayList("数组中的位于第一象限的圆有: ", selected);
+
+            //选出与坐标轴相交的圆并输出
+            selected = FilterArray(cirs, IntersectWithAxis);
+            DisplayList("数组中与坐标轴相交的圆有 : ", selected);
+        }
+
+        //选择满足predicate的数组元素
+        private static List<ICircle> FilterArray(ICircle[] array, CirclePredicate predicate)
+        {
+            List<ICircle> list = new List<ICircle>();
+            foreach (ICircle c in array)
+            {
+                if (predicate(c))
+                    list.Add(c);
+            }
+            return list;
+        }
+
+        //判断整个圆是否位于第一象限
+        private static bool InFirstQuadrant(ICircle circle)
+        {
+            return circle.CenterX > circle.Radius && circle.CenterX > circle.Radius;
+        }
+
+        //判断是否与坐标轴相交
+        private static bool IntersectWithAxis(ICircle circle)
+        {
+            return Math.Abs(circle.CenterX) < circle.Radius || Math.Abs(circle.CenterY) < circle.Radius; ;
+        }
+        //打印description，并输出数组元素
+        private static void DisplayList(string description, List<ICircle> list)
+        {
+            Console.WriteLine(description);
+            foreach (ICircle i in list)
+            {
+                Console.WriteLine(i);
+            }
+        }
+    }
+}
