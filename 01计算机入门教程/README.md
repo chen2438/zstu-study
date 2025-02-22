@@ -1,1 +1,0 @@
-https://storage.opennet.top/local/textbook/itBooks

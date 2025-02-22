@@ -1,2 +1,0 @@
-/ d root root rwxr-xr-x 0 
-//root d root root rwx------ 0 
