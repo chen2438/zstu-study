@@ -1,0 +1,14 @@
+/ d root root rwxr-xr-x 0 
+//1.txt f user1 users rwxr-xr-x 0 
+//dir d root root rwxr-xr-x 0 
+//dir/1.txt f user1 users rwxrwxrwx 1 
+//dir/for-all-users d user1 users rwxrwxrwx 0 
+//dir/only-for-user1 d user1 users rwx------ 0 
+//dir/only-user1-write.txt f user1 users rwxr-xr-x 0 123456
+//dir/subdir d root root rwxr-xr-x 0 
+//dir/subdir/1.txt f root root rwxr-xr-x 0 
+//only-user1-write.txt f user1 users rwxr-xr-x 0 
+//root d root root rwx------ 0 
+//test d user1 users rwxr-xr-x 0 
+//user1 d user1 users rwxr-xr-x 0 
+//user1/1.txt f user1 users rwxr-xr-x 0 

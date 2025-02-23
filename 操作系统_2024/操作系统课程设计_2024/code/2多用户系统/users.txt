@@ -1,2 +1,0 @@
-user1 user1 users /user1
-root password root /root
