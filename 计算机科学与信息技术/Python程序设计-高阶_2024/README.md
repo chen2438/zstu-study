@@ -10,7 +10,7 @@
 
 
 
-![考核要求](README.assets\考核要求.png)
+![考核要求](README.assets/考核要求.png)
 
 
 
