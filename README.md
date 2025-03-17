@@ -2,15 +2,14 @@
 
 感谢所有贡献者！欢迎提交 [Pull requests](https://github.com/chen2438/zstu-study/pulls) 参与维护此仓库或练习 Github 使用方法。推荐提交至 `dev` 分支。`main` 分支受保护，禁止直接`commit` 或 `force push`，需提交 `pull request` 以更改。
 
-欢迎关注: [www.chenhaotian.top](https://www.chenhaotian.top)
-
 电子邮件: admin@vayki.com
 
-友情链接: [zstu.wiki](https://zstu.wiki/)
+友情链接: 
 
-### 分支说明
+- [chenhaotian.top](https://chenhaotian.top)
 
-main分支为项目主分支，dev分支为建议pull request分支，merge分支为经文件整理后分支（目前由zyrzjyzxy维护，含ZSTU_选课提示）。
+- [zstu.wiki](https://zstu.wiki/)
+- [zstuacm.top](https://zstuacm.top)
 
 ### 项目简介
 
