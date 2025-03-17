@@ -11,6 +11,10 @@
 - [zstu.wiki](https://zstu.wiki/)
 - [zstuacm.top](https://zstuacm.top)
 
+### 分支说明
+
+main 分支为项目主分支，dev 分支为建议 Pull request 分支，merge 分支为计算机类文件分支（目前由zyrzjyzxy维护，含ZSTU_选课提示）。
+
 ### 项目简介
 
 浙江理工大学 学习资料(~~计算机类~~).
