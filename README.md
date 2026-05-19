@@ -15,8 +15,7 @@
 
 ### 分支说明
 
-main 分支为项目主分支，dev 分支为建议 Pull request 分支。目前项目由zyrzjyzxy维护。
-
+main 分支为项目主分支，dev 分支为建议 Pull request 分支。目前项目由[zyrzjyzxy](https://github.com/zyrzjyzxy)维护。
 ### 项目简介
 
 浙江理工大学 学习资料(~~计算机类~~).
