@@ -1,0 +1,568 @@
+\tnr
+
+\begin{center}
+    \zihao{4}\textbf{Spatial planning of urban communities via deep reinforcement learning}\\    
+    \zuozhe Yu Zheng, Yuming Lin, Liang Zhao, Tinghai Wu, Depeng Jin,Yong Li\\
+    \xuexiao Tsinghua University, Beijing, P. R. China.\\
+    liyong07@tsinghua.edu.cn\\
+\end{center}
+
+\fontsize{10.5pt}{10.5pt}\selectfont
+
+\noindent\textbf{Abstract: }Efective spatial planning of urban communities plays a critical role in the sustainable development of cities. Despite the convenience brought by geographic information systems and \
+computer-aided design, determining the layout of land use and roads still heavily relies on human experts. Here we propose an artifcial intelligence urban-planning model to generate spatial plans for urban \
+communities. To overcome the difculty of diverse and irregular urban geography, we construct a graph to describe the topology of cities in arbitrary forms and formulate urban planning as a sequential \
+decision-making problem on the graph. To tackle the challenge of the vast solution space, we develop a reinforcement learning model based on graph neural networks. Experiments on both synthetic and real-world \
+communities demonstrate that our computational model outperforms plans designed by human experts in objective metrics and that it can generate spatial plans responding to diferent circumstances and needs. We \
+also propose a human–artifcial intelligence collaborative workfow of urban planning, in which human designers can substantially beneft from our model to be more productive, generating more efcient spatial plans \
+with much less time. Our method demonstrates the great potential of computational urban planning and paves the way for more explorations in leveraging computational methodologies to solve challenging real-world \
+problems in urban science.
+
+\section{Methods}
+\subsection{Problem formulation}
+We formulate the problem of community spatial planning as a sequential Markov decision process (MDP), an interactive process between \
+the planning agent and the environment, in which the agent observes \
+the ‘state’ (the current conditions of the community), takes an ‘action’ \
+(placement of an urban functionality) at each step and receives ‘reward’ \
+(effect of the planned result) signaled by the environment, which \
+undergoes a ‘transition’ (changes of the layout) according to the agent’s \
+action. We utilize DRL to learn an effective policy that maps states to \
+actions with a parameterized neural network. The neural network is \
+optimized towards higher spatial efficiency through massive training \
+under the MDP, with millions of training samples of the 4-tuple (state, \
+action, reward and transition). As illustrated in Extended Data Fig. 1, \
+our MDP is composed of two consecutive stages:
+
+\begin{itemize}
+    \item Land-use planning. Given the initial road conditions, the agent 
+    places functionality blocks one at a time, either near existing 
+    roads or near boundaries of previously placed land use. After 
+    all the functionalities and open spaces are allocated, a reward 
+    regarding the efciency of land use is returned to the agent, 
+    which treats diferent land use as an integrated system. The fnal 
+    land-use plan becomes the initial condition of road planning.
+    \item Road planning. Boundaries of planned land use are viable locations for road construction. The agent builds roads iteratively, 
+    turning one boundary into a road segment at a single step. 
+    Stopped at a predefned termination step, a reward considering 
+    the transportation efciency is returned to the agent.
+\end{itemize}
+
+The reward is only calculated at the last step of each stage to \
+summarize the performance of land-use planning and road planning, \
+respectively, and all intermediate steps receive a reward of 0. We define \
+the reward for land use and road layout based on the 15-minute-city \
+concept\
+, which emphasizes the spatial efficiency to facilitate active \
+transportation such as walking and cycling instead of automobiles. \
+The two reward terms are calculated as follows:
+\begin{equation}
+    r_L = \alpha Service +Ecology,\label{land-use-planning}
+\end{equation}
+\begin{equation}
+    r_R = Traffic,\label{road-planning}
+\end{equation}
+where Service measures the community life-circle index in the 15-minute city, Ecology measures the coverage of green space and parks, \
+Traffic is a combination of road density and connectivity (Methods) \
+and α serves as a hyper-parameter indicating the weight of service \
+performance in the land-use reward. With the calculated reward values, \
+we use proximal policy optimization to update the parameters of value \
+and policy networks. We first train the agent for the land-use planning \
+task until convergence and then train the agent to build roads with the \
+optimal land-use plan obtained in the first stage. After two stages of \
+training, the AI agent is able to design communities with an efficient \
+spatial layout of both land use and roads.
+
+\textbf{Graph model.}Different from previous Go and chip design tasks, \
+urban planning is more challenging because of its much larger degrees \
+of freedom in the problem form. Specifically, the conditions of previous tasks are regular, for example, placing stones on a 19 × 19 board or \
+placing rectangular macros onto a grid chip canvas, which can be represented by pixels (raster). By contrast, the conditions for community \
+spatial planning are diverse and irregular because the road corners and \
+land blocks are usually not orthogonal. To accurately describe urban \
+geographic elements, including land blocks (L), segments of roads and \
+land-use boundaries (S) and junctions between roads and land-use \
+boundaries (J), we use vector representations, which have been proven \
+to have substantial advantages over raster representations in urban \
+planning, and consist of the following three geometries:
+\begin{itemize}
+    \item  ‘Polygon’ that describes a vacant land to be planned (for \
+    example, L1 in the right part of Extended Data Fig. 2a) or an \
+    already planned land block (for example, L2 in the right part of \
+    Extended Data Fig. 2a) with the coordinates of the land boundary;
+    \item ‘LineString’ that represents a road segment (for example, S3 in 
+    the right part of Extended Data Fig. 2a) or a boundary edge of a 
+    land block (for example, S9 in the right part of Extended Data 
+    Fig. 2a) with the coordinates of the start and end points; and
+    \item ‘Point’ that stands for the junctions between roads and landblock boundaries (for example, J2 and J7 in the right part of \
+    Extended Data Fig. 2a) with their coordinates.
+\end{itemize}
+
+We transform all geographic elements into the above three categories of geometries and then represent the whole community as a \
+graph, in which nodes are the geometries and edges stand for the spatial \
+contiguity relationship between these geometries, that is, two nodes \
+are connected if the underlying two geometries touch each other. Each \
+node stores its geographic information as the node features, including \
+the type, coordinates, width, height, length and area of the geometry. \
+In this way, spatial planning can be transformed as a problem of making \
+choices on a dynamic graph (Extended Data Fig. 2), in which the graph \
+evolves according to the agent’s actions.
+
+In the land-use planning task, the agent selects one L–J edge that \
+connects a vacant land and a junction, placing a given functionality at the \
+location specified by the corresponding L and J (Extended Data Fig. 2a). \
+In each step, the topology of the contiguity graph changes because \
+the newly placed functionality generates new nodes and edges. New \
+nodes include the new functionality itself, its boundaries, new junctions \
+and split segments. New edges indicate the newly established spatial \
+contiguity. Similarly, in the road planning task, the agent selects one \
+S node that is currently a boundary and constructs it as a road segment \
+(Extended Data Fig. 2b). Although the topology remains the same, \
+the graph’s attributes alter because the selected node’s type changes \
+from boundary to road. Through the problem reformulation with the \
+graph model, we can now handle the irregular urban blocks and unify \
+the two seemingly distinct stages of land use and road planning on \
+one single graph.
+
+\textbf{Action space design.}Another major challenge of urban planning is \
+the huge action space, which is almost infinite in the original continuous space, and still too large in the reduced discrete graph space. The \
+contiguity graph continues to grow as we place a functionality at each \
+step, resulting in a large graph with thousands of nodes and edges. \
+A typical spatial plan of a 2 km by 2 km community can take a total \
+number of 100 planning steps in each stage, and the contiguity graph \
+can have 4,000 edges and 1,000 nodes, which makes the action space \
+$4,000^{100}$ and $1,000^{100}$ for the two stages, respectively. In addition, valid \
+actions are extremely sparse in the space, and a substantial portion \
+of actions is of low quality and will lead to unreasonable results, such \
+as placing a facility in the center of a vacant land without connecting \
+roads. Therefore, it is crucial to reduce the action space and avoid \
+unreasonable actions.
+
+To address this challenge, we propose a general DRL framework in \
+which an intelligent agent perceives and makes decisions in a reduced \
+graph space, and the environment handles urban elements in the original geographic space and generates graph states according to the geographic spatial layout. Meanwhile, we decompose the entire action \
+space into a Cartesian product of three sub-spaces, including what \
+to plan, where to plan and how to plan, and let the DRL agent focus on \
+the core issue of where to plan. The first sub-space of what to plan can \
+be eliminated by fixing the planning order of different land-use types \
+through domain knowledge, allowing land-use types that are more \
+dependent on the initial road network to be planned earlier (Methods). \
+To avoid apparently improper actions in where to plan, we impose \
+planning constraints on the agent’s actions, with an action mask that \
+blocks out unreasonable options, that is, only L–J edges and S nodes are \
+candidates for the two planning stages, respectively. After selecting one \
+L–J edge for a given land-use type, the functionality is placed in the corresponding land block (L node) at the location of the corresponding junction ( J node), whose shape and size are determined by predefined rules \
+that maximize the reuse of existing roads and boundaries (Methods); \
+thus, the last sub-space of how to plan is effectively eliminated. Through \
+these designs, we narrow the action space to a solvable scale and filter \
+out most unreasonable actions, enabling efficient optimization for \
+DRL algorithms. In summary, the original problem of spatial planning \
+is successfully transformed into a standard sequential decision-making \
+process on a graph with moderate action space.
+
+\textbf{Framework.}After the above problem reformulation and action space \
+design, we propose a DRL framework in which an AI agent learns to \
+lay out land use and roads by interacting with the spatial planning \
+environment, as illustrated in Extended Data Fig. 3. The sequential \
+MDP (Extended Data Fig. 3e,f) contains the following key components:
+\begin{itemize}
+    \item States summarize the current spatial plan with the previously 
+    introduced contiguity graph containing rich node features, and 
+    other information, such as statistics of diferent land use types.
+    \item Actions indicate the locations to place the current land use or 
+    construct a new road segment, which are transformed from the 
+    selected edges or nodes in the contiguity graph.
+    \item Rewards are 0 for all intermediate steps, except for the last step 
+    in each stage, in which it evaluates the spatial efciency of land 
+    use and roads.
+    \item Transitions describe the changes of the layout given the \
+    selected location, and the transitions occur in both the original \
+    geographic space (new land use and road on the map) and the \
+    transformed graph space (new topology and attributes of the \
+    graph).
+\end{itemize}
+
+At each step, the agent represents the state by encoding the graph \
+with a GNN. Via multiple message passing and non-linear activation \
+layers, the GNN state encoder generates effective representations of \
+edges, nodes and the whole graph (Extended Data Fig. 3a), which will be \
+leveraged by the value and policy networks (Extended Data Fig. 3b–d). \
+Specifically, because choosing locations for land use is equivalent to \
+selecting edges on the graph, the land-use policy network takes the \
+edge embeddings and scores each edge with an edge-ranking MLP, \
+as shown in Extended Data Fig. 3b. The obtained score for each edge \
+indicates the sampling probability of the corresponding edge, which \
+is returned to the environment and becomes the probability of placing \
+the land use at the location specified by that edge. Similarly, in road \
+planning, the road policy network takes node embeddings and scores \
+each node with a node-ranking MLP (Extended Data Fig. 3d), outputting \
+the probability of choosing one land block boundary and building it as \
+a road segment. Finally, the value network takes in the graph embedding that summarizes the whole community and predicts the planning \
+rewards with a fully connected layer (Extended Data Fig. 3c). To master \
+the skills of spatial planning, millions of spatial plans are accomplished \
+by the proposed model to search the large solution space during the \
+training process, which is utilized as real-time training data to update \
+the parameters of the neural network.\\
+\subsection{Detailed methodology}
+
+\textbf{Framework.}As introduced in the paper, we use vector geometries \
+including Polygon, LineString and Point to describe urban geographic \
+elements. Specifically, there are ten types of land blocks that are represented as Polygon, including the initial vacant land to be planned, and \
+nine different functionality types, which are residential (RZ), school \
+(SC), hospital (HO), clinic (CL), business (BU), office (OF), recreation \
+(RE), park (PA) and open space (OP). In addition, there are two types \
+of segments (roads and land-use boundaries) that are represented by \
+LineString and one type of junction (intersections between roads and \
+land-use boundaries) that is represented by Point. Therefore, a community is faithfully represented by a table of geometries, in which each row \
+is a geographic element with three columns of ID, type and geometry. \
+Initial conditions of a community consist of all the original land blocks, \
+roads and intersections, whose accurate coordinates are recorded \
+by their corresponding geometries in the table of geometries. In the \
+synthetic grid community, we experiment on a basic community with \
+a size of 2.4 km by 2.4 km, containing 16 rectangular vacant lands, 40 \
+horizontal or vertical initial road segments and 25 road intersections, \
+as shown in the first step of Extended Data Fig. 1. In the real-world community, we replicate the road network of HLG and DHM communities in \
+Beijing from OpenStreetMap using OSMnx30 and geopandas, reserve \
+residential blocks and leave other areas as vacant land to be renovated. \
+Finally, we obtain two communities of around 4 km\textsuperscript{2} as shown in Fig. 1a\
+and Supplementary Fig. 11a.
+
+\textbf{Planning needs and requirements.}Before carrying out the actual \
+spatial planning, we need to determine the planning needs and requirements, which serve as the configuration of the planning environment. \
+The planning need describes the amount that each land-use type has\
+to achieve, either in area or in number, for example, residential blocks \
+of 50\% community area and three hospitals. Meanwhile, we also have \
+requirements on the minimum area (in square meters) of each planned \
+block; for example, the area of one school is at least 10,000 m\textsuperscript{2}\
+. Supplementary Table 3 shows an example of the planning needs and requirements for a community, in which 15\% of the community area needs to \
+be planned as parks; thus, it serves as a green community. Only spatial \
+plans that satisfy all the needs and requirements are considered as \
+successful episodes and reserved as training samples, and those failed \
+episodes are discarded. In our framework, the planning needs and \
+requirements are configurations for the environment, making our \
+model highly flexible in generating spatial plans. Specifically, once \
+we obtain a well-trained model under one configuration, we can simply change the configuration and directly perform model inference \
+without re-training to generate plans for different planning needs \
+and requirements, such as the community plans of different service \
+supplies in Fig. 1c,d.
+
+\textbf{Planning order of land-use types.}As introduced in the paper, in order \
+to reduce the huge action space, we fix the planning order of different \
+land-use types based on domain knowledge and make the agent focus \
+on the core task of selecting locations. Because feasible locations \
+are next to existing junctions, land use that is planned earlier will be \
+closer to initial roads with more convenient traffic. Therefore, we first \
+plan those facilities that depend more on roads, including hospitals \
+(clinics), schools and recreation. Meanwhile, at later steps of land-use \
+planning, the shape of feasible vacant lands tends to be more irregular \
+and fragmented, which is not suitable for residential blocks that usually \
+occupy a whole plot of land; thus, we distribute residential blocks after \
+planning the above road-dependent facilities. Finally, we arrange those \
+land-use types that are not much demanding in land shapes. After all the \
+planning needs are satisfied, the remaining vacant lands are assigned \
+as open spaces. In summary, the planning order in our framework is \
+fixed as follows: hospital, school, clinic, recreation, residential, park, \
+office, business and open space. Letting the agent determine the order \
+of land-use types may be an alternative approach. However, it will make \
+the problem much more complicated, as the action space is increased \
+drastically. In practice, our fixed order generates sound spatial plans.
+
+\textbf{Land cutting.}In land-use planning, the environment receives the \
+action from the agent, which is the selected L–J edge, and cuts a new \
+land from the corresponding land block (L node) at the location of the \
+corresponding junction ( J node). We develop a rule-based system with \
+expert knowledge incorporated to determine the shape and size of the \
+new land. The rule-based system is roughly composed of three steps: \
+(1) Determine the relationship between J and L, such as in the middle of \
+a road or at the corner. (2) Determine the reference line along existing \
+boundaries from junction J, which can be I-shape, L-shape and U-shape. \
+(3) Determine the length of inward extension from the reference line \
+into the block L, forming the final sliced new land. The three steps \
+are conducted according to expert knowledge, in order to meet the \
+planning requirements and fit the current plan as closely as possible.
+
+\textbf{State.}Our state contains three parts: (1) urban contiguity graph, \
+(2) current object to be placed and (3) community statistics. We construct \
+a graph to represent the current community information as illustrated \
+in Extended Data Fig. 2, in which nodes are urban geographic elements \
+and edges indicate the spatial contiguity relationship. We compute \
+rich geographic attributes as node features, including the type, coordinates, area, length, width and height of the underlying urban element. \
+The edges are represented by a sparse adjacency matrix. As for the \
+current object to be placed, its type is determined by the environment \
+according to planning needs and planning order, that is, the environment will traverse the planning order and transit to the next type if the \
+planning needs for the previous type have been satisfied. We treat the \
+current object as a virtual isolated node, with its type feature provided \
+by the environment and other node features left as default values. \
+Lastly, community statistics include the area and count of different \
+land-use types in the current plan, as well as the planning needs, which \
+summarize the current conditions and the progress of spatial planning.
+
+\textbf{Action.}As illustrated in Extended Data Fig. 2a, land-use planning is \
+reformulated as a sequential MDP in which the agent selects an edge in \
+a dynamic graph. Therefore, the action space for land-use planning is \
+the probability distribution of choosing from N edges, and we sample \
+from this distribution to obtain the action. Similarly, road planning is a \
+sequential MDP of choosing nodes as shown in Extended Data Fig. 2b; \
+thus, the action space for road planning is the probability distribution \
+over M nodes, which is sampled to generate the node selection action. \
+In addition, as introduced previously, we impose constraints on the \
+action space; for example, the agent can only select L–J edges (between \
+vacant lands and junctions) and S nodes (land-use boundaries) to \
+avoid unreasonable spatial plans. Thus, we calculate a mask in each \
+step that indicates feasible options, and the probability distribution \
+will be multiplied by the mask, allowing only feasible edges or nodes \
+to be sampled as actions.
+
+\textbf{Policy and value networks.}As shown in Extended Data Fig. 3b–d, \
+we develop separate policy networks to take actions in the policy \
+and value stages, respectively, as well as a value network to predict \
+the performance of spatial plans. The three networks share the same \
+state encoder to obtain state representations, taking full advantage \
+of the GNN. Policy networks generate the probability distribution by \
+scoring the edges and nodes in the graph, and then sample from this \
+distribution to take actions. Meanwhile, the value network evaluates \
+the whole graph to predict spatial efficiency, providing feedback for \
+the community plan. In this section, we introduce the detailed design \
+of the three networks.
+
+\textbf{Land-use policy network.}In land-use planning, the agent places the \
+current object at the location specified by the selected edge. The effect \
+of edge selection is related to both the edge and the current object; for \
+example, placing a hospital next to an already planned hospital may \
+lead to low service efficiency. Therefore, the land-use policy network \
+considers both the edge and the current object as input. As shown \
+in Extended Data Fig. 3b, a feed-forward network, which is an edgeranking MLP, is developed to score each edge:
+\begin{equation}
+    s(e_{ij})=FF_{land}(e_{ij}^L||v_c||e_{ij}^L-v_c||e_{ij}^L·v_c),\label{each-edge-score}
+\end{equation}
+here the difference and the inner product of $e^L_{ij}$ and $v_c$ are also concatenated to emphasize the relationship between the current object to 
+be planned and those already planned land use. The scores are converted to a probability distribution over all edges using softmax:
+\begin{equation}
+    Prob(e_{ij})=\frac{e^{S(e_{ij})}}{\sum_{s,t\in E}e^{s(e_{st})}},\label{scores-converted-to-probability-distribution}
+\end{equation}
+which is sampled to select an edge.
+
+\textbf{Road policy network.}In road planning, the agent selects one boundary \
+node and plans a road at its location. Different from that of land-use \
+planning, the topology of the graph is stable with no new nodes to be \
+added. Thus, there is no need to include the current object. Meanwhile,\
+the road policy network takes node embeddings as input, which already \
+contain neighbor geographic information through message passing of \
+GNN. As in Extended Data Fig. 3d, another node-ranking feed-forward \
+MLP is adopted to score each node:
+\begin{equation}
+    s(v_i) = FF_road(v_i).\label{score-based-in-node-ranking-feed-forward-MLP}
+\end{equation}
+The score is also transformed to probability with a softmax operator:
+\begin{equation}
+    Prob(v_{ij})=\frac{e^{S(v_{ij})}}{\sum_{j\in N}e^{s(v_{j})}},\label{score-transformed-to-probability}
+\end{equation}
+and we sample from this probability distribution to select one node.
+
+\textbf{Value network.}As shown in Extended Data Fig. 3c, we develop a value \
+network to judge the current planning situations and predict the planning \
+performance. Because it is an overall evaluation of the entire community, \
+we take the graph-level representation as the input of the value \
+network. Meanwhile, we also include community statistics. Specifically, \
+we concatenate graph representations and the statistics embedding, \
+and adopt a fully connected layer to predict the performance:
+\begin{equation}
+    \hat{v} = fa(g^L||h_s),\label{predict-performance}
+\end{equation}
+where $\hat{v}$ is the estimated value of the current plan.
+
+\textbf{Reward.}We train the policy networks to optimize the efficiency of \
+spatial layout, with respect to service, ecology and traffic. As in \
+equations (1) and (2) of this paper, we define reward functions that give a \
+comprehensive evaluation of the above metrics. Meanwhile, the reward \
+values can be quickly computed within tens of milliseconds given a \
+spatial plan, making it possible to collect large-scale samples for \
+training DRL models. In this section, we introduce how the three metrics are \
+calculated. It is worth noting that our framework is flexible and can be \
+extended to include more metrics in the reward.
+
+\textbf{Service.}We adopt the concept of 15-minute life circle, which requires \
+that basic services of the community be reachable for residents within \
+15 min by walking or cycling. Specifically, as demonstrated in Fig. 1b,c, \
+we consider five different basic services, each of which is related to \
+one or two facilities, that is, education (school), medical care \
+(hospital, clinic), working (office), shopping (business) and entertainment \
+(recreation). Therefore, the 15-minute life circle means that the distances \
+between facilities and residential zones need to be less than the \
+walking distance of 15 min, which is set as 500 m in our experiments. \
+We define the service metric as the proportion of accessible services \
+within 500 m, and the metric is averaged for all residential zones. \
+Formally, given a community spatial plan p, the service metric is \
+calculated as follows:
+\begin{equation}
+    d(i,j) = min\{EucDis(RZ_i,FA_1^j),\dots,EucDis(RZ_i,FA_{n_j}^j)\},\label{min-distance-for-the-ith-residential-zone}
+\end{equation}
+\begin{equation}
+    Service_i = \frac{1}{5}\sum_{j=1}^{5}\mathbbm{1}[d(i,j)<500],\label{life-circle-metric-for-the-ith-residential-zone}
+\end{equation}
+\begin{equation}
+    Service = \frac{1}{n_{RZ}}\sum_{i=1}^{n_{RZ}}Service_i,\label{life-circle-metric-for-all-residential-zones}
+\end{equation}
+where $EucDis$ is the Euclidean distance, $d(i,j)$ is the minimum distance \
+for the $i$th residential zone $RZ_i$ to access the $j$th service that is provided \
+by facility $FA^j$ and $n_j$ is the total number of facilities $FA^j$. $Service_i$ is the \
+15-min life-circle metric for the ith residential zone, and we average over \
+all $n_{RZ}$ residential zones to obtain the final service metric for the whole \
+community. This service metric guides the agent to arrange facilities\
+in a more decentralized way and close to residential zones, which is \
+critical for increasing the ability of community services.
+
+\textbf{Ecology.}The ecology of a community is important to the physical and \
+mental health of residents; thus, we include an ecology metric that 
+measures the layout efficiency of parks and open spaces. In general, 
+parks and open spaces serve the residents who live in the neighborhood, \
+and we hope they can serve as many residential areas as possible. \
+Formally, we define the ecological serving range as the region within \
+300 m from a park or an open space, and the ecology metric measures \
+the proportion of residential areas that are covered by the ecological \
+serving range. The metric is calculated as follows:
+\begin{equation}
+    \begin{aligned}
+        ESR = & Union\{Buffer(PA_1,300),\dots,Buffer(PA_{n_{PA}},300),\\
+        & Buffer(OS_1,300),\dots,Buffer(OS_{n_{OS}},300)\},\label{ecological-serving-range}
+    \end{aligned}
+\end{equation}
+\begin{equation}
+    A_{RZ} = \sum_{i=1}^{n_{RZ}}Area(RZ_i),\label{all-residential-areas}
+\end{equation}
+\begin{equation}
+    A_{RZ}^e = \sum_{i=1}^{n_{RZ}}Area(Intersection(RZ_i,ESR)),\label{intersection-between-all-parks-and-open-spaces}
+\end{equation}
+\begin{equation}
+    Ecology = \frac{A_{RZ}^e}{A_{RZ}},\label{ecology}
+\end{equation}
+where $Buffer(PA_i,300)$ and $Buffer(OS_i,300)$ represent the regions that \
+extend the park and open space 300 m outward, which is their serving \
+range, and $ESR$ is the ecological serving range that combines the serving \
+range of all parks and open spaces. The ecology metric encourages the agent \
+to maximize $A^e_{RZ}$; thus, the greenness of the community plan is promoted.
+
+\textbf{Traffic.}For the second stage of road planning, we evaluate the traffic 
+efficiency from three perspectives, including density, connectivity
+and spacing. Road density is the ratio of the total length of roads to 
+the land area. Connectivity is a network characteristic that reflects the 
+strength of how different parts of a network are linked with each other, 
+and we choose the number of connected components and the number 
+of dead-end roads. To achieve appropriate road spacing, we also include 
+two terms to penalize too large (>600 m) and too small (<100 m) spacing. 
+Formally, the traffic metric is calculated as follows given the road 
+plan $p_R$ and the converted graph $g_R$ from the planned road network:
+\begin{equation}
+    T_{density}=\frac{Length(p_{R})}{A_c},\label{density}
+\end{equation}
+\begin{equation}
+    T_{connectivity}=\frac{1}{NCC(g_R)}+\frac{1}{1+\sum_{v \in g_R}\mathbbm 1[Degree(v)=1]'},\label{connectivity}
+\end{equation}
+\begin{equation}
+    T_{spacing}=\frac{1}{1+\sum_{r \in p_R}\mathbbm 1[Length(v)>600]}+\frac{1}{1+\sum_{r \in p_R}\mathbbm 1[Length(v)<100]'},\label{spacing}
+\end{equation}
+\begin{equation}
+    Traffic=\frac{1}{3}*(T_{density}+T_{connectivity}+T_{spacing}),\label{traffic}
+\end{equation}
+
+where Length calculates the length of a road segment, $A_c$ is the area \
+of the community, $NCC$ calculates the number of connected components \
+in a network and Degree calculates the degree of a node in the graph. \
+Combining the three perspectives, the traffic metric encourages the \
+agent to plan denser roads and, at the same time, guarantees \
+connectivity and appropriate spacing, without creating dead-end roads \
+or planning too-long or too-short road segments.
+
+\textbf{Model training.}We train our model for hundreds of iterations \
+to learn the skills of spatial planning. In each iteration, we collect \
+training samples of a few thousand episodes and update the parameters of \
+our model using proximal policy optimization. Specifically, the loss \
+function is a combination of policy loss, policy entropy and value loss. \
+Policy loss is a surrogate clipped objective to improve the policy with \
+safe exploration, which is calculated as follows:
+\begin{equation}
+    r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)},\label{ratio-of-new-old-policy}
+\end{equation}
+\begin{equation}
+    L_{policy} = min(r_t(\theta)\hat{A_t},clip(r_t(\theta),1-\epsilon,1+\epsilon)\hat{A_t}),\label{policy-loss}
+\end{equation}
+\begin{equation}
+    \hat{A_t} = Q(s_t,a_t)-V(s_t),\label{advantage-function}
+\end{equation}
+where $\theta$ is the parameters of our model, $r_t(\theta)$ is the ratio of the \
+probability of the new policy to the old policy, $\hat{A_t}$ is the advantage \
+function and clip restricts the update to be not too large. The entropy loss controls \
+the balance between exploitation and exploration, which is calculated as follows:
+\begin{equation}
+    L_{entropy} = Entropy[Prob(a_1),\dots,Prob(a_{n_a})],\label{entropy-loss}
+\end{equation}
+where $n_a$ is the total number of actions that equals to $M$(edges) or $N$
+(nodes) in different planning stages, and Prob is obtained by policy 
+networks according to equations (12) and (14). We use mean squared 
+error loss to supervise the value prediction:
+\begin{equation}
+    L_{value} = MSE(\hat{v_t},R_t),\label{value-loss}
+\end{equation}
+where $R_t$ is the return value from ground-truth and $\hat{v_t}$ is estimated \
+by value network according to equation (15). The final loss function is a \
+weighted sum of the above three terms:
+\begin{equation}
+    L = L_{policy}+\beta L_{entropy}+\gamma L_{value},\label{sum-Loss}
+\end{equation}
+where $\beta$ and $\gamma$ are hyper-parameters in our model.
+
+\textbf{Model inference.} After we obtain a well-trained model, we perform \
+model inference to generate community plans. We use the policy \
+networks and compute the probability distribution over different actions \
+according to equations (12) and (14), that is, the probability of selecting \
+different edges and nodes. Then the most likely action is chosen to place \
+land use or road at the location specified by the action:
+\begin{equation}
+    a = \text{argmax}\{Prob(a1),\dots,Prob(a_{n_{a}})\},\label{action}
+\end{equation}
+where $n_{a}$ is $M$ or $N$ for land use and road planning, respectively. It is\ 
+worth noting that we can directly perform model inference under a different \
+setup without re-training, and the results are illustrated in Fig. 1c,d.
+
+\textbf{Integration with manually designed planning concepts.} The DRL \
+framework is not designed for replacing human designers but serves as an \
+intelligent assistant to improve the productivity of human designers. \
+Specifically, AI models are good at optimizing spatial efficiency in large \
+solution spaces, whereas human designers are good at conceptual prototyping. \
+Therefore, we design a new workflow, in which human and AI collaboratively \
+accomplish urban-planning tasks and leverage their respective expertise. \
+As shown in Supplementary Fig. 7a, we propose a workflow with four key \
+steps of conceptualization,planning, adjustment and evaluation, where AI \
+takes responsibility for the planning step. In the workflow, human designers \
+can leave the heavy and specific planning work to the AI, and they only need \
+to provide relatively abstract conceptual planning and make adjustments to \
+the spatial plans generated by the AI. We represent planning concepts \
+as two major types, center and axis, and each concept is related to one \
+or several land-use functions. For example, in the left part of Supplementary \
+Fig. 7b, the RE center in the HLG community represents the \
+concept that encourages recreation zones near the specified location. \
+Similarly, in the right part of Supplementary Fig. 7b, the BU\&OF axis in \
+the DHM community represents the concept that expects a business \
+and office core along the specified band region. We feed the initial \
+conditions of the community and the planning concepts to the model, \
+and then train our DRL model to realize the planning concepts while at \
+the same time optimizing spatial efficiency.
+As the concept of center and axis is essentially the spatial relationship \
+between specific land-use functions and predefined locations, it \
+can be easily integrated into our framework. Specifically, we utilize \
+customized reward functions to implement planning concepts, that \
+is, we add a reward to reflect the extent of consistency with the \
+planning concept. For the center concept, we calculate the fraction of \
+concept-related land-use functions in the region near the specified \
+center location as follows:
+\begin{equation}
+    r_c = \frac{1}{n_c}\sum_{j=1}^{n_c}\mathbbm{1}[T_j\in T_c],\label{concept-related-land-use-functions}
+\end{equation}
+where $L_a$ is the length of the axis, $L^p_a$ is the distance of projected points \
+of concept-related land-use functions on the axis, $n_a$ is the number of \
+land use blocks within 100m from the predefined axis and $T_a$ is the \
+land-use function related to the concept. This reward encourages the \
+DRL agent to place concept-related land-use functions as evenly as \
+possible in the band area around the axis. The concept reward is \
+combined with efficiency reward, including service and ecology, by \
+weighted sum. Through jointly optimizing efficiency and concept \
+rewards, the DRL agent learns to improve spatial efficiency on the basis \
+of realizing predefined planning concepts.
