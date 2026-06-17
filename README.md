@@ -24,27 +24,13 @@ main 分支为项目主分支，dev 分支为建议 Pull request 分支。目前
 
 ### 项目存档与日志
 
-2023-3-1 重建仓库，以缓解仓库过大的问题.
+2023-03-1 重建仓库，以缓解仓库过大的问题.
 
-2025-2-22 与 [zstu.wiki](https://zstu.wiki/) 同步.
+2025-02-22 与 [zstu.wiki](https://zstu.wiki/) 同步.
 
-[0.1.0](https://github.com/chen2438/zstu-study/releases/tag/0.1.0) 存档已释出.
+2025-06-18 项目文件再整理
 
-[0.1.5](https://github.com/chen2438/zstu-study/releases/tag/0.1.5) 存档已释出.
-
-[0.1.6](https://github.com/chen2438/zstu-study/releases/tag/0.1.6) 存档已释出.
-
-[0.2.0](https://github.com/chen2438/zstu-study/releases/tag/0.2.0) 存档已释出.
-
-[0.2.5](https://github.com/chen2438/zstu-study/releases/tag/0.2.5) 存档已释出.
-
-[0.3.0](https://github.com/chen2438/zstu-study/releases/tag/0.3.0) 存档已释出.
-
-[0.3.1](https://github.com/chen2438/zstu-study/releases/tag/0.3.1) 存档已释出.
-
-[0.4.0](https://github.com/chen2438/zstu-study/releases/tag/0.4.0) 存档已释出.
-
-[0.5.0](https://github.com/chen2438/zstu-study/releases/tag/0.5.0) 存档已释出.
+**最新项目包请见 [Releases · chen2438/zstu-study](https://github.com/chen2438/zstu-study/releases)**
 
 ### 宇宙安全声明
 
